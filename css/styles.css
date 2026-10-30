@@ -106,9 +106,9 @@ h2{font-weight:300;font-size:clamp(2.1rem,4.4vw,4.1rem);line-height:1.06;letter-
 .sub{font-family:var(--serif);font-size:clamp(1.1rem,1.4vw,1.3rem);color:var(--ink-2);max-width:46ch;margin-top:24px;line-height:1.55}
 
 /* método: una secuencia real, por eso es una lista ordenada */
-.method{list-style:none;display:grid;grid-template-columns:repeat(5,1fr);gap:clamp(16px,2.4vw,36px);margin-top:80px;counter-reset:m}
+.method{list-style:none;display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(16px,2.4vw,36px);margin-top:64px;counter-reset:m}
 .method li{position:relative;padding-top:28px}
-.method li::before{content:"";position:absolute;left:0;top:0;height:4px;width:calc(20% * (var(--i) + 1));min-width:28px;background:var(--accent);border-radius:2px;transform-origin:left;transform:scaleX(var(--grow,1));transition:transform 1.2s var(--ease)}
+.method li::before{content:"";position:absolute;left:0;top:0;height:4px;width:calc(25% * (var(--i) + 1));min-width:28px;background:var(--accent);border-radius:2px;transform-origin:left;transform:scaleX(var(--grow,1));transition:transform 1.2s var(--ease)}
 .method h3{font-weight:400;font-size:clamp(1.25rem,1.7vw,1.6rem);letter-spacing:-.02em}
 .method p{font-family:var(--serif);color:var(--ink-2);margin-top:10px;font-size:1.02rem;line-height:1.5}
 .ontology{margin-top:96px;max-width:780px;display:grid;grid-template-columns:auto 1fr;gap:28px;align-items:start}
@@ -119,8 +119,8 @@ h2{font-weight:300;font-size:clamp(2.1rem,4.4vw,4.1rem);line-height:1.06;letter-
 /* lo que sabemos */
 .know{background:none}
 .lessons{list-style:none;margin-top:72px}
-.lessons li{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:clamp(24px,5vw,80px);padding:44px 0}
-.lessons li+li{border-top:1px solid rgba(237,234,227,.09)}
+.lessons>li{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:clamp(24px,5vw,80px);padding:44px 0}
+.lessons>li+li{border-top:1px solid rgba(237,234,227,.09)}
 .lessons h3{font-weight:300;font-size:clamp(1.6rem,2.8vw,2.5rem);line-height:1.1;letter-spacing:-.025em}
 .lessons p{font-family:var(--serif);font-size:clamp(1.05rem,1.3vw,1.2rem);color:var(--ink-2);line-height:1.55;max-width:52ch}
 .lessons p strong{font-family:var(--sans);font-weight:500;color:var(--accent-2);font-size:.92em;margin-right:.35em}
@@ -183,7 +183,7 @@ form.sent .f,form.sent .submit{display:none}
 
 @media (max-width:1020px){
   .method{grid-template-columns:1fr 1fr;row-gap:44px}
-  .lessons li{grid-template-columns:1fr;gap:14px}
+  .lessons>li{grid-template-columns:1fr;gap:14px}
   .contact .w{grid-template-columns:1fr}
   .sky svg{right:-38vw}.sky #inst{opacity:calc(var(--sky-o,1)*.7)}
 }
@@ -251,3 +251,15 @@ form.sent .f,form.sent .submit{display:none}
 .doc p,.doc li{font-family:var(--serif);color:var(--ink-2);margin-top:14px;font-size:1.08rem}
 .doc ul{padding-left:1.2em}
 .doc .ph{color:var(--ink);background:var(--ground-3);padding:0 .3em;border-radius:4px;font-family:var(--sans);font-size:.92em}
+
+/* ---------- principios y formas de trabajar ---------- */
+.lessons .kicker{font-family:var(--sans);font-size:14px;font-weight:500;color:var(--ink-3);margin-bottom:10px;max-width:none}
+.lessons .lead-in{font-family:var(--sans);font-weight:300;font-size:clamp(1.25rem,1.9vw,1.6rem);line-height:1.3;letter-spacing:-.015em;color:var(--ink);max-width:34ch}
+.points{list-style:none;margin-top:20px;display:grid;gap:10px}
+.points li{position:relative;padding-left:22px;font-family:var(--serif);font-size:clamp(1.02rem,1.2vw,1.12rem);line-height:1.5;color:var(--ink-2);max-width:56ch}
+.points li::before{content:"";position:absolute;left:0;top:.72em;width:10px;height:1px;background:var(--ink-3)}
+.fit{display:inline-block;margin-top:22px;font-size:14px;color:var(--ink-2);text-decoration:none;border-bottom:1px solid rgba(237,234,227,.25);padding-bottom:2px;transition:color .2s,border-color .2s}
+.fit:hover{color:var(--ink);border-color:var(--ink)}
+.method .meta{font-family:var(--sans);font-size:13.5px;color:var(--ink-3);margin-top:14px}
+.method li:target h3{text-decoration:underline;text-underline-offset:.2em;text-decoration-thickness:1px}
+#formas .sub{margin-top:20px}

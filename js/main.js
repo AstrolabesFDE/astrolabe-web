@@ -175,7 +175,7 @@ document.documentElement.classList.add('js');
   const es=v=>v.toFixed(1).replace('.',',');
   const annM=document.getElementById('annM'), annMn=document.getElementById('annMn'), annMd=document.getElementById('annMd');
   let reteA=0, ruleA=-38, targetRule=-38, last=performance.now(), active=null;
-  const lessons=[...document.querySelectorAll('#lessons li')];
+  const lessons=[...document.querySelectorAll('#lessons > li')];
   function starAngle(name){const s=stars.find(s=>s.n===name);return s.ra+reteA;}
   function frame(now){
     const dt=Math.min(64,now-last); last=now;
