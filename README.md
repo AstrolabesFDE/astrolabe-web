@@ -23,19 +23,17 @@ python3 -m http.server 8000
 
 y abrir http://localhost:8000. También funciona abriendo `index.html` directamente.
 
-## Paleta
+## Temas de color
 
-Casi negro y casi blanco, sin llegar a `#000` ni `#fff`:
+La web tiene tres temas, que se eligen con las muestras de la barra de navegación (en móvil, una sola muestra que va rotando). La elección se recuerda en el navegador.
 
-| Uso | Color |
-| --- | --- |
-| Fondo | `#111214` |
-| Fondo de sección | `#18191C` |
-| Texto y acento | `#EDEAE3` / `#E4E0D7` |
-| Texto secundario | `#B3B0A9` |
-| Texto terciario | `#8B8882` |
+| Tema | Fondo | Texto | Acento y astrolabio |
+| --- | --- | --- | --- |
+| Oscuro (por defecto) | `#111214` | `#EDEAE3` | `#E4E0D7` |
+| Claro | `#F3F1EC` | `#141416` | `#1C1D20` |
+| Azul y dorado | `#0E1620` | `#ECE9E1` | `#C4A66B` / `#D8BE86` |
 
-Están definidos como variables al principio de `css/styles.css`.
+Todos los colores, también los del astrolabio, son variables definidas al principio de `css/styles.css` para cada `data-theme`.
 
 ## Símbolo (aún sin decidir)
 

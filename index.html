@@ -10,6 +10,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@300..600&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&display=swap" rel="stylesheet">
+<script>try{var t=localStorage.getItem("astrolabes-tema");if(t)document.documentElement.dataset.theme=t;}catch(e){}</script>
 <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
@@ -23,7 +24,7 @@
     <g class="layer l-plate"><g id="plate"></g></g>
     <g class="layer l-rete"><g id="rete"></g></g>
     <g class="layer l-rule"><g id="rule"></g></g>
-    <circle r="7" fill="#111214" stroke="rgba(228,224,215,.8)" stroke-width="2"/>
+    <circle r="7" style="fill:var(--ground);stroke:rgba(var(--astro-rgb),.8);stroke-width:2"/>
     </g>
     <g class="ann" id="ann" opacity="0">
       <circle class="tg" r="13"/><circle class="tg2" r="24"/>
@@ -48,6 +49,11 @@
       <a href="#formas">Formas de trabajar</a>
       <a href="#contacto">Contacto</a>
     </nav>
+    <div class="theme-sw" role="group" aria-label="Tema de color">
+      <button type="button" class="t-dark" data-theme-set="dark" aria-label="Tema oscuro" aria-pressed="true"><i></i></button>
+      <button type="button" class="t-light" data-theme-set="light" aria-label="Tema claro" aria-pressed="false"><i></i></button>
+      <button type="button" class="t-navy" data-theme-set="navy" aria-label="Tema azul y dorado" aria-pressed="false"><i></i></button>
+    </div>
     <a class="btn btn-accent" href="#contacto"><span class="long">Solicitar una conversación</span><span class="short">Hablemos</span></a>
     <button class="menu-btn" id="menuBtn" type="button" aria-expanded="false" aria-controls="navLinks" aria-label="Abrir menú">
       <svg class="bars" viewBox="0 0 18 18" aria-hidden="true"><path d="M2 5h14M2 13h14" stroke="currentColor" stroke-width="1.6" fill="none"/></svg>

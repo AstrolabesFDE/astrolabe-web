@@ -65,6 +65,28 @@ document.documentElement.classList.add('js');
   document.querySelectorAll('[data-pick]').forEach(a=>a.addEventListener('click',()=>{sel.value=a.dataset.pick;}));
 })();
 
+/* ---------- tema: oscuro, claro o azul con dorado; se recuerda en este navegador ---------- */
+(function(){
+  const KEY='astrolabes-tema', ORDER=['dark','light','navy'], META={dark:'#111214',light:'#F3F1EC',navy:'#0E1620'};
+  const btns=[...document.querySelectorAll('[data-theme-set]')]; if(!btns.length) return;
+  const meta=document.querySelector('meta[name="theme-color"]'), narrow=matchMedia('(max-width:640px)');
+  const apply=(t,save)=>{
+    if(!ORDER.includes(t)) t='dark';
+    document.documentElement.dataset.theme=t;
+    btns.forEach(b=>b.setAttribute('aria-pressed',b.dataset.themeSet===t?'true':'false'));
+    if(meta) meta.content=META[t];
+    if(save){try{localStorage.setItem(KEY,t);}catch(e){}}
+  };
+  apply(document.documentElement.dataset.theme||'dark',false);
+  btns.forEach(b=>b.addEventListener('click',()=>{
+    const cur=document.documentElement.dataset.theme;
+    // en móvil solo se ve la muestra activa: cada toque pasa al tema siguiente
+    const next=narrow.matches&&b.dataset.themeSet===cur?ORDER[(ORDER.indexOf(cur)+1)%ORDER.length]:b.dataset.themeSet;
+    apply(next,true);
+    if(narrow.matches) document.querySelector(`[data-theme-set="${next}"]`).focus();
+  }));
+})();
+
 /* ---------- navegación: sombra al bajar y menú en móvil ---------- */
 (function(){
   const nav=document.getElementById('nav'); if(!nav) return;
@@ -261,10 +283,10 @@ document.documentElement.classList.add('js');
   /* ---------- REGLA: dos brazos tangentes al buje, con escala de declinación ---------- */
   const rule=document.getElementById('rule');
   const RL=452, RW=16;
-  el('path',{d:`M0 ${-RW} L${RL} ${-RW} L${RL-14} 0 L${RW} 0 A${RW} ${RW} 0 0 1 0 ${RW} L${-RL} ${RW} L${-RL+14} 0 L${-RW} 0 A${RW} ${RW} 0 0 1 0 ${-RW} Z`,style:'fill:rgba(228,224,215,.30);stroke:rgba(244,241,234,.85);stroke-width:1.4'},rule);
-  for(let d=-20;d<=60;d+=2){const r=rDec(d);if(r<RW+6||r>RL-20)continue;const big=d%10===0;el('line',{x1:f(r),y1:0,x2:f(r),y2:f(big?-RW+2:-8),style:`stroke:rgba(17,18,20,${big?.9:.6});stroke-width:${big?1.4:1}`},rule);}
-  el('line',{x1:RW,y1:0,x2:RL-14,y2:0,style:'stroke:rgba(244,241,234,.9);stroke-width:1'},rule);
-  el('line',{x1:-RL+14,y1:0,x2:-RW,y2:0,style:'stroke:rgba(244,241,234,.9);stroke-width:1'},rule);
+  el('path',{d:`M0 ${-RW} L${RL} ${-RW} L${RL-14} 0 L${RW} 0 A${RW} ${RW} 0 0 1 0 ${RW} L${-RL} ${RW} L${-RL+14} 0 L${-RW} 0 A${RW} ${RW} 0 0 1 0 ${-RW} Z`,style:'fill:rgba(var(--astro-rgb),.30);stroke:rgba(var(--astro2-rgb),.85);stroke-width:1.4'},rule);
+  for(let d=-20;d<=60;d+=2){const r=rDec(d);if(r<RW+6||r>RL-20)continue;const big=d%10===0;el('line',{x1:f(r),y1:0,x2:f(r),y2:f(big?-RW+2:-8),style:`stroke:rgba(var(--ground-rgb),${big?.9:.6});stroke-width:${big?1.4:1}`},rule);}
+  el('line',{x1:RW,y1:0,x2:RL-14,y2:0,style:'stroke:rgba(var(--astro2-rgb),.9);stroke-width:1'},rule);
+  el('line',{x1:-RL+14,y1:0,x2:-RW,y2:0,style:'stroke:rgba(var(--astro2-rgb),.9);stroke-width:1'},rule);
 
   /* ---------- PASADOR Y «CABALLO»: la cuña que sujeta todas las piezas ---------- */
   {
