@@ -8,6 +8,7 @@ Web de Astrolabes. HTML, CSS y JavaScript sin dependencias ni paso de compilaci�
 index.html           Página principal
 privacidad.html      Política de privacidad (texto base, con huecos [ASÍ] por rellenar)
 aviso-legal.html     Aviso legal (texto base, con huecos [ASÍ] por rellenar)
+en/                  Versión en inglés: index.html, privacy.html y legal-notice.html
 css/styles.css       Estilos
 js/logos.js          Las veinte propuestas de símbolo, dibujadas en código
 js/main.js           Astrolabio de fondo, selector de símbolo, menú y formulario
@@ -25,15 +26,20 @@ y abrir http://localhost:8000. También funciona abriendo `index.html` directame
 
 ## Temas de color
 
-La web tiene tres temas, que se eligen con las muestras de la barra de navegación (en móvil, una sola muestra que va rotando). La elección se recuerda en el navegador.
+La web tiene dos temas, que se eligen con las muestras de la barra de navegación (en móvil, una sola muestra que va rotando). La elección se recuerda en el navegador.
 
 | Tema | Fondo | Texto | Acento y astrolabio |
 | --- | --- | --- | --- |
 | Oscuro (por defecto) | `#111214` | `#EDEAE3` | `#E4E0D7` |
 | Claro | `#F3F1EC` | `#141416` | `#1C1D20` |
-| Azul y dorado | `#0E1620` | `#ECE9E1` | `#C4A66B` / `#D8BE86` |
 
 Todos los colores, también los del astrolabio, son variables definidas al principio de `css/styles.css` para cada `data-theme`.
+
+## Idiomas
+
+Cada página tiene su equivalente en inglés dentro de `en/`, y el botón **EN / ES** de la barra (en móvil, dentro del menú) lleva de una a otra. Si cambias un texto en español, cambia también su versión en `en/`.
+
+Los textos que genera el JavaScript (validación del formulario, lectura de la estrella, menú) están en el diccionario `TXT` al principio de `js/main.js` y se eligen según el `lang` de la página.
 
 ## Símbolo (aún sin decidir)
 

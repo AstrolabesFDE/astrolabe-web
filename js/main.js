@@ -1,5 +1,20 @@
 document.documentElement.classList.add('js');
 
+/* ---------- textos de la interfaz en el idioma de la página (lang="es" o lang="en") ---------- */
+const LANG=(document.documentElement.lang||'es').startsWith('en')?'en':'es';
+const TXT={
+  es:{copied:'Enlace copiado.',menuOpen:'Abrir menú',menuClose:'Cerrar menú',ruleAt:'Regla a',rule:'Regla',dec:'Declinación',decS:'Dec.',
+      needName:'Escribe tu nombre.',needOrg:'Indica tu organización.',needEmail:'Necesitamos un correo para responderte.',badEmail:'Revisa el correo: falta la arroba o el dominio.',
+      lName:'Nombre',lOrg:'Organización',lRole:'Cargo',lEmail:'Correo',lInterest:'Interés',subject:'Solicitud de conversación: ',
+      sending:'Enviando…',send:'Solicitar una conversación',sentT:'Solicitud enviada.',sentP:'Gracias. Te respondemos en dos días laborables.',
+      fail:'No se ha podido enviar. Inténtalo de nuevo o escríbenos a',fam:{'Astrolabio':'Astrolabio','A con mar':'A con mar'}},
+  en:{copied:'Link copied.',menuOpen:'Open menu',menuClose:'Close menu',ruleAt:'Rule at',rule:'Rule',dec:'Declination',decS:'Dec.',
+      needName:'Please enter your name.',needOrg:'Please enter your organisation.',needEmail:'We need an email address to reply.',badEmail:'Check the email: the @ or the domain is missing.',
+      lName:'Name',lOrg:'Organisation',lRole:'Role',lEmail:'Email',lInterest:'Interest',subject:'Conversation request: ',
+      sending:'Sending…',send:'Request a conversation',sentT:'Request sent.',sentP:'Thank you. We will reply within two working days.',
+      fail:'It could not be sent. Please try again or write to us at',fam:{'Astrolabio':'Astrolabe','A con mar':'A with sea'}}
+}[LANG];
+
 /* ---------- símbolo: se puede cambiar mientras no esté decidido ---------- */
 (function(){
   const L=window.AstrolabesLogos; if(!L) return;
@@ -27,7 +42,7 @@ document.documentElement.classList.add('js');
   const box=document.getElementById('symFamilies'), dlg=document.getElementById('sym');
   if(!box||!dlg) return;
   [...new Set(L.list.map(l=>l.family))].forEach(fam=>{
-    const h=document.createElement('h3'); h.textContent=fam; box.appendChild(h);
+    const h=document.createElement('h3'); h.textContent=TXT.fam[fam]||fam; box.appendChild(h);
     const grid=document.createElement('div'); grid.className='sym-grid'; box.appendChild(grid);
     L.list.filter(l=>l.family===fam).forEach(l=>{
       const b=document.createElement('button'); b.type='button'; b.dataset.id=l.id;
@@ -44,7 +59,7 @@ document.documentElement.classList.add('js');
   const copied=document.getElementById('symCopied');
   dlg.querySelector('[data-sym-copy]').addEventListener('click',async()=>{
     const u=new URL(location.href); u.searchParams.set('simbolo',current); u.hash='';
-    try{await navigator.clipboard.writeText(u.href);copied.textContent='Enlace copiado.';}
+    try{await navigator.clipboard.writeText(u.href);copied.textContent=TXT.copied;}
     catch(e){copied.textContent=u.href;}
   });
 })();
@@ -65,9 +80,9 @@ document.documentElement.classList.add('js');
   document.querySelectorAll('[data-pick]').forEach(a=>a.addEventListener('click',()=>{sel.value=a.dataset.pick;}));
 })();
 
-/* ---------- tema: oscuro, claro o azul con dorado; se recuerda en este navegador ---------- */
+/* ---------- tema: oscuro o claro; se recuerda en este navegador ---------- */
 (function(){
-  const KEY='astrolabes-tema', ORDER=['dark','light','navy'], META={dark:'#111214',light:'#F3F1EC',navy:'#0E1620'};
+  const KEY='astrolabes-tema', ORDER=['dark','light'], META={dark:'#111214',light:'#F3F1EC'};
   const btns=[...document.querySelectorAll('[data-theme-set]')]; if(!btns.length) return;
   const meta=document.querySelector('meta[name="theme-color"]'), narrow=matchMedia('(max-width:640px)');
   const apply=(t,save)=>{
@@ -92,7 +107,7 @@ document.documentElement.classList.add('js');
   const nav=document.getElementById('nav'); if(!nav) return;
   addEventListener('scroll',()=>nav.classList.toggle('stuck',scrollY>8),{passive:true});
   const btn=document.getElementById('menuBtn'); if(!btn) return;
-  const set=open=>{nav.classList.toggle('open',open);btn.setAttribute('aria-expanded',open);btn.setAttribute('aria-label',open?'Cerrar menú':'Abrir menú');};
+  const set=open=>{nav.classList.toggle('open',open);btn.setAttribute('aria-expanded',open);btn.setAttribute('aria-label',open?TXT.menuClose:TXT.menuOpen);};
   btn.addEventListener('click',()=>set(!nav.classList.contains('open')));
   nav.querySelectorAll('.nav-links a').forEach(a=>a.addEventListener('click',()=>set(false)));
   addEventListener('keydown',e=>{if(e.key==='Escape'&&nav.classList.contains('open')){set(false);btn.focus();}});
@@ -299,7 +314,7 @@ document.documentElement.classList.add('js');
 
   /* ---------- movimiento: la araña gira con el cielo, la regla con la lectura ---------- */
   const sky=document.querySelector('.sky svg'), ann=document.getElementById('ann'), annLd=document.getElementById('annLd'), annNm=document.getElementById('annNm'), annRa=document.getElementById('annRa'), annDec=document.getElementById('annDec');
-  const es=v=>v.toFixed(1).replace('.',',');
+  const es=v=>LANG==='es'?v.toFixed(1).replace('.',','):v.toFixed(1);
   const annM=document.getElementById('annM'), annMn=document.getElementById('annMn'), annMd=document.getElementById('annMd');
   let reteA=0, ruleA=-38, targetRule=-38, last=performance.now(), active=null;
   const lessons=[...document.querySelectorAll('#lessons > [data-star]')];
@@ -332,11 +347,11 @@ document.documentElement.classList.add('js');
       annRa.setAttribute('x',f(ex-sx-10));annRa.setAttribute('y',f(ey-sy+20));annRa.setAttribute('text-anchor','end');
       annDec.setAttribute('x',f(ex-sx-10));annDec.setAttribute('y',f(ey-sy+47));annDec.setAttribute('text-anchor','end');
       if(annNm.textContent!==active.n){annNm.textContent=active.n;}
-      annRa.textContent=`Regla a ${es(ang)}°`;
-      annDec.textContent=`Declinación ${active.dec>0?'+':'−'}${es(Math.abs(active.dec))}°`;
+      annRa.textContent=`${TXT.ruleAt} ${es(ang)}°`;
+      annDec.textContent=`${TXT.dec} ${active.dec>0?'+':'−'}${es(Math.abs(active.dec))}°`;
       ann.setAttribute('opacity','1');
       if(annMn.textContent!==active.n) annMn.textContent=active.n;
-      annMd.textContent=`Regla ${es(ang)}° · Dec. ${active.dec>0?'+':'−'}${es(Math.abs(active.dec))}°`;
+      annMd.textContent=`${TXT.rule} ${es(ang)}° · ${TXT.decS} ${active.dec>0?'+':'−'}${es(Math.abs(active.dec))}°`;
       annM.style.opacity='1';
     } else {ann.setAttribute('opacity','0');annM.style.opacity='0';}
     // el instrumento se retira cuando hay texto que leer
@@ -351,7 +366,7 @@ document.documentElement.classList.add('js');
 
   /* ---------- formulario ---------- */
   const form=document.getElementById('form');
-  const need={nombre:'Escribe tu nombre.',org:'Indica tu organización.',email:'Necesitamos un correo para responderte.'};
+  const need={nombre:TXT.needName,org:TXT.needOrg,email:TXT.needEmail};
   const sendErr=document.getElementById('e-send'), sendBtn=form.querySelector('button[type="submit"]');
   form.addEventListener('submit',async ev=>{
     ev.preventDefault(); let first=null; sendErr.textContent='';
@@ -359,14 +374,14 @@ document.documentElement.classList.add('js');
       const i=document.getElementById(id), box=i.closest('.f'), m=document.getElementById('e-'+id);
       let msg='';
       if(!i.value.trim()) msg=need[id];
-      else if(id==='email'&&!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(i.value.trim())) msg='Revisa el correo: falta la arroba o el dominio.';
+      else if(id==='email'&&!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(i.value.trim())) msg=TXT.badEmail;
       m.textContent=msg; box.classList.toggle('err',!!msg); i.setAttribute('aria-invalid',msg?'true':'false');
       if(msg&&!first) first=i;
     }
     if(first){first.focus();return;}
     const v=id=>document.getElementById(id).value.trim();
-    const body=`Nombre: ${v('nombre')}\nOrganización: ${v('org')}\nCargo: ${v('cargo')}\nCorreo: ${v('email')}\nProblema: ${v('motivo')}\n\n${v('mensaje')}`;
-    const subject='Solicitud de conversación: '+v('org'), to=form.dataset.mailto, endpoint=form.dataset.endpoint.trim();
+    const body=`${TXT.lName}: ${v('nombre')}\n${TXT.lOrg}: ${v('org')}\n${TXT.lRole}: ${v('cargo')}\n${TXT.lEmail}: ${v('email')}\n${TXT.lInterest}: ${v('motivo')}\n\n${v('mensaje')}`;
+    const subject=TXT.subject+v('org'), to=form.dataset.mailto, endpoint=form.dataset.endpoint.trim();
     if(!endpoint){
       // sin servicio de formularios: se abre el correo con el mensaje preparado
       location.href=`mailto:${to}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
@@ -374,18 +389,18 @@ document.documentElement.classList.add('js');
       return;
     }
     // con servicio de formularios (Formspree y similares aceptan este JSON)
-    sendBtn.disabled=true; sendBtn.textContent='Enviando…';
+    sendBtn.disabled=true; sendBtn.textContent=TXT.sending;
     try{
       const data=Object.fromEntries(new FormData(form)); data._subject=subject;
       const res=await fetch(endpoint,{method:'POST',headers:{'Content-Type':'application/json',Accept:'application/json'},body:JSON.stringify(data)});
       if(!res.ok) throw new Error(res.status);
-      document.getElementById('okTitle').textContent='Solicitud enviada.';
-      document.getElementById('okText').textContent='Gracias. Te respondemos en dos días laborables.';
+      document.getElementById('okTitle').textContent=TXT.sentT;
+      document.getElementById('okText').textContent=TXT.sentP;
       form.classList.add('sent');
     }catch(e){
-      sendErr.innerHTML=`No se ha podido enviar. Inténtalo de nuevo o escríbenos a <a href="mailto:${to}">${to}</a>.`;
+      sendErr.innerHTML=`${TXT.fail} <a href="mailto:${to}">${to}</a>.`;
     }finally{
-      sendBtn.disabled=false; sendBtn.textContent='Solicitar una conversación';
+      sendBtn.disabled=false; sendBtn.textContent=TXT.send;
     }
   });
 })();
