@@ -49,6 +49,22 @@ document.documentElement.classList.add('js');
   });
 })();
 
+/* ---------- principios: marca el activo en la columna fija ---------- */
+(function(){
+  const links=[...document.querySelectorAll('.pr-nav a')]; if(!links.length) return;
+  const set=id=>links.forEach(a=>{const on=a.dataset.for===id;a.classList.toggle('on',on);if(on)a.setAttribute('aria-current','true');else a.removeAttribute('aria-current');
+    if(on&&a.parentElement.scrollWidth>a.parentElement.clientWidth)a.parentElement.scrollTo({left:a.offsetLeft-24,behavior:'smooth'});});
+  const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)set(e.target.id);}),{rootMargin:'-40% 0px -55% 0px'});
+  document.querySelectorAll('.pillar').forEach(p=>io.observe(p));
+  set(links[0].dataset.for);
+})();
+
+/* ---------- formas de trabajar: el botón deja elegida la opción en el formulario ---------- */
+(function(){
+  const sel=document.getElementById('motivo'); if(!sel) return;
+  document.querySelectorAll('[data-pick]').forEach(a=>a.addEventListener('click',()=>{sel.value=a.dataset.pick;}));
+})();
+
 /* ---------- navegación: sombra al bajar y menú en móvil ---------- */
 (function(){
   const nav=document.getElementById('nav'); if(!nav) return;
@@ -264,7 +280,7 @@ document.documentElement.classList.add('js');
   const es=v=>v.toFixed(1).replace('.',',');
   const annM=document.getElementById('annM'), annMn=document.getElementById('annMn'), annMd=document.getElementById('annMd');
   let reteA=0, ruleA=-38, targetRule=-38, last=performance.now(), active=null;
-  const lessons=[...document.querySelectorAll('#lessons > li')];
+  const lessons=[...document.querySelectorAll('#lessons > [data-star]')];
   function starAngle(name){const s=stars.find(s=>s.n===name);return s.ra+reteA;}
   function frame(now){
     const dt=Math.min(64,now-last); last=now;
@@ -309,7 +325,7 @@ document.documentElement.classList.add('js');
 
   /* ---------- entradas ---------- */
   const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}}),{threshold:.18,rootMargin:'0px 0px -8% 0px'});
-  document.querySelectorAll('.rv,#method').forEach(n=>io.observe(n));
+  document.querySelectorAll('.rv,#method,.pillar').forEach(n=>io.observe(n));
 
   /* ---------- formulario ---------- */
   const form=document.getElementById('form');
