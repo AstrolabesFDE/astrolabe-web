@@ -263,3 +263,11 @@ form.sent .f,form.sent .submit{display:none}
 .method .meta{font-family:var(--sans);font-size:13.5px;color:var(--ink-3);margin-top:14px}
 .method li:target h3{text-decoration:underline;text-underline-offset:.2em;text-decoration-thickness:1px}
 #formas .sub{margin-top:20px}
+
+/* ---------- astrolabio: piezas de metal ---------- */
+.sky .limb{fill:rgba(228,224,215,.05)}
+.sky .metal{fill:rgba(228,224,215,.14);stroke:rgba(228,224,215,.62);stroke-width:1.1}
+.sky .stem{fill:none;stroke:rgba(228,224,215,.5);stroke-width:4;stroke-linecap:round}
+.sky .dash{stroke-dasharray:4 6}
+.sky .hrs{stroke:rgba(228,224,215,.22)}
+.sky .num.deg{font-size:10px}

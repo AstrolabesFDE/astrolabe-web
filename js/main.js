@@ -74,32 +74,70 @@ document.documentElement.classList.add('js');
   const rCan=rDec(EPS);
   const pt=(r,a)=>[r*Math.cos(rad(a)), r*Math.sin(rad(a))];
 
-  /* ---------- MADRE: limbo graduado, horas y trono ---------- */
+  // anillo relleno entre dos radios (pieza de metal calada)
+  const ring=(r1,r2,cy=0)=>`M${f(r2)} ${f(cy)} a${f(r2)} ${f(r2)} 0 1 0 ${f(-2*r2)} 0 a${f(r2)} ${f(r2)} 0 1 0 ${f(2*r2)} 0 Z M${f(r1)} ${f(cy)} a${f(r1)} ${f(r1)} 0 1 1 ${f(-2*r1)} 0 a${f(r1)} ${f(r1)} 0 1 1 ${f(2*r1)} 0 Z`;
+  // arco que pasa por tres puntos, muestreado como polilínea (así no depende de los flags de arco)
+  const arc3=(P1,P2,P3,n=28)=>{
+    const ax=P1[0],ay=P1[1],bx=P2[0],by=P2[1],cx=P3[0],cy=P3[1];
+    const d=2*(ax*(by-cy)+bx*(cy-ay)+cx*(ay-by));
+    if(Math.abs(d)<1e-6) return `M${f(ax)} ${f(ay)} L${f(cx)} ${f(cy)}`;
+    const ux=((ax*ax+ay*ay)*(by-cy)+(bx*bx+by*by)*(cy-ay)+(cx*cx+cy*cy)*(ay-by))/d;
+    const uy=((ax*ax+ay*ay)*(cx-bx)+(bx*bx+by*by)*(ax-cx)+(cx*cx+cy*cy)*(bx-ax))/d;
+    const r=Math.hypot(ax-ux,ay-uy), A=Math.atan2(ay-uy,ax-ux), B=Math.atan2(by-uy,bx-ux), C=Math.atan2(cy-uy,cx-ux);
+    const TAU=2*Math.PI, norm=v=>((v%TAU)+TAU)%TAU;
+    let span=norm(C-A); if(norm(B-A)>span) span=span-TAU;   // sentido que pasa por el punto medio
+    let out='';for(let i=0;i<=n;i++){const t=A+span*i/n;out+=(i?' L':'M')+f(ux+r*Math.cos(t))+' '+f(uy+r*Math.sin(t));}
+    return out;
+  };
+
+  /* ---------- MADRE: limbo en relieve con tres bandas y trono calado ---------- */
   const mater=document.getElementById('mater');
-  el('circle',{r:462,class:'bold'},mater);
-  el('circle',{r:448,class:'ln2'},mater);
-  el('circle',{r:430,class:'ln2'},mater);
+  el('path',{d:ring(404,470),class:'limb','fill-rule':'evenodd'},mater);
+  el('circle',{r:470,class:'bold'},mater);
+  el('circle',{r:466,class:'ln2'},mater);
+  el('circle',{r:452,class:'ln2'},mater);
+  el('circle',{r:434,class:'ln2'},mater);
   el('circle',{r:404,class:'ln'},mater);
+  // escala de grados: 1° corto, 5° medio, 15° hasta el borde de la banda
   for(let i=0;i<360;i++){
-    const long=i%15===0, mid=i%5===0;
-    const a=i-90, [x1,y1]=pt(462,a), [x2,y2]=pt(long?430:mid?440:452,a);
-    el('line',{x1:f(x1),y1:f(y1),x2:f(x2),y2:f(y2),class:long?'ln':'ln2'},mater);
+    const a=i-90, long=i%15===0, mid=i%5===0, [x1,y1]=pt(466,a), [x2,y2]=pt(long?452:mid?456:460,a);
+    el('line',{x1:f(x1),y1:f(y1),x2:f(x2),y2:f(y2),class:long||mid?'ln':'ln2'},mater);
   }
+  // numeración de 5 en 5 por cuadrantes (5 … 90), como en los limbos medievales
+  for(let i=5;i<=360;i+=5){
+    const a=i, [x,y]=pt(443,a-90), q=((i-1)%90)+1, n=Math.ceil(q/5)*5;
+    const t=el('text',{x:f(x),y:f(y),class:'num deg','text-anchor':'middle','dominant-baseline':'central',transform:`rotate(${a} ${f(x)} ${f(y)})`},mater);
+    t.textContent=n;
+  }
+  // horas: veinticuatro casillas con su numeral romano
   const roman=['XII','I','II','III','IIII','V','VI','VII','VIII','IX','X','XI'];
   for(let h=0;h<24;h++){
-    const a=h*15, [x,y]=pt(417,a-90);
+    const a=h*15, [x,y]=pt(419,a-90), [d1x,d1y]=pt(434,a-90+7.5), [d2x,d2y]=pt(404,a-90+7.5);
+    el('line',{x1:f(d1x),y1:f(d1y),x2:f(d2x),y2:f(d2y),class:'ln2'},mater);
     const t=el('text',{x:f(x),y:f(y),class:'num','text-anchor':'middle','dominant-baseline':'central',transform:`rotate(${a} ${f(x)} ${f(y)})`},mater);
     t.textContent=roman[h%12];
   }
-  // trono con calado, grillete y anilla
-  el('path',{d:'M-92 -452 C-96 -500 -60 -512 -46 -540 C-34 -566 -16 -580 0 -592 C16 -580 34 -566 46 -540 C60 -512 96 -500 92 -452 Z',class:'fillb'},mater);
-  el('path',{d:'M-62 -470 C-56 -500 -34 -506 -24 -528 M62 -470 C56 -500 34 -506 24 -528',class:'ln'},mater);
-  el('circle',{cy:-512,r:22,class:'ln'},mater);
-  el('circle',{cy:-512,r:9,class:'ln2'},mater);
-  el('circle',{cy:-604,r:12,class:'bold'},mater);
-  el('circle',{cy:-654,r:34,class:'bold'},mater);
+  // trono (kursi): pieza calada simétrica con lóbulos, apoyada en el limbo
+  {
+    const half='C150 -480 122 -502 96 -500 C114 -526 96 -552 70 -546 C82 -572 56 -594 34 -586 C40 -604 18 -616 0 -616';
+    const mir=half.replace(/(-?\d+(\.\d+)?) (-?\d+(\.\d+)?)/g,(m,x,_,y)=>`${-x} ${y}`);
+    // el lado izquierdo se recorre al revés para cerrar el contorno
+    const segs=mir.split('C').slice(1).map(sg=>sg.trim().split(' ').map(Number));
+    let back='',prev=[0,-616];
+    const ptsL=[[-150,-445]];segs.forEach(sg=>ptsL.push([sg[4],sg[5]]));
+    for(let i=segs.length-1;i>=0;i--){const sg=segs[i],to=ptsL[i];back+=` C${sg[2]} ${sg[3]} ${sg[0]} ${sg[1]} ${to[0]} ${to[1]}`;}
+    const holes='M62 -488 C50 -508 66 -530 82 -520 C94 -510 84 -490 62 -488 Z M-62 -488 C-50 -508 -66 -530 -82 -520 C-94 -510 -84 -490 -62 -488 Z '+
+      'M0 -540 C-14 -556 -12 -578 0 -588 C12 -578 14 -556 0 -540 Z M40 -548 a7 7 0 1 0 0.01 0 Z M-40 -548 a7 7 0 1 0 0.01 0 Z '+
+      'M24 -500 C14 -514 26 -528 38 -520 C44 -512 38 -500 24 -500 Z M-24 -500 C-14 -514 -26 -528 -38 -520 C-44 -512 -38 -500 -24 -500 Z';
+    el('path',{d:`M150 -445 ${half}${back} A470 470 0 0 1 150 -445 Z ${holes}`,class:'metal','fill-rule':'evenodd'},mater);
+    el('path',{d:'M110 -462 C96 -476 74 -474 66 -462 M-110 -462 C-96 -476 -74 -474 -66 -462 M0 -490 L0 -528',class:'ln2'},mater);
+    // grillete y anilla de suspensión
+    el('path',{d:'M-10 -612 L-10 -630 C-10 -642 10 -642 10 -630 L10 -612',class:'bold'},mater);
+    el('circle',{cy:-658,r:22,class:'bold'},mater);
+    el('circle',{cy:-658,r:15,class:'ln2'},mater);
+  }
 
-  /* ---------- LÁMINA: almucantarates, acimuts, horizonte y trópicos ---------- */
+  /* ---------- LÁMINA: almucantarates, acimuts, horas desiguales y crepúsculo ---------- */
   const plate=document.getElementById('plate');
   const defs=el('defs',{},document.getElementById('astro'));
   const cpPlate=el('clipPath',{id:'cpPlate'},defs); el('circle',{r:R},cpPlate);
@@ -109,6 +147,7 @@ document.documentElement.classList.add('js');
   const g=el('g',{'clip-path':'url(#cpPlate)'},plate);
   const alm=a=>{const ys=-k*Math.tan(rad((180-PHI-a)/2)), yn=k*Math.tan(rad((PHI-a)/2));return {cy:(ys+yn)/2,r:Math.abs(yn-ys)/2};};
   for(let a=0;a<=84;a+=6){const c=alm(a);el('circle',{cy:f(c.cy),r:f(c.r),class:a===0?'ln':'ln3'},g);}
+  {const c=alm(-18);el('circle',{cy:f(c.cy),r:f(c.r),class:'ln3 dash'},g);}   // crepúsculo astronómico
   const hz=alm(0);
   const cpH=el('clipPath',{id:'cpH'},defs); el('circle',{cy:f(hz.cy),r:f(hz.r)},cpH);
   const ga=el('g',{'clip-path':'url(#cpH)'},g);
@@ -119,27 +158,36 @@ document.documentElement.classList.add('js');
     el('circle',{cx:f(xc),cy:f(ym),r:f(rr),class:'ln3'},ga);
     el('circle',{cx:f(-xc),cy:f(ym),r:f(rr),class:'ln3'},ga);
   }
+  // horas desiguales: el arco de cada trópico y del ecuador bajo el horizonte se divide en doce
+  {
+    const below=r=>{const yI=(hz.cy*hz.cy-hz.r*hz.r+r*r)/(2*hz.cy), xI=Math.sqrt(Math.max(0,r*r-yI*yI)), a0=Math.atan2(yI,xI);return {r,a0,span:Math.PI-2*a0};};
+    const C=[below(R),below(k),below(rCan)];
+    for(let h=1;h<12;h++){
+      const P=C.map(c=>{const a=c.a0+c.span*h/12;return [c.r*Math.cos(a),c.r*Math.sin(a)];});
+      el('path',{d:arc3(P[0],P[1],P[2]),class:'ln3 hrs'},g);
+    }
+  }
   el('line',{x1:0,y1:-R,x2:0,y2:R,class:'ln2'},g);
   el('line',{x1:-R,y1:0,x2:R,y2:0,class:'ln3'},g);
   el('circle',{cy:f(yz),r:3,class:'solid'},g);
 
-  /* ---------- ARAÑA: eclíptica graduada, zodiaco y punteros de estrellas ---------- */
+  /* ---------- ARAÑA: pieza calada con anillos, eclíptica, zodiaco y punteros unidos por tracería ---------- */
   const reteRot=document.getElementById('rete');
   const rete=el('g',{},reteRot);
   const ecC=-(R-rCan)/2, ecR=(R+rCan)/2, band=26;   // la eclíptica es tangente a Capricornio y a Cáncer
-  // armazón: anillo de Capricornio, barras y arco del ecuador
-  el('circle',{r:R-5,class:'fillb','stroke-width':1,style:'fill:none;stroke-width:10;stroke:rgba(228,224,215,.22)'},rete);
-  el('path',{d:`M${-R+10} -4 H-${16} V4 H${-R+10} Z M${R-10} -4 H16 V4 H${R-10} Z M-4 16 V${R-10} H4 V16 Z M-4 ${f(ecC-ecR+band)} V-16 H4 V${f(ecC-ecR+band)} Z`,class:'fillb'},rete);
-  {const a1=25,a2=155,[x1,y1]=pt(k,a1),[x2,y2]=pt(k,a2);el('path',{d:`M${f(x1)} ${f(y1)} A${f(k)} ${f(k)} 0 0 1 ${f(x2)} ${f(y2)}`,style:'fill:none;stroke:rgba(228,224,215,.5);stroke-width:7'},rete);}
-  el('circle',{cy:f(ecC),r:f(ecR),class:'fillb',style:'fill:none;stroke:rgba(228,224,215,.65);stroke-width:1.4'},rete);
-  el('circle',{cy:f(ecC),r:f(ecR-band),class:'ln'},rete);
-  el('path',{d:`M0 ${f(ecC)} m${f(ecR)} 0 a${f(ecR)} ${f(ecR)} 0 1 0 ${f(-2*ecR)} 0 a${f(ecR)} ${f(ecR)} 0 1 0 ${f(2*ecR)} 0 Z m${f(-band)} 0 a${f(ecR-band)} ${f(ecR-band)} 0 1 1 ${f(-2*(ecR-band))} 0 a${f(ecR-band)} ${f(ecR-band)} 0 1 1 ${f(2*(ecR-band))} 0 Z`,style:'fill:rgba(228,224,215,.08);fill-rule:evenodd'},rete);
+  const RC=R-6, RQ=k;                               // anillo de Capricornio y anillo del ecuador
+  el('path',{d:ring(R-12,R),class:'metal','fill-rule':'evenodd'},rete);
+  el('path',{d:ring(k-3.5,k+3.5),class:'metal','fill-rule':'evenodd'},rete);
+  el('path',{d:ring(ecR-band,ecR,ecC),class:'metal','fill-rule':'evenodd'},rete);
+  el('path',{d:ring(26,40),class:'metal','fill-rule':'evenodd'},rete);   // buje central
+  // barras en cruz entre el buje y el anillo exterior
+  el('path',{d:`M${-R+10} -5 H-38 V5 H${-R+10} Z M${R-10} -5 H38 V5 H${R-10} Z M-5 38 V${R-10} H5 V38 Z M-5 ${f(ecC-ecR+band)} V-38 H5 V${f(ecC-ecR+band)} Z`,class:'metal'},rete);
   // de longitud eclíptica a posición proyectada
   const ecl=l=>{const L=rad(l),e=rad(EPS);const ra=Math.atan2(Math.cos(e)*Math.sin(L),Math.cos(L));const dec=Math.asin(Math.sin(e)*Math.sin(L));return pt(rDec(deg(dec)),deg(ra));};
   for(let l=0;l<360;l+=2){
     const [x,y]=ecl(l), dx=x, dy=y-ecC, d=Math.hypot(dx,dy), ux=dx/d, uy=dy/d;
     const len=l%30===0?band:l%10===0?11:6;
-    el('line',{x1:f(ecC*0+x),y1:f(y),x2:f(x-ux*len),y2:f(y-uy*len),class:l%30===0?'ln':'ln2'},rete);
+    el('line',{x1:f(x),y1:f(y),x2:f(x-ux*len),y2:f(y-uy*len),class:l%30===0?'ln':'ln2'},rete);
   }
   const signs=['Aries','Taurus','Gemini','Cancer','Leo','Virgo','Libra','Scorpius','Sagittarius','Capricornus','Aquarius','Pisces'];
   signs.forEach((s,i)=>{
@@ -151,12 +199,22 @@ document.documentElement.classList.add('js');
   // estrellas brillantes: ascensión recta y declinación reales
   const STARS=[['Aldebaran',69.0,16.5],['Rigel',78.6,-8.2],['Capella',79.2,46.0],['Betelgeuse',88.8,7.4],['Sirius',101.3,-16.7],['Procyon',114.8,5.2],['Pollux',116.3,28.0],['Alphard',141.9,-8.7],['Regulus',152.1,12.0],['Dubhe',165.9,61.8],['Denebola',177.3,14.6],['Spica',201.3,-11.2],['Alkaid',206.9,49.3],['Arcturus',213.9,19.2],['Vega',279.2,38.8],['Altair',297.7,8.9],['Deneb',310.4,45.3],['Markab',346.2,15.2],['Alpheratz',2.1,29.1],['Algol',47.0,40.9]];
   const stars=[];
+  const tracery=el('g',{},rete);   // tallos por debajo de los punteros
   STARS.forEach(([n,ra,dec])=>{
     const r=rDec(dec), [x,y]=pt(r,ra), ux=x/r, uy=y/r, nx=-uy, ny=ux;
-    const L=46, bx=x-ux*L, by=y-uy*L, mx=x-ux*L*.5, my=y-uy*L*.5;
-    el('path',{d:`M${f(bx+nx*5)} ${f(by+ny*5)} Q${f(mx+nx*11)} ${f(my+ny*11)} ${f(x)} ${f(y)} Q${f(mx-nx*1)} ${f(my-ny*1)} ${f(bx-nx*5)} ${f(by-ny*5)} Q${f(bx-nx*12-ux*8)} ${f(by-ny*12-uy*8)} ${f(bx+nx*5)} ${f(by+ny*5)} Z`,class:'fillb'},rete);
+    // el puntero crece hacia el anillo más cercano (buje, ecuador o Capricornio) y se une a él con un tallo curvo
+    const target=[40,RQ,R-12].reduce((b,v)=>Math.abs(v-r)<Math.abs(b-r)?v:b);
+    const dir=Math.sign(target-r)||1, gap=Math.abs(target-r);
+    const L=Math.max(18,Math.min(44,gap-6)), bx=x+ux*L*dir, by=y+uy*L*dir, mx=x+ux*L*.5*dir, my=y+uy*L*.5*dir;
+    const side=(Math.round(ra)%2?1:-1);
+    if(gap>L+2){
+      const ex=ux*target, ey=uy*target, qx=(bx+ex)/2+nx*14*side, qy=(by+ey)/2+ny*14*side;
+      el('path',{d:`M${f(bx)} ${f(by)} Q${f(qx)} ${f(qy)} ${f(ex)} ${f(ey)}`,class:'stem'},tracery);
+      el('circle',{cx:f(ex+nx*6*side),cy:f(ey+ny*6*side),r:4.5,class:'metal'},tracery);   // voluta en la unión
+    }
+    el('path',{d:`M${f(bx+nx*5)} ${f(by+ny*5)} Q${f(mx+nx*11)} ${f(my+ny*11)} ${f(x)} ${f(y)} Q${f(mx-nx*1)} ${f(my-ny*1)} ${f(bx-nx*5)} ${f(by-ny*5)} Q${f(bx-nx*12+ux*8*dir)} ${f(by-ny*12+uy*8*dir)} ${f(bx+nx*5)} ${f(by+ny*5)} Z`,class:'metal'},rete);
     const dot=el('circle',{cx:f(x),cy:f(y),r:3.4,class:'star'},rete);
-    const lx=x+nx*14+ux*6, ly=y+ny*14+uy*6;
+    const lx=x+nx*14-ux*6*dir, ly=y+ny*14-uy*6*dir;
     const t=el('text',{x:f(lx),y:f(ly),class:'lbl','dominant-baseline':'central','text-anchor':nx>=0?'start':'end'},rete);
     t.textContent=n;
     stars.push({n,ra,dec,dot,t});
@@ -169,6 +227,15 @@ document.documentElement.classList.add('js');
   for(let d=-20;d<=60;d+=2){const r=rDec(d);if(r<RW+6||r>RL-20)continue;const big=d%10===0;el('line',{x1:f(r),y1:0,x2:f(r),y2:f(big?-RW+2:-8),style:`stroke:rgba(17,18,20,${big?.9:.6});stroke-width:${big?1.4:1}`},rule);}
   el('line',{x1:RW,y1:0,x2:RL-14,y2:0,style:'stroke:rgba(244,241,234,.9);stroke-width:1'},rule);
   el('line',{x1:-RL+14,y1:0,x2:-RW,y2:0,style:'stroke:rgba(244,241,234,.9);stroke-width:1'},rule);
+
+  /* ---------- PASADOR Y «CABALLO»: la cuña que sujeta todas las piezas ---------- */
+  {
+    const inst=document.getElementById('inst'), pin=inst.lastElementChild;
+    const horse=el('g',{class:'layer l-rule'},null);
+    el('path',{d:'M34 -5 L-26 -5 C-34 -6 -40 -14 -48 -12 C-56 -10 -56 -1 -50 2 L-42 5 L34 5 Z',class:'metal'},horse);
+    el('circle',{cx:-46,cy:-6,r:1.8,class:'solid'},horse);
+    inst.insertBefore(horse,pin);
+  }
 
   /* ---------- movimiento: la araña gira con el cielo, la regla con la lectura ---------- */
   const sky=document.querySelector('.sky svg'), ann=document.getElementById('ann'), annLd=document.getElementById('annLd'), annNm=document.getElementById('annNm'), annRa=document.getElementById('annRa'), annDec=document.getElementById('annDec');
