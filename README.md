@@ -56,9 +56,20 @@ Cuando esté decidido:
 
 Los SVG de `icons/` usan `currentColor`: toman el color del texto donde se insertan. Abiertos solos se ven en negro.
 
+## Demos
+
+La sección **Demos** tiene cuatro tarjetas con un marcador de «Próximamente». Para publicar una:
+
+1. Guarda la captura o el gif en `assets/demos/` con el nombre que indica el comentario de cada tarjeta (`ontologia.gif`, `licitaciones.gif`, `competencia.gif`, `reputacion.gif`). Proporción recomendada 16:10.
+2. En `index.html` (y en `en/index.html`), dentro de `<figure class="demo-media">`, sustituye el bloque `<div class="ph">…</div>` y la etiqueta `<span class="soon">` por la `<img>` del comentario.
+
+## Esquema de sistemas
+
+Los sistemas de la izquierda y los casos de uso de la derecha son listas normales en el HTML (`#flow`). Las líneas se dibujan solas: si añades o quitas un elemento, el JavaScript las recalcula.
+
 ## Formulario de contacto
 
-Sin configurar nada, al enviar se abre el correo con el mensaje preparado para contacto@astrolabes.io.
+Sin configurar nada, al enviar se abre el correo con el mensaje preparado para hello@astrolabes.io.
 
 Para que envíe directamente, crea un formulario en un servicio como Formspree y pega su URL en `data-endpoint` del `<form>` en `index.html`:
 

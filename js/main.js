@@ -102,6 +102,44 @@ const TXT={
   }));
 })();
 
+/* ---------- esquema: líneas entre cada sistema, Astrolabes y cada caso de uso ---------- */
+(function(){
+  const fig=document.getElementById('flow'), svg=document.getElementById('wires'); if(!fig||!svg) return;
+  const NS='http://www.w3.org/2000/svg', still=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const hub=fig.querySelector('[data-wire="hub"]');
+  const srcs=[...fig.querySelectorAll('[data-wire="src"] .tile')], outs=[...fig.querySelectorAll('[data-wire="out"]')];
+  const f=v=>v.toFixed(1);
+  function draw(){
+    const R=fig.getBoundingClientRect(), H=hub.getBoundingClientRect(), vertical=getComputedStyle(fig).gridTemplateColumns.split(' ').length<3;
+    const box=e=>{const r=e.getBoundingClientRect();return {l:r.left-R.left,r:r.right-R.left,t:r.top-R.top,b:r.bottom-R.top,cx:(r.left+r.right)/2-R.left,cy:(r.top+r.bottom)/2-R.top};};
+    const h=box(hub); svg.setAttribute('viewBox',`0 0 ${f(R.width)} ${f(R.height)}`); svg.innerHTML='';
+    const curve=(x1,y1,x2,y2)=>vertical?`M${f(x1)} ${f(y1)} C${f(x1)} ${f((y1+y2)/2)} ${f(x2)} ${f((y1+y2)/2)} ${f(x2)} ${f(y2)}`:`M${f(x1)} ${f(y1)} C${f((x1+x2)/2)} ${f(y1)} ${f((x1+x2)/2)} ${f(y2)} ${f(x2)} ${f(y2)}`;
+    const add=(d,i,node)=>{
+      const p=document.createElementNS(NS,'path');p.setAttribute('d',d);p.setAttribute('class','wire');svg.appendChild(p);
+      if(!still){const c=document.createElementNS(NS,'circle');c.setAttribute('r','2.4');c.setAttribute('class','pulse');
+        const m=document.createElementNS(NS,'animateMotion');m.setAttribute('dur','2.6s');m.setAttribute('begin',`${(i*0.37)%2.6}s`);m.setAttribute('repeatCount','indefinite');m.setAttribute('path',d);c.appendChild(m);svg.appendChild(c);}
+      const li=node.closest('li');li.onmouseenter=()=>p.classList.add('hot');li.onmouseleave=()=>p.classList.remove('hot');
+    };
+    srcs.forEach((t,i)=>{const s=box(t), spread=(i-(srcs.length-1)/2)*(vertical?10:9);
+      vertical?add(curve(s.cx,s.b,h.cx+spread,h.t),i,t):add(curve(s.r,s.cy,h.l,h.cy+spread),i,t);});
+    outs.forEach((o,i)=>{const s=box(o), spread=(i-(outs.length-1)/2)*(vertical?10:9);
+      vertical?add(curve(h.cx+spread,h.b,s.cx,s.t),i+srcs.length,o):add(curve(h.r,h.cy+spread,s.l,s.cy),i+srcs.length,o);});
+  }
+  let raf=0; const redraw=()=>{cancelAnimationFrame(raf);raf=requestAnimationFrame(draw);};
+  draw(); addEventListener('resize',redraw); addEventListener('load',redraw);
+  if(document.fonts) document.fonts.ready.then(redraw);
+  if('ResizeObserver' in window) new ResizeObserver(redraw).observe(fig);
+})();
+
+/* ---------- demos: flechas del carrusel ---------- */
+(function(){
+  const track=document.getElementById('demoTrack'); if(!track) return;
+  document.querySelectorAll('[data-demo]').forEach(b=>b.addEventListener('click',()=>{
+    const card=track.querySelector('.demo'); const step=card?card.getBoundingClientRect().width+24:400;
+    track.scrollBy({left:step*Number(b.dataset.demo),behavior:'smooth'});
+  }));
+})();
+
 /* ---------- navegación: sombra al bajar y menú en móvil ---------- */
 (function(){
   const nav=document.getElementById('nav'); if(!nav) return;
@@ -362,7 +400,7 @@ const TXT={
 
   /* ---------- entradas ---------- */
   const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}}),{threshold:.18,rootMargin:'0px 0px -8% 0px'});
-  document.querySelectorAll('.rv,#method,.pillar').forEach(n=>io.observe(n));
+  document.querySelectorAll('.rv,#method,.pillar,.onto').forEach(n=>io.observe(n));
 
   /* ---------- formulario ---------- */
   const form=document.getElementById('form');
