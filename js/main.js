@@ -106,11 +106,11 @@ document.documentElement.classList.add('js');
     return out;
   };
 
-  // numeración abjad: las letras hacen de cifras, como en los limbos árabes
-  const abjad=n=>{const u=['','ا','ب','ج','د','ه','و','ز','ح','ط'],t=['','ي','ك','ل','م','ن','س','ع','ف','ص'],h=['','ق','ر','ش'];return h[Math.floor(n/100)]+t[Math.floor(n%100/10)]+u[n%10];};
+  // numeración del limbo por cuadrantes (5 … 90) y horas en números romanos
+  const quad=n=>n%90||90, ROM=['I','II','III','IIII','V','VI','VII','VIII','IX','X','XI','XII'];
   const rivet=(x,y,parent)=>{el('circle',{cx:f(x),cy:f(y),r:5.2,class:'rivet'},parent);el('circle',{cx:f(x-1.4),cy:f(y-1.6),r:1.5,class:'glint'},parent);};
 
-  /* ---------- MADRE: limbo con escala de grados y numeración abjad, trono de arabescos ---------- */
+  /* ---------- MADRE: limbo con escala de grados numerada por cuadrantes, trono de arabescos ---------- */
   const mater=document.getElementById('mater');
   el('path',{d:ring(404,470),class:'limb','fill-rule':'evenodd'},mater);
   el('circle',{r:470,class:'bold'},mater);
@@ -128,8 +128,8 @@ document.documentElement.classList.add('js');
   }
   for(let i=5;i<=360;i+=5){
     const [x,y]=pt(434,i-90);
-    const t=el('text',{x:f(x),y:f(y),class:'num ar','text-anchor':'middle','dominant-baseline':'central',transform:`rotate(${i} ${f(x)} ${f(y)})`},mater);
-    t.textContent=abjad(i);
+    const t=el('text',{x:f(x),y:f(y),class:'num limbn','text-anchor':'middle','dominant-baseline':'central',transform:`rotate(${i} ${f(x)} ${f(y)})`},mater);
+    t.textContent=quad(i);
   }
   // trono (kursi): contorno lobulado, calados en arabesco y un filete grabado por dentro
   {
@@ -161,7 +161,7 @@ document.documentElement.classList.add('js');
   const g=el('g',{'clip-path':'url(#cpPlate)'},plate);
   const alm=a=>{const ys=-k*Math.tan(rad((180-PHI-a)/2)), yn=k*Math.tan(rad((PHI-a)/2));return {cy:(ys+yn)/2,r:Math.abs(yn-ys)/2,yn};};
   for(let a=0;a<=87;a+=3){const c=alm(a);el('circle',{cy:f(c.cy),r:f(c.r),class:a===0?'ln':a%6?'ln4':'ln3'},g);
-    if(a&&a%12===0){const t=el('text',{x:5,y:f(c.yn-3),class:'num ar small'},g);t.textContent=abjad(a);}}
+    if(a&&a%12===0){const t=el('text',{x:5,y:f(c.yn-3),class:'num small'},g);t.textContent=a;}}
   {const c=alm(-18);el('circle',{cy:f(c.cy),r:f(c.r),class:'ln3 dash'},g);}
   const hz=alm(0);
   const cpH=el('clipPath',{id:'cpH'},defs); el('circle',{cy:f(hz.cy),r:f(hz.r)},cpH);
@@ -180,7 +180,7 @@ document.documentElement.classList.add('js');
       const P=C.map(c=>{const a=c.a0+c.span*h/12;return [c.r*Math.cos(a),c.r*Math.sin(a)];});
       el('path',{d:arc3(P[0],P[1],P[2]),class:'ln3 hrs'},g);
       const a=C[0].a0+C[0].span*(h-.5)/12, [tx,ty]=[(R-14)*Math.cos(a),(R-14)*Math.sin(a)];
-      const t=el('text',{x:f(tx),y:f(ty),class:'num ar small','text-anchor':'middle','dominant-baseline':'central'},g);t.textContent=abjad(h);
+      const t=el('text',{x:f(tx),y:f(ty),class:'num small','text-anchor':'middle','dominant-baseline':'central'},g);t.textContent=ROM[h-1];
     }
   }
   el('line',{x1:0,y1:-R,x2:0,y2:R,class:'ln2'},g);
@@ -221,14 +221,14 @@ document.documentElement.classList.add('js');
     const len=l%30===0?band:l%10===0?9:5;
     el('line',{x1:f(x),y1:f(y),x2:f(x-ux*len),y2:f(y-uy*len),class:l%30===0?'ln':'ln2'},body);
   }
-  const signs=['الحمل','الثور','الجوزاء','السرطان','الأسد','السنبلة','الميزان','العقرب','القوس','الجدي','الدلو','الحوت'];
+  const signs=['Aries','Taurus','Gemini','Cancer','Leo','Virgo','Libra','Scorpius','Sagittarius','Capricornus','Aquarius','Pisces'];
   signs.forEach((s,i)=>{
     const [x,y]=ecl(i*30+15), dx=x, dy=y-ecC, d=Math.hypot(dx,dy), ux=dx/d, uy=dy/d;
     const tx=x-ux*(band*0.6), ty=y-uy*(band*0.6), ang=deg(Math.atan2(uy,ux))+90;
-    const t=el('text',{x:f(tx),y:f(ty),class:'ar','text-anchor':'middle','dominant-baseline':'central','font-size':15,transform:`rotate(${f(ang)} ${f(tx)} ${f(ty)})`},body);
+    const t=el('text',{x:f(tx),y:f(ty),'text-anchor':'middle','dominant-baseline':'central','font-size':13,transform:`rotate(${f(ang)} ${f(tx)} ${f(ty)})`},body);
     t.textContent=s;
   });
-  // estrellas brillantes: ascensión recta, declinación y nombre árabe del que vienen casi todos los nombres actuales
+  // estrellas brillantes: ascensión recta, declinación (el nombre árabe de origen queda como referencia)
   const STARS=[['Aldebaran',69.0,16.5,'الدبران'],['Rigel',78.6,-8.2,'رجل الجبار'],['Capella',79.2,46.0,'العيوق'],['Betelgeuse',88.8,7.4,'يد الجوزاء'],['Sirius',101.3,-16.7,'الشعرى'],['Procyon',114.8,5.2,'الغميصاء'],['Pollux',116.3,28.0,'رأس التوأم'],['Alphard',141.9,-8.7,'الفرد'],['Regulus',152.1,12.0,'قلب الأسد'],['Dubhe',165.9,61.8,'الدب'],['Denebola',177.3,14.6,'ذنب الأسد'],['Spica',201.3,-11.2,'السماك الأعزل'],['Alkaid',206.9,49.3,'القائد'],['Arcturus',213.9,19.2,'السماك الرامح'],['Vega',279.2,38.8,'النسر الواقع'],['Altair',297.7,8.9,'النسر الطائر'],['Deneb',310.4,45.3,'ذنب الدجاجة'],['Markab',346.2,15.2,'منكب الفرس'],['Alpheratz',2.1,29.1,'سرة الفرس'],['Algol',47.0,40.9,'رأس الغول']];
   const stars=[];
   const onEq=a=>{const v=((a%360)+360)%360;return v>=18&&v<=162;};
@@ -253,8 +253,8 @@ document.documentElement.classList.add('js');
     el('circle',{cx:f(bx),cy:f(by),r:2.4,class:'eye'},body);
     const dot=el('circle',{cx:f(x),cy:f(y),r:3.2,class:'star'},body);
     const lx=x+nx*13*side-dx*4, ly=y+ny*13*side-dy*4;
-    const t=el('text',{x:f(lx),y:f(ly),class:'lbl ar','dominant-baseline':'central','text-anchor':(nx*side)>=0?'start':'end'},body);
-    t.textContent=ar;
+    const t=el('text',{x:f(lx),y:f(ly),class:'lbl','dominant-baseline':'central','text-anchor':(nx*side)>=0?'start':'end'},body);
+    t.textContent=n;
     stars.push({n,ra,dec,dot,t});
   });
 

@@ -277,10 +277,8 @@ form.sent .f,form.sent .submit{display:none}
 .sky .rivet{fill:#2e2f33;stroke:rgba(228,224,215,.7);stroke-width:1}
 .sky .glint{fill:rgba(244,241,234,.8)}
 .sky .eye{fill:#111214}
-.sky .ar,.sky .num.ar{font-family:"Amiri","Geeza Pro","Noto Naskh Arabic",serif;font-style:normal}
-.sky .num.ar{font-size:17px}
-.sky .num.ar.small{font-size:12px;fill:rgba(228,224,215,.45)}
-.sky .lbl.ar{font-size:16px}
+.sky .num.limbn{font-size:12.5px}
+.sky .num.small{font-size:12px;fill:rgba(228,224,215,.45)}
 
 /* ---------- principios: columna fija + statements ---------- */
 .kicker{font-family:var(--sans);font-size:14px;font-weight:500;color:var(--ink-3);letter-spacing:.01em}
