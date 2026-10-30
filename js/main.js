@@ -90,54 +90,52 @@ document.documentElement.classList.add('js');
     return out;
   };
 
-  /* ---------- MADRE: limbo en relieve con tres bandas y trono calado ---------- */
+  // numeración abjad: las letras hacen de cifras, como en los limbos árabes
+  const abjad=n=>{const u=['','ا','ب','ج','د','ه','و','ز','ح','ط'],t=['','ي','ك','ل','م','ن','س','ع','ف','ص'],h=['','ق','ر','ش'];return h[Math.floor(n/100)]+t[Math.floor(n%100/10)]+u[n%10];};
+  const rivet=(x,y,parent)=>{el('circle',{cx:f(x),cy:f(y),r:5.2,class:'rivet'},parent);el('circle',{cx:f(x-1.4),cy:f(y-1.6),r:1.5,class:'glint'},parent);};
+
+  /* ---------- MADRE: limbo con escala de grados y numeración abjad, trono de arabescos ---------- */
   const mater=document.getElementById('mater');
   el('path',{d:ring(404,470),class:'limb','fill-rule':'evenodd'},mater);
   el('circle',{r:470,class:'bold'},mater);
   el('circle',{r:466,class:'ln2'},mater);
-  el('circle',{r:452,class:'ln2'},mater);
-  el('circle',{r:434,class:'ln2'},mater);
+  el('circle',{r:450,class:'ln2'},mater);
+  el('circle',{r:418,class:'ln2'},mater);
   el('circle',{r:404,class:'ln'},mater);
-  // escala de grados: 1° corto, 5° medio, 15° hasta el borde de la banda
   for(let i=0;i<360;i++){
-    const a=i-90, long=i%15===0, mid=i%5===0, [x1,y1]=pt(466,a), [x2,y2]=pt(long?452:mid?456:460,a);
-    el('line',{x1:f(x1),y1:f(y1),x2:f(x2),y2:f(y2),class:long||mid?'ln':'ln2'},mater);
+    const a=i-90, long=i%5===0, [x1,y1]=pt(466,a), [x2,y2]=pt(long?450:458,a);
+    el('line',{x1:f(x1),y1:f(y1),x2:f(x2),y2:f(y2),class:long?'ln':'ln2'},mater);
   }
-  // numeración de 5 en 5 por cuadrantes (5 … 90), como en los limbos medievales
+  for(let i=0;i<360;i+=5){   // banda interior: marcas de 5° con un punto cada 15°
+    const a=i-90, [x1,y1]=pt(418,a), [x2,y2]=pt(i%15===0?404:412,a);
+    el('line',{x1:f(x1),y1:f(y1),x2:f(x2),y2:f(y2),class:'ln2'},mater);
+  }
   for(let i=5;i<=360;i+=5){
-    const a=i, [x,y]=pt(443,a-90), q=((i-1)%90)+1, n=Math.ceil(q/5)*5;
-    const t=el('text',{x:f(x),y:f(y),class:'num deg','text-anchor':'middle','dominant-baseline':'central',transform:`rotate(${a} ${f(x)} ${f(y)})`},mater);
-    t.textContent=n;
+    const [x,y]=pt(434,i-90);
+    const t=el('text',{x:f(x),y:f(y),class:'num ar','text-anchor':'middle','dominant-baseline':'central',transform:`rotate(${i} ${f(x)} ${f(y)})`},mater);
+    t.textContent=abjad(i);
   }
-  // horas: veinticuatro casillas con su numeral romano
-  const roman=['XII','I','II','III','IIII','V','VI','VII','VIII','IX','X','XI'];
-  for(let h=0;h<24;h++){
-    const a=h*15, [x,y]=pt(419,a-90), [d1x,d1y]=pt(434,a-90+7.5), [d2x,d2y]=pt(404,a-90+7.5);
-    el('line',{x1:f(d1x),y1:f(d1y),x2:f(d2x),y2:f(d2y),class:'ln2'},mater);
-    const t=el('text',{x:f(x),y:f(y),class:'num','text-anchor':'middle','dominant-baseline':'central',transform:`rotate(${a} ${f(x)} ${f(y)})`},mater);
-    t.textContent=roman[h%12];
-  }
-  // trono (kursi): pieza calada simétrica con lóbulos, apoyada en el limbo
+  // trono (kursi): contorno lobulado, calados en arabesco y un filete grabado por dentro
   {
     const half='C150 -480 122 -502 96 -500 C114 -526 96 -552 70 -546 C82 -572 56 -594 34 -586 C40 -604 18 -616 0 -616';
-    const mir=half.replace(/(-?\d+(\.\d+)?) (-?\d+(\.\d+)?)/g,(m,x,_,y)=>`${-x} ${y}`);
-    // el lado izquierdo se recorre al revés para cerrar el contorno
-    const segs=mir.split('C').slice(1).map(sg=>sg.trim().split(' ').map(Number));
-    let back='',prev=[0,-616];
+    const segs=half.split('C').slice(1).map(sg=>sg.trim().split(' ').map(Number).map((v,i)=>i%2?v:-v));
     const ptsL=[[-150,-445]];segs.forEach(sg=>ptsL.push([sg[4],sg[5]]));
-    for(let i=segs.length-1;i>=0;i--){const sg=segs[i],to=ptsL[i];back+=` C${sg[2]} ${sg[3]} ${sg[0]} ${sg[1]} ${to[0]} ${to[1]}`;}
-    const holes='M62 -488 C50 -508 66 -530 82 -520 C94 -510 84 -490 62 -488 Z M-62 -488 C-50 -508 -66 -530 -82 -520 C-94 -510 -84 -490 -62 -488 Z '+
-      'M0 -540 C-14 -556 -12 -578 0 -588 C12 -578 14 -556 0 -540 Z M40 -548 a7 7 0 1 0 0.01 0 Z M-40 -548 a7 7 0 1 0 0.01 0 Z '+
-      'M24 -500 C14 -514 26 -528 38 -520 C44 -512 38 -500 24 -500 Z M-24 -500 C-14 -514 -26 -528 -38 -520 C-44 -512 -38 -500 -24 -500 Z';
-    el('path',{d:`M150 -445 ${half}${back} A470 470 0 0 1 150 -445 Z ${holes}`,class:'metal','fill-rule':'evenodd'},mater);
-    el('path',{d:'M110 -462 C96 -476 74 -474 66 -462 M-110 -462 C-96 -476 -74 -474 -66 -462 M0 -490 L0 -528',class:'ln2'},mater);
-    // grillete y anilla de suspensión
+    let back='';for(let i=segs.length-1;i>=0;i--){const sg=segs[i],to=ptsL[i];back+=` C${sg[2]} ${sg[3]} ${sg[0]} ${sg[1]} ${to[0]} ${to[1]}`;}
+    const outline=`M150 -445 ${half}${back} A470 470 0 0 1 150 -445 Z`;
+    const tear=(x,y,s,m)=>`M${x} ${y} C${x-12*s*m} ${y-20*s} ${x+4*s*m} ${y-42*s} ${x+20*s*m} ${y-32*s} C${x+32*s*m} ${y-22*s} ${x+22*s*m} ${y-2*s} ${x} ${y} Z`;
+    const holes=[tear(62,-484,1,1),tear(-62,-484,1,-1),tear(26,-498,.8,1),tear(-26,-498,.8,-1),tear(104,-470,.6,1),tear(-104,-470,.6,-1),
+      'M0 -536 C-16 -554 -14 -580 0 -592 C14 -580 16 -554 0 -536 Z',
+      'M42 -552 a7 7 0 1 0 0.01 0 Z M-42 -552 a7 7 0 1 0 0.01 0 Z M0 -604 a4 4 0 1 0 0.01 0 Z'].join(' ');
+    el('path',{d:`${outline} ${holes}`,class:'metal','fill-rule':'evenodd'},mater);
+    el('path',{d:outline,class:'ln2',fill:'none',transform:'translate(0 -470) scale(.9) translate(0 470)'},mater);
+    el('path',{d:'M0 -500 L0 -530 M-128 -458 C-118 -476 -96 -480 -84 -470 M128 -458 C118 -476 96 -480 84 -470',class:'ln2'},mater);
     el('path',{d:'M-10 -612 L-10 -630 C-10 -642 10 -642 10 -630 L10 -612',class:'bold'},mater);
     el('circle',{cy:-658,r:22,class:'bold'},mater);
     el('circle',{cy:-658,r:15,class:'ln2'},mater);
+    rivet(0,-622,mater);
   }
 
-  /* ---------- LÁMINA: almucantarates, acimuts, horas desiguales y crepúsculo ---------- */
+  /* ---------- LÁMINA: almucantarates cada 3°, acimuts cada 10°, horas desiguales y crepúsculo ---------- */
   const plate=document.getElementById('plate');
   const defs=el('defs',{},document.getElementById('astro'));
   const cpPlate=el('clipPath',{id:'cpPlate'},defs); el('circle',{r:R},cpPlate);
@@ -145,78 +143,102 @@ document.documentElement.classList.add('js');
   el('circle',{r:k,class:'ln2'},plate);
   el('circle',{r:rCan,class:'ln2'},plate);
   const g=el('g',{'clip-path':'url(#cpPlate)'},plate);
-  const alm=a=>{const ys=-k*Math.tan(rad((180-PHI-a)/2)), yn=k*Math.tan(rad((PHI-a)/2));return {cy:(ys+yn)/2,r:Math.abs(yn-ys)/2};};
-  for(let a=0;a<=84;a+=6){const c=alm(a);el('circle',{cy:f(c.cy),r:f(c.r),class:a===0?'ln':'ln3'},g);}
-  {const c=alm(-18);el('circle',{cy:f(c.cy),r:f(c.r),class:'ln3 dash'},g);}   // crepúsculo astronómico
+  const alm=a=>{const ys=-k*Math.tan(rad((180-PHI-a)/2)), yn=k*Math.tan(rad((PHI-a)/2));return {cy:(ys+yn)/2,r:Math.abs(yn-ys)/2,yn};};
+  for(let a=0;a<=87;a+=3){const c=alm(a);el('circle',{cy:f(c.cy),r:f(c.r),class:a===0?'ln':a%6?'ln4':'ln3'},g);
+    if(a&&a%12===0){const t=el('text',{x:5,y:f(c.yn-3),class:'num ar small'},g);t.textContent=abjad(a);}}
+  {const c=alm(-18);el('circle',{cy:f(c.cy),r:f(c.r),class:'ln3 dash'},g);}
   const hz=alm(0);
   const cpH=el('clipPath',{id:'cpH'},defs); el('circle',{cy:f(hz.cy),r:f(hz.r)},cpH);
   const ga=el('g',{'clip-path':'url(#cpH)'},g);
   const yz=-k*Math.tan(rad((90-PHI)/2)), yn=k*Math.tan(rad((90+PHI)/2)), ym=(yz+yn)/2, D2=(yn-yz)/2;
-  for(let A=15;A<180;A+=15){
+  for(let A=10;A<180;A+=10){
     if(A===90){el('line',{x1:-R,y1:f(ym),x2:R,y2:f(ym),class:'ln3'},ga);continue;}
     const xc=D2/Math.tan(rad(A)), rr=Math.hypot(xc,D2);
-    el('circle',{cx:f(xc),cy:f(ym),r:f(rr),class:'ln3'},ga);
-    el('circle',{cx:f(-xc),cy:f(ym),r:f(rr),class:'ln3'},ga);
+    el('circle',{cx:f(xc),cy:f(ym),r:f(rr),class:A%30?'ln4':'ln3'},ga);
+    el('circle',{cx:f(-xc),cy:f(ym),r:f(rr),class:A%30?'ln4':'ln3'},ga);
   }
-  // horas desiguales: el arco de cada trópico y del ecuador bajo el horizonte se divide en doce
   {
     const below=r=>{const yI=(hz.cy*hz.cy-hz.r*hz.r+r*r)/(2*hz.cy), xI=Math.sqrt(Math.max(0,r*r-yI*yI)), a0=Math.atan2(yI,xI);return {r,a0,span:Math.PI-2*a0};};
     const C=[below(R),below(k),below(rCan)];
     for(let h=1;h<12;h++){
       const P=C.map(c=>{const a=c.a0+c.span*h/12;return [c.r*Math.cos(a),c.r*Math.sin(a)];});
       el('path',{d:arc3(P[0],P[1],P[2]),class:'ln3 hrs'},g);
+      const a=C[0].a0+C[0].span*(h-.5)/12, [tx,ty]=[(R-14)*Math.cos(a),(R-14)*Math.sin(a)];
+      const t=el('text',{x:f(tx),y:f(ty),class:'num ar small','text-anchor':'middle','dominant-baseline':'central'},g);t.textContent=abjad(h);
     }
   }
   el('line',{x1:0,y1:-R,x2:0,y2:R,class:'ln2'},g);
   el('line',{x1:-R,y1:0,x2:R,y2:0,class:'ln3'},g);
   el('circle',{cy:f(yz),r:3,class:'solid'},g);
 
-  /* ---------- ARAÑA: pieza calada con anillos, eclíptica, zodiaco y punteros unidos por tracería ---------- */
+  /* ---------- ARAÑA: tracería árabe con punteros en daga, zarcillos, remaches e inscripciones ---------- */
   const reteRot=document.getElementById('rete');
   const rete=el('g',{},reteRot);
   const ecC=-(R-rCan)/2, ecR=(R+rCan)/2, band=26;   // la eclíptica es tangente a Capricornio y a Cáncer
-  const RC=R-6, RQ=k;                               // anillo de Capricornio y anillo del ecuador
-  el('path',{d:ring(R-12,R),class:'metal','fill-rule':'evenodd'},rete);
-  el('path',{d:ring(k-3.5,k+3.5),class:'metal','fill-rule':'evenodd'},rete);
-  el('path',{d:ring(ecR-band,ecR,ecC),class:'metal','fill-rule':'evenodd'},rete);
-  el('path',{d:ring(26,40),class:'metal','fill-rule':'evenodd'},rete);   // buje central
-  // barras en cruz entre el buje y el anillo exterior
-  el('path',{d:`M${-R+10} -5 H-38 V5 H${-R+10} Z M${R-10} -5 H38 V5 H${R-10} Z M-5 38 V${R-10} H5 V38 Z M-5 ${f(ecC-ecR+band)} V-38 H5 V${f(ecC-ecR+band)} Z`,class:'metal'},rete);
+  const tracery=el('g',{},rete), body=el('g',{},rete);
+  // ribete: cinta de metal con borde grabado (dos trazos superpuestos)
+  const ribbon=(d,w=7)=>{el('path',{d,class:'rib-o','stroke-width':w},tracery);el('path',{d,class:'rib-i','stroke-width':w-2.6},tracery);};
+  el('path',{d:ring(R-12,R),class:'metal','fill-rule':'evenodd'},body);
+  // arco del ecuador en la mitad inferior, como en las arañas árabes
+  {const a1=14,a2=166,[x1,y1]=pt(k+4,a1),[x2,y2]=pt(k+4,a2),[x3,y3]=pt(k-4,a2),[x4,y4]=pt(k-4,a1);
+   el('path',{d:`M${f(x1)} ${f(y1)} A${f(k+4)} ${f(k+4)} 0 0 1 ${f(x2)} ${f(y2)} L${f(x3)} ${f(y3)} A${f(k-4)} ${f(k-4)} 0 0 0 ${f(x4)} ${f(y4)} Z`,class:'metal'},body);
+   rivet(...pt(k,a1),body);rivet(...pt(k,a2),body);}
+  el('path',{d:ring(ecR-band,ecR,ecC),class:'metal','fill-rule':'evenodd'},body);
+  el('circle',{cy:f(ecC),r:f(ecR-band+4),class:'ln2',fill:'none'},body);
+  el('circle',{cy:f(ecC),r:f(ecR-4),class:'ln2',fill:'none'},body);
+  el('path',{d:ring(26,42),class:'metal','fill-rule':'evenodd'},body);
+  el('circle',{r:34,class:'ln2',fill:'none'},body);
+  // barra horizontal escalonada y barra vertical
+  const step=s=>`M${s*42} -5 H${s*104} V-10 H${s*132} V-5 H${s*(R-10)} V5 H${s*132} V10 H${s*104} V5 H${s*42} Z`;
+  el('path',{d:`${step(1)} ${step(-1)} M-5 42 V${R-10} H5 V42 Z M-5 ${f(ecC-ecR+band)} V-42 H5 V${f(ecC-ecR+band)} Z`,class:'metal'},body);
+  [[R-6,0],[-(R-6),0],[0,R-6],[0,f(ecC-ecR+3)]].forEach(([x,y])=>rivet(+x,+y,body));
+  // zarcillos que salen del buje como rayos de sol
+  for(let i=0;i<10;i++){
+    const a=i*36+18, [ux,uy]=pt(1,a), nx=-uy, ny=ux, s=i%2?1:-1;
+    const P=r=>[ux*r,uy*r], [b1x,b1y]=P(42), [tx,ty]=P(112);
+    el('path',{d:`M${f(b1x+nx*6)} ${f(b1y+ny*6)} C${f(ux*70+nx*(6+14*s))} ${f(uy*70+ny*(6+14*s))} ${f(ux*96-nx*10*s)} ${f(uy*96-ny*10*s)} ${f(tx)} ${f(ty)} C${f(ux*92-nx*4*s)} ${f(uy*92-ny*4*s)} ${f(ux*66+nx*(-6+8*s))} ${f(uy*66+ny*(-6+8*s))} ${f(b1x-nx*6)} ${f(b1y-ny*6)} Z`,class:'metal'},body);
+  }
   // de longitud eclíptica a posición proyectada
   const ecl=l=>{const L=rad(l),e=rad(EPS);const ra=Math.atan2(Math.cos(e)*Math.sin(L),Math.cos(L));const dec=Math.asin(Math.sin(e)*Math.sin(L));return pt(rDec(deg(dec)),deg(ra));};
   for(let l=0;l<360;l+=2){
     const [x,y]=ecl(l), dx=x, dy=y-ecC, d=Math.hypot(dx,dy), ux=dx/d, uy=dy/d;
-    const len=l%30===0?band:l%10===0?11:6;
-    el('line',{x1:f(x),y1:f(y),x2:f(x-ux*len),y2:f(y-uy*len),class:l%30===0?'ln':'ln2'},rete);
+    const len=l%30===0?band:l%10===0?9:5;
+    el('line',{x1:f(x),y1:f(y),x2:f(x-ux*len),y2:f(y-uy*len),class:l%30===0?'ln':'ln2'},body);
   }
-  const signs=['Aries','Taurus','Gemini','Cancer','Leo','Virgo','Libra','Scorpius','Sagittarius','Capricornus','Aquarius','Pisces'];
+  const signs=['الحمل','الثور','الجوزاء','السرطان','الأسد','السنبلة','الميزان','العقرب','القوس','الجدي','الدلو','الحوت'];
   signs.forEach((s,i)=>{
     const [x,y]=ecl(i*30+15), dx=x, dy=y-ecC, d=Math.hypot(dx,dy), ux=dx/d, uy=dy/d;
-    const tx=x-ux*(band*0.62), ty=y-uy*(band*0.62), ang=deg(Math.atan2(uy,ux))+90;
-    const t=el('text',{x:f(tx),y:f(ty),'text-anchor':'middle','dominant-baseline':'central','font-size':12.5,transform:`rotate(${f(ang)} ${f(tx)} ${f(ty)})`},rete);
+    const tx=x-ux*(band*0.6), ty=y-uy*(band*0.6), ang=deg(Math.atan2(uy,ux))+90;
+    const t=el('text',{x:f(tx),y:f(ty),class:'ar','text-anchor':'middle','dominant-baseline':'central','font-size':15,transform:`rotate(${f(ang)} ${f(tx)} ${f(ty)})`},body);
     t.textContent=s;
   });
-  // estrellas brillantes: ascensión recta y declinación reales
-  const STARS=[['Aldebaran',69.0,16.5],['Rigel',78.6,-8.2],['Capella',79.2,46.0],['Betelgeuse',88.8,7.4],['Sirius',101.3,-16.7],['Procyon',114.8,5.2],['Pollux',116.3,28.0],['Alphard',141.9,-8.7],['Regulus',152.1,12.0],['Dubhe',165.9,61.8],['Denebola',177.3,14.6],['Spica',201.3,-11.2],['Alkaid',206.9,49.3],['Arcturus',213.9,19.2],['Vega',279.2,38.8],['Altair',297.7,8.9],['Deneb',310.4,45.3],['Markab',346.2,15.2],['Alpheratz',2.1,29.1],['Algol',47.0,40.9]];
+  // estrellas brillantes: ascensión recta, declinación y nombre árabe del que vienen casi todos los nombres actuales
+  const STARS=[['Aldebaran',69.0,16.5,'الدبران'],['Rigel',78.6,-8.2,'رجل الجبار'],['Capella',79.2,46.0,'العيوق'],['Betelgeuse',88.8,7.4,'يد الجوزاء'],['Sirius',101.3,-16.7,'الشعرى'],['Procyon',114.8,5.2,'الغميصاء'],['Pollux',116.3,28.0,'رأس التوأم'],['Alphard',141.9,-8.7,'الفرد'],['Regulus',152.1,12.0,'قلب الأسد'],['Dubhe',165.9,61.8,'الدب'],['Denebola',177.3,14.6,'ذنب الأسد'],['Spica',201.3,-11.2,'السماك الأعزل'],['Alkaid',206.9,49.3,'القائد'],['Arcturus',213.9,19.2,'السماك الرامح'],['Vega',279.2,38.8,'النسر الواقع'],['Altair',297.7,8.9,'النسر الطائر'],['Deneb',310.4,45.3,'ذنب الدجاجة'],['Markab',346.2,15.2,'منكب الفرس'],['Alpheratz',2.1,29.1,'سرة الفرس'],['Algol',47.0,40.9,'رأس الغول']];
   const stars=[];
-  const tracery=el('g',{},rete);   // tallos por debajo de los punteros
-  STARS.forEach(([n,ra,dec])=>{
+  const onEq=a=>{const v=((a%360)+360)%360;return v>=18&&v<=162;};
+  STARS.forEach(([n,ra,dec,ar])=>{
     const r=rDec(dec), [x,y]=pt(r,ra), ux=x/r, uy=y/r, nx=-uy, ny=ux;
-    // el puntero crece hacia el anillo más cercano (buje, ecuador o Capricornio) y se une a él con un tallo curvo
-    const target=[40,RQ,R-12].reduce((b,v)=>Math.abs(v-r)<Math.abs(b-r)?v:b);
+    // el puntero crece hacia la pieza más cercana (buje, ecuador o Capricornio) y se une a ella con una cinta curva
+    const targets=[42,R-12].concat(onEq(ra)?[k]:[]);
+    const target=targets.reduce((b,v)=>Math.abs(v-r)<Math.abs(b-r)?v:b);
     const dir=Math.sign(target-r)||1, gap=Math.abs(target-r);
-    const L=Math.max(18,Math.min(44,gap-6)), bx=x+ux*L*dir, by=y+uy*L*dir, mx=x+ux*L*.5*dir, my=y+uy*L*.5*dir;
-    const side=(Math.round(ra)%2?1:-1);
-    if(gap>L+2){
-      const ex=ux*target, ey=uy*target, qx=(bx+ex)/2+nx*14*side, qy=(by+ey)/2+ny*14*side;
-      el('path',{d:`M${f(bx)} ${f(by)} Q${f(qx)} ${f(qy)} ${f(ex)} ${f(ey)}`,class:'stem'},tracery);
-      el('circle',{cx:f(ex+nx*6*side),cy:f(ey+ny*6*side),r:4.5,class:'metal'},tracery);   // voluta en la unión
+    const L=Math.max(20,Math.min(40,gap-10)), dx=ux*dir, dy=uy*dir;
+    const bx=x+dx*L, by=y+dy*L, side=(Math.round(ra)%2?1:-1);
+    if(gap>L+4){
+      const ex=ux*target, ey=uy*target, g2=gap-L;
+      ribbon(`M${f(bx)} ${f(by)} C${f(bx+dx*g2*.45+nx*18*side)} ${f(by+dy*g2*.45+ny*18*side)} ${f(ex-dx*g2*.35-nx*14*side)} ${f(ey-dy*g2*.35-ny*14*side)} ${f(ex)} ${f(ey)}`);
+      // hoja que brota del tallo
+      const mx=(bx+ex)/2+nx*10*side, my=(by+ey)/2+ny*10*side;
+      el('path',{d:`M${f(mx)} ${f(my)} q${f(nx*16*side+dx*4)} ${f(ny*16*side+dy*4)} ${f(nx*22*side-dx*8)} ${f(ny*22*side-dy*8)} q${f(-nx*10*side-dx*2)} ${f(-ny*10*side-dy*2)} ${f(-nx*22*side+dx*8)} ${f(-ny*22*side+dy*8)} Z`,class:'metal'},tracery);
     }
-    el('path',{d:`M${f(bx+nx*5)} ${f(by+ny*5)} Q${f(mx+nx*11)} ${f(my+ny*11)} ${f(x)} ${f(y)} Q${f(mx-nx*1)} ${f(my-ny*1)} ${f(bx-nx*5)} ${f(by-ny*5)} Q${f(bx-nx*12+ux*8*dir)} ${f(by-ny*12+uy*8*dir)} ${f(bx+nx*5)} ${f(by+ny*5)} Z`,class:'metal'},rete);
-    const dot=el('circle',{cx:f(x),cy:f(y),r:3.4,class:'star'},rete);
-    const lx=x+nx*14-ux*6*dir, ly=y+ny*14-uy*6*dir;
-    const t=el('text',{x:f(lx),y:f(ly),class:'lbl','dominant-baseline':'central','text-anchor':nx>=0?'start':'end'},rete);
-    t.textContent=n;
+    // daga curvada con bola en la base y un ojo calado
+    el('path',{d:`M${f(x)} ${f(y)} Q${f(x+dx*L*.45+nx*12*side)} ${f(y+dy*L*.45+ny*12*side)} ${f(bx+nx*6.5)} ${f(by+ny*6.5)} L${f(bx-nx*6.5)} ${f(by-ny*6.5)} Q${f(x+dx*L*.55+nx*2*side)} ${f(y+dy*L*.55+ny*2*side)} ${f(x)} ${f(y)} Z`,class:'metal'},body);
+    el('circle',{cx:f(bx),cy:f(by),r:7,class:'metal'},body);
+    el('circle',{cx:f(bx),cy:f(by),r:2.4,class:'eye'},body);
+    const dot=el('circle',{cx:f(x),cy:f(y),r:3.2,class:'star'},body);
+    const lx=x+nx*13*side-dx*4, ly=y+ny*13*side-dy*4;
+    const t=el('text',{x:f(lx),y:f(ly),class:'lbl ar','dominant-baseline':'central','text-anchor':(nx*side)>=0?'start':'end'},body);
+    t.textContent=ar;
     stars.push({n,ra,dec,dot,t});
   });
 

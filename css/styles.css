@@ -265,9 +265,19 @@ form.sent .f,form.sent .submit{display:none}
 #formas .sub{margin-top:20px}
 
 /* ---------- astrolabio: piezas de metal ---------- */
-.sky .limb{fill:rgba(228,224,215,.05)}
-.sky .metal{fill:rgba(228,224,215,.14);stroke:rgba(228,224,215,.62);stroke-width:1.1}
+.sky .limb{fill:#1a1b1e}
+.sky .metal{fill:#25262a;stroke:rgba(228,224,215,.62);stroke-width:1.1}
 .sky .stem{fill:none;stroke:rgba(228,224,215,.5);stroke-width:4;stroke-linecap:round}
 .sky .dash{stroke-dasharray:4 6}
 .sky .hrs{stroke:rgba(228,224,215,.22)}
-.sky .num.deg{font-size:10px}
+
+.sky .ln4{fill:none;stroke:rgba(228,224,215,.09);stroke-width:.6}
+.sky .rib-o{fill:none;stroke:rgba(228,224,215,.62);stroke-linecap:round}
+.sky .rib-i{fill:none;stroke:#25262a;stroke-linecap:round}
+.sky .rivet{fill:#2e2f33;stroke:rgba(228,224,215,.7);stroke-width:1}
+.sky .glint{fill:rgba(244,241,234,.8)}
+.sky .eye{fill:#111214}
+.sky .ar,.sky .num.ar{font-family:"Amiri","Geeza Pro","Noto Naskh Arabic",serif;font-style:normal}
+.sky .num.ar{font-size:17px}
+.sky .num.ar.small{font-size:12px;fill:rgba(228,224,215,.45)}
+.sky .lbl.ar{font-size:16px}
