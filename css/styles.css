@@ -30,7 +30,7 @@ a{color:inherit;text-underline-offset:.22em;text-decoration-thickness:1px}
 
 /* ---------- instrumento de fondo ---------- */
 .sky{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden}
-.sky svg{position:absolute;height:min(106vh,1060px);width:auto;right:-9vw;top:calc(50% + 36px);transform:translateY(-50%)}
+.sky svg{position:absolute;height:min(106vh,1060px);width:auto;right:-9vw;top:calc(50% + 36px);transform:translateY(-50%);overflow:visible}
 .sky #inst{opacity:var(--sky-o,1);transition:opacity .9s var(--ease)}
 .ann{transition:opacity .5s var(--ease)}
 .ann .nm{font-family:var(--serif);font-style:italic;font-size:62px;fill:var(--accent-2)}
