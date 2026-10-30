@@ -305,10 +305,8 @@ form.sent .f,form.sent .submit{display:none}
 .pr{display:grid;grid-template-columns:minmax(0,4fr) minmax(0,8fr);gap:clamp(32px,6vw,96px);margin-top:clamp(56px,7vw,96px)}
 .pr-nav{position:sticky;top:120px;align-self:start;display:flex;flex-direction:column}
 .pr-nav a{display:flex;justify-content:space-between;align-items:baseline;gap:16px;padding:16px 0 16px 20px;border-left:1px solid rgba(var(--ink-rgb),.14);text-decoration:none;color:var(--ink-3);font-size:clamp(1.05rem,1.4vw,1.25rem);letter-spacing:-.01em;transition:color .3s,border-color .3s,padding .3s}
-.pr-nav a em{font-family:var(--serif);font-style:italic;font-size:15px;color:var(--ink-3);opacity:0;transform:translateX(-6px);transition:opacity .4s,transform .4s}
 .pr-nav a:hover{color:var(--ink-2)}
 .pr-nav a.on{color:var(--ink);border-left:2px solid var(--ink);padding-left:24px}
-.pr-nav a.on em{opacity:1;transform:none}
 .pillar{padding-bottom:clamp(80px,11vw,160px);scroll-margin-top:110px}
 .pillar:last-child{padding-bottom:0}
 .pillar h3{font-weight:300;font-size:clamp(1.9rem,3.3vw,3rem);line-height:1.08;letter-spacing:-.03em;max-width:19ch;margin-top:14px;text-wrap:balance}
@@ -360,7 +358,7 @@ form.sent .f,form.sent .submit{display:none}
   .pr-nav::-webkit-scrollbar{display:none}
   .pr-nav a{flex:none;border-left:0;border-bottom:2px solid transparent;padding:14px 14px;font-size:15px}
   .pr-nav a.on{border-left:0;border-bottom-color:var(--ink);padding-left:14px}
-  .pr-nav a em{display:none}
+
   .pillar{padding-top:44px;scroll-margin-top:130px}
   .offers-grid{grid-template-columns:1fr}
   .featured{grid-row:auto}
@@ -375,7 +373,7 @@ form.sent .f,form.sent .submit{display:none}
 }
 
 /* el tema azul resalta en dorado */
-:root[data-theme="navy"] .kicker,:root[data-theme="navy"] .pr-nav a.on,:root[data-theme="navy"] .pr-nav a.on em,:root[data-theme="navy"] .offer .meta strong,:root[data-theme="navy"] .steps li span{color:var(--accent-2)}
+:root[data-theme="navy"] .kicker,:root[data-theme="navy"] .pr-nav a.on,:root[data-theme="navy"] .offer .meta strong,:root[data-theme="navy"] .steps li span{color:var(--accent-2)}
 :root[data-theme="navy"] .pr-nav a.on{border-color:var(--accent)}
 :root[data-theme="navy"] .define strong{color:var(--accent-2)}
 :root[data-theme="light"] select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%231C1D20' stroke-width='1.6'/%3E%3C/svg%3E")}
