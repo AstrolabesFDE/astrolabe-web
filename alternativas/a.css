@@ -1,0 +1,114 @@
+/* Alternativa A · Grabado: clara, el astrolabio como ilustración grabada en tinta azul */
+:root{
+  --bg:#F3F2EE;--card:#FFFFFF;--field:#FFFFFF;
+  --text:#111111;--text-2:#5E5D58;--text-3:#6F6E69;
+  --line:rgba(17,17,17,.1);--line-2:rgba(17,17,17,.22);
+  --accent:#2C4A72;--danger:#B4321F;
+  --glass:rgba(255,255,255,.72);--panel:rgba(243,242,238,.96);--hover:rgba(17,17,17,.05);--shadow:rgba(44,74,114,.25);
+  --wire:rgba(17,17,17,.28);--skel:rgba(17,17,17,.06);--skel2:rgba(17,17,17,.03);
+  --g1:#000000;--g2:#666666;
+  /* astrolabio en tinta azul */
+  --ground:#F8F6F0;--astro-rgb:44,74,114;--astro2-rgb:30,52,84;--ink-rgb:17,17,17;--ground-rgb:248,246,240;
+  --metal:#FBFAF6;--rivet:#EDEBE4;--limb:#F2F0E9;--accent-2:#1E3454;--accent-line:rgba(44,74,114,.55);--ink-2:#5E5D58;
+  color-scheme:light;
+}
+.hero{padding:160px 0 48px}
+.hero-text{display:flex;flex-direction:column;align-items:center;text-align:center}
+.chip{display:inline-flex;align-items:center;gap:8px;padding:4px 12px;border-radius:8px;background:var(--card);box-shadow:0 0 0 1px var(--line);font:500 14px/20px var(--font);color:var(--text-2)}
+.chip .ph{color:var(--accent);font-size:16px}
+.hero h1{max-width:680px;margin-top:24px}
+.lead{max-width:680px;margin-top:24px}
+.cta{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:16px 24px;margin-top:32px}
+.proof{display:inline-flex;align-items:center;gap:8px;margin-top:24px}
+.proof .ph{color:var(--accent);font-size:16px}
+.art{position:relative;margin-top:64px;height:clamp(480px,62vw,760px);border-radius:24px;overflow:hidden;background:var(--ground);box-shadow:0 0 0 1px var(--line)}
+.art .sky{position:absolute;inset:0;pointer-events:none}
+.art .sky svg{position:absolute;left:50%;top:24px;height:calc(100% - 48px);width:auto;transform:translateX(-50%);overflow:visible}
+.art-cap{position:absolute;left:24px;bottom:16px;color:var(--text-3)}
+
+.steps{list-style:none;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin-top:48px}
+.step{display:flex;flex-direction:column;gap:8px;padding:24px;border-radius:24px;background:var(--card)}
+.step .heading-6{margin-top:4px}
+.step-viz{height:160px;margin-bottom:16px;border-radius:16px;background:var(--bg);display:grid;place-items:center}
+.viz{width:80%}
+.v-e path{fill:none;stroke:var(--line-2);stroke-width:1.2;stroke-dasharray:4 6}
+.v-n circle{fill:var(--card);stroke:var(--text);stroke-width:1.4}
+.v-n .core{fill:var(--accent);stroke:none}
+.bars{display:grid;gap:12px}
+.bars div{display:grid;grid-template-columns:64px 1fr;align-items:center;gap:12px;font:500 12px/16px var(--font);color:var(--text-2)}
+.bars b{position:relative;height:8px;border-radius:4px;background:var(--line);overflow:hidden}
+.bars b::after{content:"";position:absolute;inset:0;background:var(--accent);transform:scaleX(var(--v));transform-origin:left;transition:transform 1s var(--ease)}
+.js .step:not(.in) .bars b::after{transform:scaleX(0)}
+.v-grid{fill:none;stroke:var(--line);stroke-width:1}
+.v-line{fill:none;stroke:var(--accent);stroke-width:2;stroke-dasharray:300;stroke-dashoffset:0;transition:stroke-dashoffset 1.4s var(--ease)}
+.js .step:not(.in) .v-line{stroke-dashoffset:300}
+.v-dot{fill:var(--accent)}
+
+.prs{display:grid;gap:16px;margin-top:48px}
+.pr{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);grid-template-areas:"ic list" "lab list" "head list";gap:8px 48px;padding:32px;border-radius:24px;background:var(--card)}
+.pr:nth-child(even){grid-template-columns:minmax(0,7fr) minmax(0,5fr);grid-template-areas:"list ic" "list lab" "list head"}
+.pr-ic{grid-area:ic;width:48px;height:48px;border-radius:12px;display:grid;place-items:center;background:var(--bg);color:var(--accent);font-size:24px;margin-bottom:8px}
+.pr .title-4{grid-area:lab}
+.pr .heading-5{grid-area:head}
+.pr ul{grid-area:list;list-style:none;align-self:center}
+.pr li{padding:12px 0;border-top:1px solid var(--line)}
+.pr li:first-child{border-top:0}
+
+.casa-in{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:48px;align-items:center;padding:48px;border-radius:24px;background:var(--card)}
+.casa-in .heading-3{margin-top:12px}
+.casa-in p.body-3{margin-top:16px}
+.onto{width:100%;height:auto;overflow:visible}
+.onto text{font:400 14px/20px var(--font);fill:var(--text-2);text-anchor:middle}
+
+.bento{list-style:none;display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:16px;margin-top:48px}
+.bento .demo:nth-child(1){grid-column:span 4}.bento .demo:nth-child(2){grid-column:span 2}
+.bento .demo:nth-child(3),.bento .demo:nth-child(4){grid-column:span 3}
+.demo{display:flex;flex-direction:column;gap:4px;padding:8px 8px 24px;border-radius:24px;background:var(--card);transition:transform .5s var(--ease)}
+.demo:hover{transform:translateY(-4px)}
+.demo .demo-media{margin-bottom:16px}
+.demo .tag,.demo h3,.demo p{padding:0 16px}
+
+.offers{list-style:none;display:grid;grid-template-columns:minmax(0,6fr) minmax(0,6fr);gap:16px;margin-top:48px}
+.offer{display:flex;flex-direction:column;gap:8px;padding:24px;border-radius:24px;background:var(--card)}
+.offer .tlink{margin-top:auto;padding-top:8px}
+.offer.feat{grid-row:span 3;background:var(--text);color:var(--bg);padding:32px}
+.offer.feat .muted,.offer.feat .faint{color:#B9B8B2}
+.offer.feat .tlink{color:var(--bg)}
+.acc{color:#A9C0DD}
+
+.contact-in{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:48px;align-items:start}
+.contact-in .heading-2{margin-top:12px}
+.contact-in p.body-3{margin-top:16px}
+.contact-in p.body-6{margin-top:16px}
+.contact form{padding:32px;border-radius:24px;background:var(--card)}
+
+@media (max-width:900px){
+  .steps{grid-template-columns:1fr}
+  .pr,.pr:nth-child(even){grid-template-columns:1fr;grid-template-areas:"ic" "lab" "head" "list";padding:24px}
+  .casa-in{grid-template-columns:1fr;padding:24px}
+  .bento{grid-template-columns:1fr}
+  .bento .demo:nth-child(n){grid-column:auto}
+  .offers{grid-template-columns:1fr}
+  .offer.feat{grid-row:auto}
+  .contact-in{grid-template-columns:1fr}
+  .contact form{padding:24px}
+}
+@media (max-width:640px){
+  .hero{padding:128px 0 32px}
+  .art{height:440px}
+  .sec{padding:80px 0}
+}
+
+/* el astrolabio es la ilustración principal: sin atenuar y con más tinta */
+.art .sky #inst{opacity:1!important}
+.art .sky .ln{stroke:rgba(var(--astro-rgb),.75)}
+.art .sky .ln2{stroke:rgba(var(--astro-rgb),.45)}
+.art .sky .ln3{stroke:rgba(var(--astro-rgb),.28)}
+.art .sky .ln4{stroke:rgba(var(--astro-rgb),.16)}
+.art .sky .hrs{stroke:rgba(var(--astro-rgb),.34)}
+.art .sky .bold{stroke:rgba(var(--astro-rgb),.9)}
+.art .sky .metal{stroke:rgba(var(--astro-rgb),.8)}
+.art .sky .rib-o{stroke:rgba(var(--astro-rgb),.8)}
+.art .sky text,.art .sky .num{fill:rgba(var(--astro-rgb),.8)}
+.art .sky .star{fill:rgba(var(--astro-rgb),.9)}
+.bento{align-items:start}
