@@ -140,6 +140,16 @@ const TXT={
   }));
 })();
 
+/* ---------- frase que se ilumina palabra a palabra al cruzar la línea de lectura ---------- */
+(function(){
+  const blocks=document.querySelectorAll('[data-reveal]'); if(!blocks.length) return;
+  blocks.forEach(p=>{p.innerHTML=p.textContent.trim().split(/\s+/).map(w=>`<span class="wd">${w}</span>`).join(' ');});
+  const spans=[...document.querySelectorAll('[data-reveal] .wd')];
+  if(matchMedia('(prefers-reduced-motion: reduce)').matches){spans.forEach(s=>s.classList.add('on'));return;}
+  const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('on');io.unobserve(e.target);}}),{rootMargin:'0px 0px -42% 0px'});
+  spans.forEach(s=>io.observe(s));
+})();
+
 /* ---------- navegación: sombra al bajar y menú en móvil ---------- */
 (function(){
   const nav=document.getElementById('nav'); if(!nav) return;
@@ -400,7 +410,7 @@ const TXT={
 
   /* ---------- entradas ---------- */
   const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}}),{threshold:.18,rootMargin:'0px 0px -8% 0px'});
-  document.querySelectorAll('.rv,#method,.pillar,.onto').forEach(n=>io.observe(n));
+  document.querySelectorAll('.rv,#method,.pillar,.onto,.step').forEach(n=>io.observe(n));
 
   /* ---------- formulario ---------- */
   const form=document.getElementById('form');
