@@ -416,6 +416,17 @@ body,.nav,.foot,.contact,.svc,.pr-nav{transition:background-color .4s,color .4s}
 /* ---------- empezamos por casa ---------- */
 .home-w{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:clamp(40px,6vw,96px);align-items:center}
 .home h2{margin-top:12px}
+/* quiénes somos: la cifra manda; sin tarjetas */
+.team{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:clamp(40px,6vw,96px);align-items:start}
+.big{font-weight:200;font-size:clamp(6rem,15vw,12.5rem);line-height:.86;letter-spacing:-.06em;margin-top:28px;color:var(--ink)}
+.big-l{margin-top:18px;font-size:clamp(1.05rem,1.4vw,1.25rem);color:var(--ink-2);line-height:1.35}
+.team-facts{list-style:none;margin-top:32px;max-width:320px}
+.team-facts li{font-size:14.5px;color:var(--ink-2);padding:12px 0;border-top:1px solid rgba(var(--ink-rgb),.12)}
+.team-facts li:last-child{border-bottom:1px solid rgba(var(--ink-rgb),.12)}
+.team-copy .sub{margin-top:20px}
+.team-copy .sub:first-of-type{margin-top:28px}
+.team-goal{margin-top:28px;padding-left:18px;border-left:1px solid var(--ink);font-size:15.5px;line-height:1.5;color:var(--ink);max-width:46ch}
+.home-sep{margin-top:clamp(64px,8vw,112px);padding-top:clamp(64px,8vw,112px);border-top:1px solid rgba(var(--ink-rgb),.1)}
 .onto{width:100%;height:auto;overflow:visible}
 .onto .edges path{fill:none;stroke:rgba(var(--ink-rgb),.35);stroke-width:1.2;stroke-dasharray:320;stroke-dashoffset:0;transition:stroke-dashoffset 1.6s var(--ease)}
 .js .onto .edges path{stroke-dashoffset:320}
@@ -426,7 +437,7 @@ body,.nav,.foot,.contact,.svc,.pr-nav{transition:background-color .4s,color .4s}
 .onto text{font-family:var(--sans);font-size:14px;fill:var(--ink-2);text-anchor:middle;paint-order:stroke;stroke:var(--ground);stroke-width:6px;stroke-linejoin:round}
 .onto .core text{fill:var(--ink);font-weight:500}
 @keyframes corePulse{50%{transform:scale(1.18)}}
-@media (max-width:860px){.home-w{grid-template-columns:1fr}}
+@media (max-width:860px){.home-w,.team{grid-template-columns:1fr}}
 
 /* ---------- demos ---------- */
 .demos-head{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:end;gap:24px}
