@@ -111,7 +111,7 @@ main{position:relative;z-index:1}
 @keyframes rise{to{transform:none}}
 
 /* ---------- secciones ---------- */
-.sec{padding:clamp(96px,13vw,180px) 0}
+.sec{padding:clamp(72px,9vw,128px) 0}
 h2{font-weight:300;font-size:clamp(2.1rem,4.4vw,4.1rem);line-height:1.06;letter-spacing:-.03em;max-width:18ch;text-wrap:balance}
 .sub{font-family:var(--serif);font-size:clamp(1.1rem,1.4vw,1.3rem);color:var(--ink-2);max-width:46ch;margin-top:24px;line-height:1.55}
 
@@ -319,28 +319,6 @@ form.sent .f,form.sent .submit{display:none}
 .js .pillar.in .facts-grid li:nth-child(3){transition-delay:.16s}
 .js .pillar.in .facts-grid li:nth-child(4){transition-delay:.24s}
 
-/* ---------- formas de trabajar: una de entrada destacada y tres más ---------- */
-.offers-head{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:end;gap:20px 48px}
-.offers-head .sub{margin-top:0;max-width:34ch}
-.offers-grid{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);grid-template-rows:repeat(3,auto);gap:16px;margin-top:clamp(48px,6vw,80px)}
-.offer{position:relative;overflow:hidden;background:var(--ground-2);border-radius:18px;padding:26px 30px;box-shadow:inset 0 0 0 1px rgba(var(--ink-rgb),.08);transition:box-shadow .3s,transform .3s var(--ease)}
-.offer:hover{box-shadow:inset 0 0 0 1px rgba(var(--ink-rgb),.32);transform:translateY(-2px)}
-.offer h3{font-weight:400;font-size:1.45rem;letter-spacing:-.02em}
-.offer p{font-family:var(--serif);color:var(--ink-2);margin-top:8px;max-width:44ch}
-.offer .meta{font-family:var(--sans);font-size:14px;color:var(--ink-3);margin-top:14px}
-.offer .meta strong{color:var(--ink);font-weight:500}
-.offer .more{display:inline-block;margin-top:16px;font-size:14.5px;color:var(--ink);text-decoration:none;border-bottom:1px solid rgba(var(--ink-rgb),.3);padding-bottom:2px}
-.offer .more::after{content:" →"}
-.offer .more:hover{border-color:var(--ink)}
-.featured{grid-row:1/4;padding:clamp(30px,4vw,52px);display:flex;flex-direction:column;justify-content:space-between;gap:8px}
-.featured h3{font-weight:300;font-size:clamp(2.1rem,3.6vw,3.2rem);letter-spacing:-.03em;margin-top:10px}
-.featured>p:not(.kicker):not(.meta){font-size:1.15rem;max-width:30ch}
-.featured .incl{list-style:none;margin:28px 0 0;display:grid;gap:10px}
-.featured .incl li{position:relative;padding-left:24px;font-size:15px;color:var(--ink-2)}
-.featured .incl li::before{content:"";position:absolute;left:0;top:.62em;width:12px;height:1px;background:var(--ink-2)}
-.featured .btn{align-self:flex-start;margin-top:28px}
-.featured .bg-mark{position:absolute;right:-40px;bottom:-60px;width:260px;color:rgba(var(--ink-rgb),.05);pointer-events:none}
-.featured .bg-mark svg{width:100%;height:auto}
 
 @media (max-width:1020px){
   .pr{grid-template-columns:1fr;gap:0}
@@ -350,8 +328,6 @@ form.sent .f,form.sent .submit{display:none}
   .pr-nav a.on{border-left:0;border-bottom-color:var(--ink);padding-left:14px}
 
   .pillar{padding-top:44px;scroll-margin-top:130px}
-  .offers-grid{grid-template-columns:1fr}
-  .featured{grid-row:auto}
 }
 @media (max-width:640px){
   .facts-grid{grid-template-columns:1fr}
@@ -363,7 +339,7 @@ form.sent .f,form.sent .submit{display:none}
 }
 
 :root[data-theme="light"] select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%231C1D20' stroke-width='1.6'/%3E%3C/svg%3E")}
-body,.nav,.foot,.contact,.offer,.pr-nav{transition:background-color .4s,color .4s}
+body,.nav,.foot,.contact,.svc,.pr-nav{transition:background-color .4s,color .4s}
 
 /* ---------- selector de tema ---------- */
 .theme-sw{display:flex;gap:2px;margin-left:8px}
@@ -426,6 +402,7 @@ body,.nav,.foot,.contact,.offer,.pr-nav{transition:background-color .4s,color .4
   .col-src{grid-column:1;grid-row:1}.col-hub{grid-column:1;grid-row:3}.col-out{grid-column:1;grid-row:5}
   .srcs{grid-template-columns:repeat(3,auto);gap:18px 22px}
   .outs{grid-template-columns:repeat(2,minmax(0,1fr));max-width:460px}
+  .outs li:first-child{grid-column:1/-1}
   .flow .out .nl{white-space:normal;font-size:13.5px;line-height:1.2}
   .hub{width:112px;height:112px;border-radius:26px}
 }
@@ -518,24 +495,26 @@ body,.nav,.foot,.contact,.offer,.pr-nav{transition:background-color .4s,color .4
 .v-dot{fill:var(--ink)}
 .js .step.in:nth-child(2){transition-delay:.1s}.js .step.in:nth-child(3){transition-delay:.2s}
 
-/* ---------- frase que se ilumina palabra a palabra ---------- */
-.reveal{padding:clamp(80px,12vw,160px) 0}
-.reveal p{font-weight:300;font-size:clamp(2rem,4.6vw,4.2rem);line-height:1.08;letter-spacing:-.03em;max-width:20ch;text-wrap:balance}
-.reveal .wd{opacity:.25;transition:opacity .6s var(--ease)}
-.reveal .wd.on{opacity:1}
-
-/* ---------- cuatro ideas en bento ---------- */
-.ideas{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:16px;margin-top:clamp(40px,5vw,64px)}
-.idea{display:flex;flex-direction:column;gap:12px;padding:clamp(24px,3vw,36px);border-radius:22px;background:var(--ground-2);box-shadow:inset 0 0 0 1px rgba(var(--ink-rgb),.08)}
-.idea{grid-column:span 3}
-.idea-ic{width:48px;height:48px;border-radius:12px;display:grid;place-items:center;background:var(--ground);color:var(--ink);box-shadow:inset 0 0 0 1px rgba(var(--ink-rgb),.1)}
-.idea-ic svg{width:24px;height:24px}
-.idea h3{font-weight:400;font-size:clamp(1.35rem,2vw,1.75rem);line-height:1.18;letter-spacing:-.02em;max-width:24ch;text-wrap:balance}
-.idea ul{list-style:none;margin-top:4px}
-.idea li{font-family:var(--serif);font-size:1.02rem;line-height:1.5;color:var(--ink-2);padding:12px 0;border-top:1px solid rgba(var(--ink-rgb),.1)}
-.idea-quote{grid-column:1/-1;justify-content:center;background:none;box-shadow:inset 0 0 0 1px rgba(var(--ink-rgb),.14)}
-.idea-quote p{font-weight:300;font-size:clamp(1.6rem,3vw,2.6rem);line-height:1.1;letter-spacing:-.03em;max-width:28ch;text-wrap:balance}
-.idea-quote .dim{color:var(--ink-3)}
+/* ---------- cuatro servicios, al mismo nivel, ligados a los pasos ---------- */
+.step-ideas{list-style:none;margin:6px 10px 0}
+.step-ideas li{position:relative;padding:10px 0 0 22px;margin-top:10px;border-top:1px solid rgba(var(--ink-rgb),.1);font-size:14.5px;line-height:1.45;color:var(--ink-2)}
+.step-ideas li::before{content:"";position:absolute;left:0;top:1.25em;width:10px;height:1px;background:var(--ink-3)}
+.sec-head .arw{font-weight:300}
+.sec-head h2 .dim{color:var(--ink-3)}
+.svc-head{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:8px 32px;margin-top:clamp(48px,6vw,72px)}
+.svc-head h3{font-weight:400;font-size:clamp(1.5rem,2.4vw,2rem);letter-spacing:-.02em}
+.svc-head p{font-family:var(--serif);color:var(--ink-3)}
+.svc-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;margin-top:24px}
+.svc{display:flex;flex-direction:column;gap:8px;padding:24px 24px 26px;border-radius:18px;background:var(--ground-2);box-shadow:inset 0 0 0 1px rgba(var(--ink-rgb),.08);transition:box-shadow .3s,transform .3s var(--ease)}
+.svc:hover{box-shadow:inset 0 0 0 1px rgba(var(--ink-rgb),.32);transform:translateY(-2px)}
+.svc-steps{font-size:12.5px;font-weight:500;letter-spacing:.04em;text-transform:uppercase;color:var(--ink-3)}
+.svc h4{font-weight:400;font-size:1.3rem;letter-spacing:-.02em}
+.svc p:not(.svc-steps){font-family:var(--serif);color:var(--ink-2);font-size:1rem;line-height:1.5;flex:1}
+.svc .more{align-self:flex-start;margin-top:8px;font-size:14.5px;color:var(--ink);text-decoration:none;border-bottom:1px solid rgba(var(--ink-rgb),.3);padding-bottom:2px}
+.svc .more::after{content:" →"}
+.svc .more:hover{border-color:var(--ink)}
+@media (max-width:1100px){.svc-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:560px){.svc-grid{grid-template-columns:1fr}}
 
 /* ---------- preguntas frecuentes, lado a lado ---------- */
 .faq-list{list-style:none;margin-top:clamp(40px,5vw,64px)}
@@ -546,12 +525,9 @@ body,.nav,.foot,.contact,.offer,.pr-nav{transition:background-color .4s,color .4
 
 @media (max-width:900px){
   .steps3{grid-template-columns:1fr}
-  .ideas{grid-template-columns:1fr}
-  .idea:nth-child(n){grid-column:auto}
   .faq-list li{grid-template-columns:1fr}
 }
 @media (prefers-reduced-motion:reduce){
-  .reveal .wd{opacity:1}
   .js .step:not(.in) .bars b::after{transform:scaleX(var(--v))}
   .js .step:not(.in) .v-line{stroke-dashoffset:0}
 }

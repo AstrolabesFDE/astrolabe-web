@@ -6,12 +6,12 @@ const TXT={
   es:{copied:'Enlace copiado.',menuOpen:'Abrir menú',menuClose:'Cerrar menú',ruleAt:'Regla a',rule:'Regla',dec:'Declinación',decS:'Dec.',
       needName:'Escribe tu nombre.',needOrg:'Indica tu organización.',needEmail:'Necesitamos un correo para responderte.',badEmail:'Revisa el correo: falta la arroba o el dominio.',
       lName:'Nombre',lOrg:'Organización',lRole:'Cargo',lEmail:'Correo',lInterest:'Interés',subject:'Solicitud de conversación: ',
-      sending:'Enviando…',send:'Solicitar una conversación',sentT:'Solicitud enviada.',sentP:'Gracias. Te respondemos en dos días laborables.',
+      sending:'Enviando…',send:'Enviar',sentT:'Solicitud enviada.',sentP:'Gracias. Te respondemos en dos días laborables.',
       fail:'No se ha podido enviar. Inténtalo de nuevo o escríbenos a',fam:{'Astrolabio':'Astrolabio','A con mar':'A con mar'}},
   en:{copied:'Link copied.',menuOpen:'Open menu',menuClose:'Close menu',ruleAt:'Rule at',rule:'Rule',dec:'Declination',decS:'Dec.',
       needName:'Please enter your name.',needOrg:'Please enter your organisation.',needEmail:'We need an email address to reply.',badEmail:'Please check the email address: it’s missing an @ or a domain.',
       lName:'Name',lOrg:'Organisation',lRole:'Role',lEmail:'Email',lInterest:'Interest',subject:'Conversation request: ',
-      sending:'Sending…',send:'Request a conversation',sentT:'Request sent.',sentP:'Thank you. We will reply within two working days.',
+      sending:'Sending…',send:'Send',sentT:'Request sent.',sentP:'Thank you. We will reply within two working days.',
       fail:'We couldn’t send it. Please try again or write to us at',fam:{'Astrolabio':'Astrolabe','A con mar':'A with sea'}}
 }[LANG];
 
