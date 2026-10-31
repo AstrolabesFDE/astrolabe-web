@@ -106,7 +106,7 @@ const TXT={
 (function(){
   const fig=document.getElementById('flow'), svg=document.getElementById('wires'); if(!fig||!svg) return;
   const NS='http://www.w3.org/2000/svg', still=matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const hub=fig.querySelector('[data-wire="hub"]');
+  const hub=fig.querySelector('[data-wire="hub"]'), ai=fig.querySelector('[data-wire="ai"]'), hubCol=fig.querySelector('.col-hub');
   const srcs=[...fig.querySelectorAll('[data-wire="src"] .tile')], outs=[...fig.querySelectorAll('[data-wire="out"]')];
   const f=v=>v.toFixed(1);
   function draw(){
@@ -118,12 +118,15 @@ const TXT={
       const p=document.createElementNS(NS,'path');p.setAttribute('d',d);p.setAttribute('class','wire');svg.appendChild(p);
       if(!still){const c=document.createElementNS(NS,'circle');c.setAttribute('r','2.4');c.setAttribute('class','pulse');
         const m=document.createElementNS(NS,'animateMotion');m.setAttribute('dur','2.6s');m.setAttribute('begin',`${(i*0.37)%2.6}s`);m.setAttribute('repeatCount','indefinite');m.setAttribute('path',d);c.appendChild(m);svg.appendChild(c);}
-      const li=node.closest('li');li.onmouseenter=()=>p.classList.add('hot');li.onmouseleave=()=>p.classList.remove('hot');
+      const li=node.closest('li')||node;li.onmouseenter=()=>p.classList.add('hot');li.onmouseleave=()=>p.classList.remove('hot');
     };
     srcs.forEach((t,i)=>{const s=box(t), spread=(i-(srcs.length-1)/2)*(vertical?10:9);
       vertical?add(curve(s.cx,s.b,h.cx+spread,h.t),i,t):add(curve(s.r,s.cy,h.l,h.cy+spread),i,t);});
+    // en vertical los casos de uso salen de la capa de IA, que queda justo debajo de Astrolabes
+    const a=ai?box(ai):null, from=vertical&&a?{cx:a.cx,b:a.b}:{cx:h.cx,b:h.b};
+    if(a){const c=box(hubCol);add(`M${f(c.cx)} ${f(c.b+6)} L${f(a.cx)} ${f(a.t)}`,srcs.length+outs.length,ai);}
     outs.forEach((o,i)=>{const s=box(o), spread=(i-(outs.length-1)/2)*(vertical?10:9);
-      vertical?add(curve(h.cx+spread,h.b,s.cx,s.t),i+srcs.length,o):add(curve(h.r,h.cy+spread,s.l,s.cy),i+srcs.length,o);});
+      vertical?add(curve(from.cx+spread,from.b,s.cx,s.t),i+srcs.length,o):add(curve(h.r,h.cy+spread,s.l,s.cy),i+srcs.length,o);});
   }
   let raf=0; const redraw=()=>{cancelAnimationFrame(raf);raf=requestAnimationFrame(draw);};
   draw(); addEventListener('resize',redraw); addEventListener('load',redraw);

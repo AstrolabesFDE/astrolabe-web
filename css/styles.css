@@ -372,7 +372,7 @@ body,.nav,.foot,.contact,.svc,.pr-nav{transition:background-color .4s,color .4s}
 .flow-head h2{margin-top:12px}
 .flow{position:relative;display:grid;grid-template-columns:auto minmax(48px,1fr) auto minmax(48px,1fr) auto;align-items:start;margin:clamp(48px,6vw,80px) 0 0;padding:clamp(32px,4vw,56px) clamp(20px,3.5vw,56px);border-radius:24px;background:var(--ground-2);box-shadow:inset 0 0 0 1px rgba(var(--ink-rgb),.08)}
 .flow .col{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center}
-.col-src{grid-column:1}.col-hub{grid-column:3;align-self:center}.col-out{grid-column:5}
+.col-src{grid-column:1;grid-row:1/3}.col-hub{grid-column:3;grid-row:1;align-self:end}.col-out{grid-column:5;grid-row:1/3;align-self:center}
 .col-t{font-size:14px;color:var(--ink-3);margin-bottom:28px;white-space:nowrap}
 .col-hub .col-t{margin-bottom:24px}
 .srcs{list-style:none;display:grid;grid-template-columns:repeat(2,auto);gap:22px 30px}
@@ -387,6 +387,12 @@ body,.nav,.foot,.contact,.svc,.pr-nav{transition:background-color .4s,color .4s}
 .flow .tile.sm{width:36px;height:36px;border-radius:10px;background:var(--ground-3);box-shadow:none}
 .flow .tile.sm svg{width:19px;height:19px}
 .flow .out .nl{font-size:14.5px;color:var(--ink)}
+.ai{position:relative;z-index:1;grid-column:2/5;grid-row:2;justify-self:center;align-self:start;margin-top:48px;width:min(100%,330px);padding:18px 20px 20px;border-radius:16px;background:var(--ground);box-shadow:inset 0 0 0 1px rgba(var(--ink-rgb),.14);display:grid;gap:14px}
+.ai-t{font-size:14px;font-weight:500;color:var(--ink);text-align:center}
+.ai-k{font-size:12.5px;color:var(--ink-3);margin-bottom:8px}
+.chips{list-style:none;display:flex;flex-wrap:wrap;gap:6px}
+.chips li{font-size:13px;color:var(--ink-2);padding:4px 10px;border-radius:999px;background:var(--ground-3);white-space:nowrap}
+@media (min-width:1180px){.srcs{grid-template-columns:repeat(3,auto)}}
 .hub{width:136px;height:136px;border-radius:30px;display:grid;place-items:center;background:var(--ink);color:var(--ground);box-shadow:0 0 0 10px rgba(var(--ink-rgb),.05),0 0 0 11px rgba(var(--ink-rgb),.12);animation:hubGlow 4s ease-in-out infinite}
 .hub-mark{display:block;width:54px}.hub-mark svg{width:100%;height:auto;display:block}
 @keyframes hubGlow{50%{box-shadow:0 0 0 16px rgba(var(--ink-rgb),.04),0 0 0 17px rgba(var(--ink-rgb),.1)}}
@@ -398,11 +404,11 @@ body,.nav,.foot,.contact,.svc,.pr-nav{transition:background-color .4s,color .4s}
 .pulse{fill:var(--ink)}
 @keyframes wireFlow{to{stroke-dashoffset:-18}}
 @media (max-width:860px){
-  .flow{grid-template-columns:1fr;grid-template-rows:auto 64px auto 64px auto}
-  .col-src{grid-column:1;grid-row:1}.col-hub{grid-column:1;grid-row:3}.col-out{grid-column:1;grid-row:5}
+  .flow{grid-template-columns:1fr;grid-template-rows:auto 64px auto auto 64px auto}
+  .col-src{grid-column:1;grid-row:1}.col-hub{grid-column:1;grid-row:3;align-self:center}.col-out{grid-column:1;grid-row:6}
+  .ai{grid-column:1;grid-row:4;margin-top:40px}
   .srcs{grid-template-columns:repeat(3,auto);gap:18px 22px}
   .outs{grid-template-columns:repeat(2,minmax(0,1fr));max-width:460px}
-  .outs li:first-child{grid-column:1/-1}
   .flow .out .nl{white-space:normal;font-size:13.5px;line-height:1.2}
   .hub{width:112px;height:112px;border-radius:26px}
 }
@@ -411,13 +417,13 @@ body,.nav,.foot,.contact,.svc,.pr-nav{transition:background-color .4s,color .4s}
 .home-w{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:clamp(40px,6vw,96px);align-items:center}
 .home h2{margin-top:12px}
 .onto{width:100%;height:auto;overflow:visible}
-.onto .edges path{fill:none;stroke:rgba(var(--ink-rgb),.35);stroke-width:1.2;stroke-dasharray:180;stroke-dashoffset:0;transition:stroke-dashoffset 1.6s var(--ease)}
-.js .onto .edges path{stroke-dashoffset:180}
+.onto .edges path{fill:none;stroke:rgba(var(--ink-rgb),.35);stroke-width:1.2;stroke-dasharray:320;stroke-dashoffset:0;transition:stroke-dashoffset 1.6s var(--ease)}
+.js .onto .edges path{stroke-dashoffset:320}
 .js .onto.in .edges path{stroke-dashoffset:0}
 .js .onto.in .edges path:nth-child(2){transition-delay:.12s}.js .onto.in .edges path:nth-child(3){transition-delay:.24s}.js .onto.in .edges path:nth-child(4){transition-delay:.36s}.js .onto.in .edges path:nth-child(5){transition-delay:.48s}.js .onto.in .edges path:nth-child(6){transition-delay:.6s}.js .onto.in .edges path:nth-child(7){transition-delay:.72s}
 .onto .nodes circle{fill:var(--ground);stroke:var(--ink);stroke-width:1.4}
 .onto .nodes .core circle{fill:var(--ink);animation:corePulse 3s ease-in-out infinite;transform-box:fill-box;transform-origin:center}
-.onto text{font-family:var(--sans);font-size:14px;fill:var(--ink-2);text-anchor:middle}
+.onto text{font-family:var(--sans);font-size:14px;fill:var(--ink-2);text-anchor:middle;paint-order:stroke;stroke:var(--ground);stroke-width:6px;stroke-linejoin:round}
 .onto .core text{fill:var(--ink);font-weight:500}
 @keyframes corePulse{50%{transform:scale(1.18)}}
 @media (max-width:860px){.home-w{grid-template-columns:1fr}}
@@ -507,7 +513,10 @@ body,.nav,.foot,.contact,.svc,.pr-nav{transition:background-color .4s,color .4s}
 .svc-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;margin-top:24px}
 .svc{display:flex;flex-direction:column;gap:8px;padding:24px 24px 26px;border-radius:18px;background:var(--ground-2);box-shadow:inset 0 0 0 1px rgba(var(--ink-rgb),.08);transition:box-shadow .3s,transform .3s var(--ease)}
 .svc:hover{box-shadow:inset 0 0 0 1px rgba(var(--ink-rgb),.32);transform:translateY(-2px)}
-.svc-steps{font-size:12.5px;font-weight:500;letter-spacing:.04em;text-transform:uppercase;color:var(--ink-3)}
+.svc-ic{width:44px;height:44px;border-radius:12px;display:grid;place-items:center;background:var(--ground);color:var(--ink);box-shadow:inset 0 0 0 1px rgba(var(--ink-rgb),.1);margin-bottom:6px}
+.svc-ic svg{width:22px;height:22px}
+.cycle{margin-top:20px;font-family:var(--serif);color:var(--ink-3);text-align:center}
+.cycle span{font-family:var(--sans);margin-right:6px;color:var(--ink)}
 .svc h4{font-weight:400;font-size:1.3rem;letter-spacing:-.02em}
 .svc p:not(.svc-steps){font-family:var(--serif);color:var(--ink-2);font-size:1rem;line-height:1.5;flex:1}
 .svc .more{align-self:flex-start;margin-top:8px;font-size:14.5px;color:var(--ink);text-decoration:none;border-bottom:1px solid rgba(var(--ink-rgb),.3);padding-bottom:2px}
