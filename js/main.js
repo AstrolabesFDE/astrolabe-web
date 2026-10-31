@@ -9,10 +9,10 @@ const TXT={
       sending:'Enviando…',send:'Solicitar una conversación',sentT:'Solicitud enviada.',sentP:'Gracias. Te respondemos en dos días laborables.',
       fail:'No se ha podido enviar. Inténtalo de nuevo o escríbenos a',fam:{'Astrolabio':'Astrolabio','A con mar':'A con mar'}},
   en:{copied:'Link copied.',menuOpen:'Open menu',menuClose:'Close menu',ruleAt:'Rule at',rule:'Rule',dec:'Declination',decS:'Dec.',
-      needName:'Please enter your name.',needOrg:'Please enter your organisation.',needEmail:'We need an email address to reply.',badEmail:'Check the email: the @ or the domain is missing.',
+      needName:'Please enter your name.',needOrg:'Please enter your organisation.',needEmail:'We need an email address to reply.',badEmail:'Please check the email address: it’s missing an @ or a domain.',
       lName:'Name',lOrg:'Organisation',lRole:'Role',lEmail:'Email',lInterest:'Interest',subject:'Conversation request: ',
       sending:'Sending…',send:'Request a conversation',sentT:'Request sent.',sentP:'Thank you. We will reply within two working days.',
-      fail:'It could not be sent. Please try again or write to us at',fam:{'Astrolabio':'Astrolabe','A con mar':'A with sea'}}
+      fail:'We couldn’t send it. Please try again or write to us at',fam:{'Astrolabio':'Astrolabe','A con mar':'A with sea'}}
 }[LANG];
 
 /* ---------- símbolo: se puede cambiar mientras no esté decidido ---------- */
