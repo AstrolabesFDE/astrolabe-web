@@ -1,6 +1,6 @@
 # astrolabe-web
 
-Web de Astrolabes. HTML, CSS y JavaScript sin dependencias ni paso de compilación: se sirve tal cual desde cualquier hosting estático.
+Web de Astrolabe. HTML, CSS y JavaScript sin dependencias ni paso de compilación: se sirve tal cual desde cualquier hosting estático.
 
 ## Estructura
 

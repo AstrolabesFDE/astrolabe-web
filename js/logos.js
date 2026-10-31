@@ -1,4 +1,4 @@
-/* Símbolos de Astrolabes: las veinte propuestas finalistas (astrolabe-simbolos.html).
+/* Símbolos de Astrolabe: las veinte propuestas finalistas (astrolabe-simbolos.html).
    Dos familias: «Astro» (astrolabio en trazo 8) y «A con mar» (grosor ×1,17).
    Cada símbolo se dibuja con currentColor, así que toma el color del texto donde se use. */
 (function (root) {
@@ -117,5 +117,5 @@
     DEFAULT: 'astro-6',
     get: id => list.find(l => l.id === id) || list.find(l => l.id === api.DEFAULT)
   };
-  root.AstrolabesLogos = api;
+  root.AstrolabeLogos = api;
 })(window);

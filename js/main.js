@@ -17,7 +17,7 @@ const TXT={
 
 /* ---------- símbolo: se puede cambiar mientras no esté decidido ---------- */
 (function(){
-  const L=window.AstrolabesLogos; if(!L) return;
+  const L=window.AstrolabeLogos; if(!L) return;
   const KEY='astrolabes-simbolo';
   const store={get(){try{return localStorage.getItem(KEY);}catch(e){return null;}},set(v){try{localStorage.setItem(KEY,v);}catch(e){}}};
   const fromUrl=new URLSearchParams(location.search).get('simbolo');
@@ -102,7 +102,7 @@ const TXT={
   }));
 })();
 
-/* ---------- esquema: líneas entre cada sistema, Astrolabes y cada caso de uso ---------- */
+/* ---------- esquema: líneas entre cada sistema, Astrolabe y cada caso de uso ---------- */
 (function(){
   const fig=document.getElementById('flow'), svg=document.getElementById('wires'); if(!fig||!svg) return;
   const NS='http://www.w3.org/2000/svg', still=matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -122,7 +122,7 @@ const TXT={
     };
     srcs.forEach((t,i)=>{const s=box(t), spread=(i-(srcs.length-1)/2)*(vertical?10:9);
       vertical?add(curve(s.cx,s.b,h.cx+spread,h.t),i,t):add(curve(s.r,s.cy,h.l,h.cy+spread),i,t);});
-    // en vertical los casos de uso salen de la capa de IA, que queda justo debajo de Astrolabes
+    // en vertical los casos de uso salen de la capa de IA, que queda justo debajo de Astrolabe
     const a=ai?box(ai):null, from=vertical&&a?{cx:a.cx,b:a.b}:{cx:h.cx,b:h.b};
     if(a){const c=box(hubCol);add(`M${f(c.cx)} ${f(c.b+6)} L${f(a.cx)} ${f(a.t)}`,srcs.length+outs.length,ai);}
     outs.forEach((o,i)=>{const s=box(o), spread=(i-(outs.length-1)/2)*(vertical?10:9);
