@@ -1,6 +1,6 @@
 # astrolabe-web
 
-Web de Astrolabes. HTML, CSS y JavaScript sin dependencias ni paso de compilación: se sirve tal cual desde cualquier hosting estático.
+Web de Astrolabe. HTML, CSS y JavaScript sin dependencias ni paso de compilación: se sirve tal cual desde cualquier hosting estático.
 
 ## Estructura
 
@@ -8,6 +8,7 @@ Web de Astrolabes. HTML, CSS y JavaScript sin dependencias ni paso de compilaci�
 index.html           Página principal
 privacidad.html      Política de privacidad (texto base, con huecos [ASÍ] por rellenar)
 aviso-legal.html     Aviso legal (texto base, con huecos [ASÍ] por rellenar)
+en/                  Versión en inglés: index.html, privacy.html y legal-notice.html
 css/styles.css       Estilos
 js/logos.js          Las veinte propuestas de símbolo, dibujadas en código
 js/main.js           Astrolabio de fondo, selector de símbolo, menú y formulario
@@ -23,19 +24,22 @@ python3 -m http.server 8000
 
 y abrir http://localhost:8000. También funciona abriendo `index.html` directamente.
 
-## Paleta
+## Temas de color
 
-Casi negro y casi blanco, sin llegar a `#000` ni `#fff`:
+La web tiene dos temas, que se eligen con las muestras de la barra de navegación (en móvil, una sola muestra que va rotando). La elección se recuerda en el navegador.
 
-| Uso | Color |
-| --- | --- |
-| Fondo | `#111214` |
-| Fondo de sección | `#18191C` |
-| Texto y acento | `#EDEAE3` / `#E4E0D7` |
-| Texto secundario | `#B3B0A9` |
-| Texto terciario | `#8B8882` |
+| Tema | Fondo | Texto | Acento y astrolabio |
+| --- | --- | --- | --- |
+| Oscuro (por defecto) | `#111214` | `#EDEAE3` | `#E4E0D7` |
+| Claro | `#F3F1EC` | `#141416` | `#1C1D20` |
 
-Están definidos como variables al principio de `css/styles.css`.
+Todos los colores, también los del astrolabio, son variables definidas al principio de `css/styles.css` para cada `data-theme`.
+
+## Idiomas
+
+Cada página tiene su equivalente en inglés dentro de `en/`, y el botón **EN / ES** de la barra (en móvil, dentro del menú) lleva de una a otra. Si cambias un texto en español, cambia también su versión en `en/`.
+
+Los textos que genera el JavaScript (validación del formulario, lectura de la estrella, menú) están en el diccionario `TXT` al principio de `js/main.js` y se eligen según el `lang` de la página.
 
 ## Símbolo (aún sin decidir)
 
@@ -52,9 +56,20 @@ Cuando esté decidido:
 
 Los SVG de `icons/` usan `currentColor`: toman el color del texto donde se insertan. Abiertos solos se ven en negro.
 
+## Demos
+
+La sección **Demos** tiene cuatro tarjetas con un marcador de «Próximamente». Para publicar una:
+
+1. Guarda la captura o el gif en `assets/demos/` con el nombre que indica el comentario de cada tarjeta (`ontologia.gif`, `licitaciones.gif`, `competencia.gif`, `reputacion.gif`). Proporción recomendada 16:10.
+2. En `index.html` (y en `en/index.html`), dentro de `<figure class="demo-media">`, sustituye el bloque `<div class="ph">…</div>` y la etiqueta `<span class="soon">` por la `<img>` del comentario.
+
+## Esquema de sistemas
+
+Los sistemas de la izquierda y los casos de uso de la derecha son listas normales en el HTML (`#flow`). Las líneas se dibujan solas: si añades o quitas un elemento, el JavaScript las recalcula.
+
 ## Formulario de contacto
 
-Sin configurar nada, al enviar se abre el correo con el mensaje preparado para contacto@astrolabes.io.
+Sin configurar nada, al enviar se abre el correo con el mensaje preparado para hello@astrolabes.io.
 
 Para que envíe directamente, crea un formulario en un servicio como Formspree y pega su URL en `data-endpoint` del `<form>` en `index.html`:
 
