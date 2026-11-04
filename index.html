@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" data-sym-picker="off">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
@@ -141,9 +141,7 @@
   <section class="sec flow-sec" id="proceso" aria-labelledby="h-sistemas">
     <div class="w">
       <div class="flow-head rv">
-        <p class="kicker">Cómo lo hacemos</p>
-        <h2 id="h-sistemas">Tus sistemas conectados. Tu operativa automatizada. Tus decisiones aceleradas.</h2>
-        <p class="sub">Unimos tus datos en una ontología que trabaja para tu negocio. Todo gira alrededor de ella: las ingestas, los conceptos de negocio, los casos de uso y las acciones que se toman a partir de cada decisión.</p>
+        <p class="kicker" id="h-sistemas">Cómo lo hacemos</p>
       </div>
       <figure class="flow rv" id="flow" role="img" aria-label="Esquema: los sistemas de la empresa se conectan a Astrolabe, que añade modelos de IA y los convierte en casos de uso">
         <svg class="wires" id="wires" aria-hidden="true"></svg>
@@ -374,28 +372,9 @@
       <a href="privacidad.html">Privacidad</a>
       <a href="aviso-legal.html">Aviso legal</a>
     </nav>
-    <p class="base">© 2026 Astrolabe. Desde España, para todo el mundo. <span data-sym-ui hidden>· Símbolo provisional: <button class="sym-btn" type="button" data-sym-open><span data-sym-current>Astro 6</span>, cambiar</button></span> <span data-eslo-ui hidden>· Eslogan provisional: <button class="sym-btn" type="button" data-eslo-open><span data-eslo-current>1</span>, cambiar</button></span></p>
+    <p class="base">© 2026 Astrolabe. Desde España, para todo el mundo. <span data-eslo-ui hidden>· Eslogan provisional: <button class="sym-btn" type="button" data-eslo-open><span data-eslo-current>1</span>, cambiar</button></span></p>
   </div>
 </footer>
-
-<!-- Selector de símbolo: mientras no esté decidido, cualquiera puede probar las veinte propuestas.
-     Para fijar uno: cambia DEFAULT en js/logos.js y pon data-sym-picker="off" en <html>. -->
-<dialog class="sym" id="sym" aria-labelledby="symTitle">
-  <div class="sym-in">
-    <div class="sym-head">
-      <div>
-        <h2 id="symTitle">Elige el símbolo</h2>
-        <p>Las veinte propuestas finalistas. El cambio se aplica a toda la web y se recuerda en este navegador.</p>
-      </div>
-      <button class="sym-x" type="button" data-sym-close aria-label="Cerrar">×</button>
-    </div>
-    <div id="symFamilies"></div>
-    <div class="sym-foot">
-      <button class="btn btn-line" type="button" data-sym-copy>Copiar enlace con este símbolo</button>
-      <span id="symCopied" role="status"></span>
-    </div>
-  </div>
-</dialog>
 
 <!-- Selector de eslogan del hero: mientras no esté decidido. Para fijar uno: cambia DEFAULT en js/eslogans.js y pon data-eslogan-picker="off" en <html>. -->
 <div class="eslo-pill" id="esloganPill" hidden>
