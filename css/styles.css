@@ -208,8 +208,6 @@ form.sent .f,form.sent .submit{display:none}
   .foot .w{grid-template-columns:1fr}
   .foot nav{justify-content:flex-start}
   .ontology{grid-template-columns:1fr}
-  .ann .nm,.ann .dt,.ann .ld{display:none}
-  .ann-m{display:flex}
 }
 @media (prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
