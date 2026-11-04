@@ -616,3 +616,22 @@ body,.nav,.foot,.contact,.svc,.pr-nav{transition:background-color .4s,color .4s}
 .sv-next strong{display:block;font-weight:400;font-size:1.25rem;letter-spacing:-.015em;margin-top:4px}
 .sv-end{padding:clamp(64px,8vw,112px) 0}
 @media (max-width:860px){.sv-block{grid-template-columns:1fr}.sv-next{grid-template-columns:1fr}}
+
+/* ---------- selector de eslogan del hero (mientras no esté decidido) ---------- */
+.js .hero.swap .line>span{animation-delay:0s!important;animation-duration:.8s}
+.eslo-pill{position:fixed;z-index:16;left:16px;bottom:calc(16px + env(safe-area-inset-bottom,0px));display:flex;align-items:center;gap:2px;padding:4px;border-radius:999px;background:rgba(var(--ground-rgb),.9);box-shadow:0 10px 30px -12px rgba(0,0,0,.8),inset 0 0 0 1px rgba(var(--ink-rgb),.22);backdrop-filter:blur(8px)}
+.eslo-pill[hidden]{display:none}
+.eslo-pill button{height:36px;min-width:36px;border:0;border-radius:999px;background:none;color:var(--ink);font:500 13px/1 var(--sans);cursor:pointer;transition:background .2s}
+.eslo-pill button:hover{background:var(--ground-3)}
+.eslo-pill [data-eslo-prev],.eslo-pill [data-eslo-next]{font-size:20px}
+.eslo-pill .eslo-mid{padding:0 12px;font-variant-numeric:tabular-nums}
+.eslo-list{display:grid;gap:8px;margin-top:24px}
+.eslo-list button{display:grid;grid-template-columns:32px 1fr;gap:12px;text-align:left;padding:14px 16px;border-radius:12px;border:1px solid rgba(var(--ink-rgb),.1);background:var(--ground);color:var(--ink);cursor:pointer;font:inherit;transition:border-color .2s}
+.eslo-list button:hover{border-color:rgba(var(--ink-rgb),.4)}
+.eslo-list button[aria-pressed="true"]{border-color:var(--ink);box-shadow:inset 0 0 0 1px var(--ink)}
+.eslo-n{font-size:13px;font-weight:500;color:var(--ink-3);padding-top:3px;font-variant-numeric:tabular-nums}
+.eslo-t b{display:block;font-weight:400;font-size:1.05rem;line-height:1.3;letter-spacing:-.01em}
+.eslo-t i{font-style:normal;color:var(--ink-3)}
+.eslo-t small{display:block;margin-top:4px;font-family:var(--serif);font-size:.95rem;color:var(--ink-2);line-height:1.4}
+.eslo .sym-in{max-height:calc(100svh - 48px);overflow:auto}
+@media (max-width:640px){.eslo-pill{bottom:calc(72px + env(safe-area-inset-bottom,0px))}}

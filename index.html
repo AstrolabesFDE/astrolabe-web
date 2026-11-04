@@ -374,7 +374,7 @@
       <a href="privacidad.html">Privacidad</a>
       <a href="aviso-legal.html">Aviso legal</a>
     </nav>
-    <p class="base">© 2026 Astrolabe. Desde España, para todo el mundo. <span data-sym-ui hidden>· Símbolo provisional: <button class="sym-btn" type="button" data-sym-open><span data-sym-current>Astro 6</span>, cambiar</button></span></p>
+    <p class="base">© 2026 Astrolabe. Desde España, para todo el mundo. <span data-sym-ui hidden>· Símbolo provisional: <button class="sym-btn" type="button" data-sym-open><span data-sym-current>Astro 6</span>, cambiar</button></span> <span data-eslo-ui hidden>· Eslogan provisional: <button class="sym-btn" type="button" data-eslo-open><span data-eslo-current>1</span>, cambiar</button></span></p>
   </div>
 </footer>
 
@@ -397,6 +397,30 @@
   </div>
 </dialog>
 
+<!-- Selector de eslogan del hero: mientras no esté decidido. Para fijar uno: cambia DEFAULT en js/eslogans.js y pon data-eslogan-picker="off" en <html>. -->
+<div class="eslo-pill" id="esloganPill" hidden>
+  <button type="button" data-eslo-prev aria-label="Eslogan anterior">‹</button>
+  <button type="button" class="eslo-mid" data-eslo-open>Eslogan <span data-eslo-current></span></button>
+  <button type="button" data-eslo-next aria-label="Eslogan siguiente">›</button>
+</div>
+<dialog class="sym eslo" id="eslo" aria-labelledby="esloTitle">
+  <div class="sym-in">
+    <div class="sym-head">
+      <div>
+        <h2 id="esloTitle">Elige el eslogan</h2>
+        <p>Las propuestas para el hero. El cambio se recuerda en este navegador.</p>
+      </div>
+      <button class="sym-x" type="button" data-eslo-close aria-label="Cerrar">×</button>
+    </div>
+    <div class="eslo-list" id="esloList"></div>
+    <div class="sym-foot">
+      <button class="btn btn-line" type="button" data-eslo-copy>Copiar enlace con este eslogan</button>
+      <span id="esloCopied" role="status"></span>
+    </div>
+  </div>
+</dialog>
+
+<script src="js/eslogans.js"></script>
 <script src="js/logos.js"></script>
 <script src="js/main.js"></script>
 </body>
