@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Proyecto cerrado · Astrolabe</title>
+<meta name="description" content="Se acabaron las demos glorificadas. Construimos un caso de uso de principio a fin y lo dejamos funcionando en tu operación, con alcance, plazo y precio cerrados.">
+<meta name="theme-color" content="#111214">
+<link rel="icon" href="../icons/astrolabio/astro-6.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@300..600&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&display=swap" rel="stylesheet">
+<script>try{var t=localStorage.getItem("astrolabes-tema");if(t)document.documentElement.dataset.theme=t;}catch(e){}</script>
+<link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+<a class="skip" href="#contenido">Saltar al contenido</a>
+
+<header class="nav" id="nav">
+  <div class="w">
+    <a class="brand" href="../index.html" aria-label="Astrolabe, inicio">
+      <span class="logo" data-logo></span>
+      Astrolabe
+    </a>
+    <nav class="nav-links" id="navLinks" aria-label="Principal">
+      <a href="../index.html#quien">A quién ayudamos</a>
+      <a href="../index.html#servicios">Servicios</a>
+      <a href="../index.html#proceso">Cómo lo hacemos</a>
+      <a href="../index.html#casa">Quiénes somos</a>
+      <a href="../index.html#faq">Preguntas</a>
+    </nav>
+    <div class="theme-sw" role="group" aria-label="Tema de color">
+      <button type="button" class="t-dark" data-theme-set="dark" aria-label="Tema oscuro" aria-pressed="true"><i></i></button>
+      <button type="button" class="t-light" data-theme-set="light" aria-label="Tema claro" aria-pressed="false"><i></i></button>
+    </div>
+    <a class="btn btn-accent" href="../index.html#contacto"><span class="long">Discovery Call</span><span class="short">Hablemos</span></a>
+    <button class="menu-btn" id="menuBtn" type="button" aria-expanded="false" aria-controls="navLinks" aria-label="Abrir menú">
+      <svg class="bars" viewBox="0 0 18 18" aria-hidden="true"><path d="M2 5h14M2 13h14" stroke="currentColor" stroke-width="1.6" fill="none"/></svg>
+      <svg class="x" viewBox="0 0 18 18" aria-hidden="true"><path d="M3 3l12 12M15 3L3 15" stroke="currentColor" stroke-width="1.6" fill="none"/></svg>
+    </button>
+  </div>
+</header>
+
+<!-- Página de detalle de un servicio. Se genera desde una plantilla común: si cambias la estructura, cámbiala en las cinco. -->
+<main id="contenido">
+  <section class="sv-hero" aria-labelledby="h-sv">
+    <div class="w">
+      <a class="back" href="../index.html#servicios">← Todos los servicios</a>
+      <p class="kicker">Servicio 02 · Proyecto cerrado</p>
+      <h1 id="h-sv">Del piloto a la operación real.</h1>
+      <p class="lead">Se acabaron las demos glorificadas. Construimos un caso de uso de principio a fin y lo dejamos funcionando en tu operación, con alcance, plazo y precio cerrados.</p>
+      <div class="sv-meta"><span class="tag">Alcance cerrado</span><span class="tag">Plazo cerrado</span><span class="tag">Precio cerrado</span></div>
+      <div class="cta"><a class="btn btn-accent" href="../index.html#contacto">Agenda una Discovery Call</a></div>
+    </div>
+  </section>
+
+  <div class="w">
+    <section class="sv-block" aria-labelledby="h-para"><h2 id="h-para">Para quién</h2><div class="body"><ul class="points"><li>Empresas con un piloto que funcionó y no saben cómo llevarlo a producción.</li><li>Áreas con un caso de uso claro: finanzas, operaciones, compras, RR. HH.</li><li>Empresas que pagan demasiado SaaS para lo que obtienen.</li></ul></div></section>
+    <section class="sv-block" aria-labelledby="h-inc"><h2 id="h-inc">Qué incluye</h2><div class="body"><ul class="points"><li>Integración de los sistemas implicados y resolución de discrepancias entre ellos.</li><li>Ontología del caso de uso, lista para crecer.</li><li>Aplicación en Foundry o AIP que tu equipo usa cada día.</li><li>Métricas de adopción y de impacto desde el primer día.</li><li>SaaS Consolidation: auditoría de licencias y migración con medición de rendimiento para garantizar el nivel de servicio que tenías.</li></ul></div></section>
+    <section class="sv-block" aria-labelledby="h-como"><h2 id="h-como">Cómo funciona</h2><div class="body"><ol class="sv-steps"><li><b>Alcance</b><span>Definimos el caso de uso, el resultado esperado y cómo lo vamos a medir.</span></li><li><b>Construcción</b><span>Ingenieros FDE en tu operación, trabajando con tu equipo.</span></li><li><b>Puesta en marcha</b><span>Lo dejamos funcionando en producción, no en una demo.</span></li><li><b>Medición</b><span>Comprobamos que se usa y que mueve tus métricas.</span></li></ol></div></section>
+    <section class="sv-block" aria-labelledby="h-get"><h2 id="h-get">Qué te llevas</h2><div class="body"><p>Un caso de uso en producción, medido y documentado. Después, tu equipo puede seguir solo, formarse con nosotros o contar con una bolsa de horas.</p></div></section>
+    <section class="sv-block" aria-labelledby="h-next"><h2 id="h-next">Sigue con</h2><div class="body"><div class="sv-next"><a href="despliegue-de-agentes.html"><small>Servicio 03</small><strong>Despliegue de agentes</strong></a><a href="formacion.html"><small>Servicio 04</small><strong>Formación y transferencia</strong></a></div></div></section>
+  </div>
+
+  <section class="sv-end">
+    <div class="w"><div class="ask"><p>Conocemos el problema porque lo sufrimos. <span>Conocemos la solución porque la construimos.</span></p><a class="btn btn-accent" href="../index.html#contacto">Agenda una Discovery Call</a></div></div>
+  </section>
+</main>
+
+<footer class="foot">
+  <div class="w">
+    <div>
+      <a class="brand" href="../index.html" aria-label="Astrolabe, inicio">
+        <span class="logo" data-logo></span>
+        Astrolabe
+      </a>
+      <p>Equipo desplegado: ontología, construcción y operación. Trabajamos bajo el RGPD y la Ley de IA de la UE, con un acuerdo de tratamiento de datos por cliente y en perímetro aislado cuando la operación lo exige.</p>
+    </div>
+    <nav aria-label="Pie">
+      <a href="../index.html#servicios">Servicios</a>
+      <a href="../index.html#proceso">Cómo lo hacemos</a>
+      <a href="../index.html#contacto">Contacto</a>
+      <a href="../privacidad.html">Privacidad</a>
+      <a href="../aviso-legal.html">Aviso legal</a>
+    </nav>
+    <p class="base">© 2026 Astrolabe. Desde España, para todo el mundo.</p>
+  </div>
+</footer>
+
+<script src="../js/logos.js"></script>
+<script src="../js/main.js"></script>
+</body>
+</html>
