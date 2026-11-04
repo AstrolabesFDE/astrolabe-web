@@ -736,3 +736,5 @@ body,.nav,.foot,.contact,.svc,.pr-nav{transition:background-color .4s,color .4s}
 .rm-band p{font-size:clamp(1.5rem,2.6vw,2.3rem);line-height:1.15;letter-spacing:-.025em}
 .rm-band p span{font-size:.62em;margin-top:6px}
 @media (max-width:640px){.rm-mark svg{width:48px}}
+
+.who-card:last-child:nth-child(odd){grid-column:1/-1}
