@@ -730,3 +730,11 @@ body,.nav,.foot,.contact,.svc,.pr-nav{transition:background-color .4s,color .4s}
 .rm-band p span{font-size:.82em;margin-top:2px}
 @media (max-width:1100px){.rm-flow{left:56px;right:28px;top:41px}}
 @media (prefers-reduced-motion:reduce){.rm-flow i{display:none}}
+
+/* banda de Astrolabe: logo y frase grandes, directamente sobre el fondo */
+.rm-mark{width:auto;height:auto;border-radius:0;background:none;box-shadow:none;color:var(--ground)}
+.rm-mark svg{width:64px}
+.rm-band{gap:28px;padding-top:34px;padding-bottom:34px}
+.rm-band p{font-size:clamp(1.5rem,2.6vw,2.3rem);line-height:1.15;letter-spacing:-.025em}
+.rm-band p span{font-size:.62em;margin-top:6px}
+@media (max-width:640px){.rm-mark svg{width:48px}}
