@@ -3,7 +3,7 @@
    Se cambia desde la píldora «Eslogan» del hero, desde el pie o con ?eslogan=3.
    Para fijar uno: cambia DEFAULT y pon data-eslogan-picker="off" en <html>. */
 (function () {
-  const LIST = [
+  const ES = [
     { t1: 'Hacemos que Foundry funcione', t2: 'de verdad en tu empresa.', sub: 'Fuimos clientes durante cinco años. Conocemos el problema porque lo sufrimos y la solución porque la construimos.' },
     { t1: 'Conocemos el problema porque lo sufrimos.', t2: 'Conocemos la solución porque la construimos.', sub: 'Fuimos clientes de Foundry durante cinco años. Ahora te ayudamos a sacarle el valor que a nosotros nos costó encontrar.' },
     { t1: 'Cinco años desplegando Foundry', t2: 'desde dentro.', sub: 'Ahora ponemos esa experiencia al servicio de tu empresa, sobre el terreno.' },
@@ -19,6 +19,24 @@
     { t1: 'Tu operación,', t2: 'transformada de verdad.', sub: 'Nos quedamos sobre el terreno hasta que el cambio es real y se mide.' },
     { t1: 'Tecnología que tu equipo usa', t2: 'y que mueve tu negocio.', sub: 'Bajamos al barro hasta que el impacto se nota.' }
   ];
+  const EN = [
+    { t1: 'We make Foundry work', t2: 'for real in your company.', sub: 'We were Foundry customers for five years. We know the problem because we lived it and the solution because we built it.' },
+    { t1: 'We know the problem because we lived it.', t2: 'We know the solution because we built it.', sub: 'We were Foundry customers for five years. Now we help you get the value that took us so long to find.' },
+    { t1: 'Five years deploying Foundry', t2: 'from the inside.', sub: 'Now we put that experience to work for your company, on the ground.' },
+    { t1: 'We don’t sell smoke.', t2: 'We get our boots muddy.', sub: 'Ontology, use cases and automation your team uses every day.' },
+    { t1: 'Less strategy in PowerPoint.', t2: 'More engineering on the ground.', sub: 'We connect your systems, build your use cases and automate your operation from the inside.' },
+    { t1: 'We get our hands dirty.', t2: 'You see the results.', sub: 'We join your team and do the hard part until the impact shows in your business.' },
+    { t1: 'We make Foundry work', t2: 'for real in your company.', sub: 'From deployment to real adoption, with impact on your business metrics.' },
+    { t1: 'We turn your Foundry investment', t2: 'into business results.', sub: 'Use cases that get used, operations that get automated and decisions that get faster.' },
+    { t1: 'Make the investment show', t2: 'in the operation.', sub: 'We get our boots muddy until the change shows in your metrics.' },
+    { t1: 'Your systems connected. Your operations automated.', t2: 'Your decisions accelerated.', sub: 'We join your data into an ontology that works for your business.' },
+    { t1: 'Connected data, automated operations,', t2: 'faster decisions.', sub: 'That is how Foundry starts paying off in your company.' },
+    { t1: 'Your AI pilot worked.', t2: 'Now what?', sub: 'No more glorified demos. We put AI to work in your real operation.' },
+    { t1: 'Your operation,', t2: 'truly transformed.', sub: 'We stay on the ground until the change is real and measurable.' },
+    { t1: 'Technology your team uses', t2: 'and that moves your business.', sub: 'We get our boots muddy until the impact shows.' }
+  ];
+  const LANG = (document.documentElement.lang || 'es').startsWith('en') ? 'en' : 'es';
+  const LIST = LANG === 'en' ? EN : ES;
   const DEFAULT = 0;
 
   const h1 = document.getElementById('h-hero'), lead = document.querySelector('.hero .lead');
@@ -66,7 +84,7 @@
   const copied = document.getElementById('esloCopied');
   dlg.querySelector('[data-eslo-copy]').addEventListener('click', async () => {
     const u = new URL(location.href); u.searchParams.set('eslogan', current + 1); u.hash = '';
-    try { await navigator.clipboard.writeText(u.href); copied.textContent = 'Enlace copiado.'; }
+    try { await navigator.clipboard.writeText(u.href); copied.textContent = LANG === 'en' ? 'Link copied.' : 'Enlace copiado.'; }
     catch (e) { copied.textContent = u.href; }
   });
 })();
