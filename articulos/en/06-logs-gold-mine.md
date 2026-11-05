@@ -1,0 +1,20 @@
+# You have a gold mine in your logs and you’re giving it away to OpenAI
+
+*Draft 1. Tag: Evals.*
+
+At the end of 2022 ChatGPT changed everything. Those of us who are a bit geeky had already tried GPT-2 and GPT-3 and they felt almost like a joke, but with GPT-3.5 and the ChatGPT website the leap was so big that even your brother-in-law started using it. Behind it there were two ideas. One is the Transformer architecture, from [“Attention Is All You Need”](https://arxiv.org/abs/1706.03762). The other is reinforcement learning from human feedback, which [OpenAI described in InstructGPT](https://arxiv.org/abs/2203.02155), starting from prompts written by labelers and prompts submitted through its API. At first that feedback came from people labelling by hand, as [TIME reported](https://time.com/6247678/openai-chatgpt-kenya-workers/) about the workers subcontracted in Kenya. What we believe is that the real treasure came later: what every user does with the tool. When they ask it to be less verbose, when they apologise, when they steer the conversation, when they close the chat after a bad answer and open another. That is feedback at a scale no company can label by hand.
+
+You are not OpenAI, and what we see in companies is this: licences are bought, assistants and agents are handed out, and people start firing off prompts. Someone who used to make the odd mistake can now make big ones, and generic assistants don’t know the jargon or the concerns of your operation. Asking your employees to label a dataset for fine-tuning is rarely an option: it is expensive and the model becomes obsolete quickly. What has worked for us is simpler. Models have ever larger contexts and it is easy to guide them with examples (few-shot) taken from the experience of other people in your company. And that experience sits in the usage logs of the AI tools you already have, which today stay with the provider.
+
+If you bring them into your ontology, whether in Foundry, with a private inference model or with n8n, every prompt and every answer becomes modelled data. When someone asks a question, you look in the ontology for others who asked something similar and got a satisfactory answer, and put those in the agent’s context. If you also link them to your company’s documents, the answer keeps the language and context of your operation. And it is manageable data: they are sentences written by people, so the volume grows linearly in any company. Platforms like Palantir already offer tools to [evaluate](https://www.palantir.com/docs/foundry/aip-evals/overview/) and [observe](https://www.palantir.com/docs/foundry/observability/overview/) what AIP functions and agents do, and assistants such as [AIP Assist](https://www.palantir.com/docs/foundry/assist/overview/) or [AI FDE](https://www.palantir.com/docs/foundry/ai-fde/overview/). Our idea is for those conversations to also stay in your ontology, and not only in whichever frontier model is in fashion. It has been a success in our own company, and it is one of the projects we are most excited to do with you. Later on we want to package it for Foundry’s [Marketplace](https://www.palantir.com/docs/foundry/chatbot-studio/marketplace/).
+
+## Further reading
+
+- [Attention Is All You Need (Vaswani et al., 2017)](https://arxiv.org/abs/1706.03762)
+- [Training language models to follow instructions with human feedback (OpenAI, 2022)](https://arxiv.org/abs/2203.02155)
+- [OpenAI Used Kenyan Workers on Less Than $2 Per Hour to Make ChatGPT Less Toxic (TIME, 2023)](https://time.com/6247678/openai-chatgpt-kenya-workers/)
+- [AIP Evals (Palantir)](https://www.palantir.com/docs/foundry/aip-evals/overview/)
+- [Observability (Palantir)](https://www.palantir.com/docs/foundry/observability/overview/)
+- [AIP Assist (Palantir)](https://www.palantir.com/docs/foundry/assist/overview/)
+- [AI FDE (Palantir)](https://www.palantir.com/docs/foundry/ai-fde/overview/)
+- [Distribute AIP Chatbots using Marketplace (Palantir)](https://www.palantir.com/docs/foundry/chatbot-studio/marketplace/)

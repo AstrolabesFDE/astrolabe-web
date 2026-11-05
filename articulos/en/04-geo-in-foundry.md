@@ -1,0 +1,19 @@
+# All the Foundry Geo features you didn’t know existed
+
+*Draft 1. Tag: Geo.*
+
+When people talk about geo in Foundry, there are three levels, and it helps to know which one you are on. The most basic, the vanilla one, is giving an object a latitude and longitude property or a GeoJSON. That is enough to draw its address, or the shape of a region, a district, a country or a continent, and you can have several shapes attached, even on an object related to yours. If that shape or address changes over time, that can be modelled too, and there is a lot of room to play. In the [documentation](https://www.palantir.com/docs/foundry/geospatial/ontology/) they are called geopoint and geoshape, and objects that have them are indexed for geospatial search.
+
+The second level is geotemporal series: attaching a track to an object, that is, points in space and time. Think of a delivery truck with a GPS reporting its position every few seconds. Those points don’t live in an ordinary property but in a special structure linked to the object, and the [documentation](https://www.palantir.com/docs/foundry/geospatial/geotemporal-series-overview/) (which currently marks it as beta) describes a sync that indexes the data into an optimised database and an object type that references it. It has a lot more depth than it looks. In our experience, how you configure the series depends on what you are going to ask of it: finding which tracks cross a polygon in a time window is not the same as asking where this truck was at five in the afternoon, and with many objects you notice. It is delicate ground and it has changed a lot. We started when you had to configure it by hand with a YAML specification file, and today it is far better integrated, with [data modelling](https://www.palantir.com/docs/foundry/geospatial/data-modeling/) and [integration with the ontology](https://www.palantir.com/docs/foundry/geospatial/integrate-geotemporal-series-with-the-ontology/) much better described.
+
+The third level is the geohash, and it is the one people coming from big data most often overlook. Doing geo operations on huge volumes of data is hard, and tessellating space is what makes it manageable. Uber developed [H3](https://h3geo.org/), which indexes space into hexagons of different sizes, and it is the one Palantir has adopted fairly natively: Pipeline Builder includes [geospatial transforms](https://www.palantir.com/docs/foundry/pipeline-builder/transforms-geospatial/) with H3, such as covering a polygon with hexagons or getting a hexagon’s neighbours. You may already do it another way, with ESRI, with [Apache Sedona](https://sedona.apache.org/) or other big-data geo libraries, or even with geographic embeddings, and that can stay. But when we need a fast spatial join, or a use case that checks whether several things are in the same place at the same time, H3 has given us better performance. The idea we take to every project is to think of geo problems as big-data grouping problems: a group by, a window, an operation that can be parallelised over a geospatial index. With that in mind, we start working with you.
+
+## Further reading
+
+- [Use geospatial data in the Ontology (Palantir)](https://www.palantir.com/docs/foundry/geospatial/ontology/)
+- [Geotemporal series: overview (Palantir)](https://www.palantir.com/docs/foundry/geospatial/geotemporal-series-overview/)
+- [Geotemporal series: data modeling (Palantir)](https://www.palantir.com/docs/foundry/geospatial/data-modeling/)
+- [Integrate geotemporal series with the Ontology (Palantir)](https://www.palantir.com/docs/foundry/geospatial/integrate-geotemporal-series-with-the-ontology/)
+- [Create geospatial transforms, including H3 (Palantir)](https://www.palantir.com/docs/foundry/pipeline-builder/transforms-geospatial/)
+- [H3: hexagonal indexing system (Uber)](https://h3geo.org/)
+- [Apache Sedona](https://sedona.apache.org/)
