@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="es" data-sym-picker="off">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>¿Necesitas AIP para esto? Comparativa honesta con n8n y otras alternativas · Astrolabe</title>
+<meta name="description" content="Empezamos a desplegar Foundry antes de tener AIP, y muchas cosas hechas con n8n funcionaban igual de bien a una fracción del precio. Cuándo compensa cada uno.">
+<meta name="theme-color" content="#111214">
+<link rel="icon" href="../icons/astrolabio/astro-6.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@300..600&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&display=swap" rel="stylesheet">
+<script>try{var t=localStorage.getItem("astrolabes-tema");if(t)document.documentElement.dataset.theme=t;}catch(e){}</script>
+<link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+<a class="skip" href="#contenido">Saltar al contenido</a>
+
+<header class="nav" id="nav">
+  <div class="w">
+    <a class="brand" href="../index.html" aria-label="Astrolabe, inicio">
+      <span class="logo" data-logo></span>
+      Astrolabe
+    </a>
+    <nav class="nav-links" id="navLinks" aria-label="Principal">
+      <a href="../index.html#quien">A quién ayudamos</a>
+      <a href="../index.html#servicios">Servicios</a>
+      <a href="../index.html#proceso">Cómo lo hacemos</a>
+      <a href="../index.html#casa">Quiénes somos</a>
+      <a href="../index.html#faq">Preguntas</a>
+    </nav>
+    <div class="theme-sw" role="group" aria-label="Tema de color">
+      <button type="button" class="t-dark" data-theme-set="dark" aria-label="Tema oscuro" aria-pressed="true"><i></i></button>
+      <button type="button" class="t-light" data-theme-set="light" aria-label="Tema claro" aria-pressed="false"><i></i></button>
+    </div>
+    <a class="btn btn-accent" href="../index.html#contacto"><span class="long">Discovery Call</span><span class="short">Hablemos</span></a>
+    <button class="menu-btn" id="menuBtn" type="button" aria-expanded="false" aria-controls="navLinks" aria-label="Abrir menú">
+      <svg class="bars" viewBox="0 0 18 18" aria-hidden="true"><path d="M2 5h14M2 13h14" stroke="currentColor" stroke-width="1.6" fill="none"/></svg>
+      <svg class="x" viewBox="0 0 18 18" aria-hidden="true"><path d="M3 3l12 12M15 3L3 15" stroke="currentColor" stroke-width="1.6" fill="none"/></svg>
+    </button>
+  </div>
+</header>
+
+<main id="contenido" class="doc">
+  <article class="w">
+    <a class="back" href="../index.html#articulos" style="font-size:14px;color:var(--ink-3);text-decoration:none">← Todos los artículos</a>
+    <p class="kicker" style="margin-top:28px">Herramientas</p>
+    <h1 id="h-art">¿Necesitas AIP para esto? Comparativa honesta con n8n y otras alternativas</h1>
+    <p>Llevamos cinco años desplegando Foundry, y empezamos antes de tener AIP, porque no lo teníamos contratado. Hacíamos la automatización con n8n. Cuando por fin contratamos AIP, nos dimos cuenta de algo incómodo para quien vende Foundry: muchas de las cosas que habíamos montado con n8n funcionaban igual de bien, a una fracción del precio. Por eso lo contamos así, como se lo diríamos a un compañero: no todo necesita AIP, y si en tu caso no compensa, te lo vamos a decir.</p>
+    <p>La clave está en qué modelo hace falta de verdad. Resumir un texto, comprobar si un documento cumple las especificaciones de otro, tomar una decisión sencilla, convertir información en un JSON, extraer una cita, resolver una entidad con los datos que ya tienes: para todo eso un modelo open-weight (Gemma, Qwen o GLM, por ejemplo) es suficiente. El modelo de frontera siempre será mejor en los benchmarks, pero no hace falta resolver problemas del milenio para detectar una falta de ortografía. Y con n8n puedes conectar un proveedor de inferencia privado, o desplegar el modelo en tu propia infraestructura, con lo que los datos no salen de casa. Menos coste, menos tiempo de inferencia, menos electricidad y soberanía sobre el dato. Conectarlo con Foundry es fácil: la ontología y las acciones se pueden abrir por webhook y, desde hace un año, existe el OSDK. Lo hemos hecho muchas veces: un botón en un Workshop que lanza el contexto de la aplicación a un n8n con un modelo local, para una decisión o un resumen.</p>
+    <p>Dicho esto, AIP gana de largo cuando la tarea es compleja. Si hay que investigar, operar con las herramientas de Foundry o dar varios saltos por la ontología, AIP es insuperable: te ahorra parseos en TypeScript y llamadas innecesarias a la ontología, que también cuestan. Te da más calidad y más velocidad, a cambio de más coste y de menos soberanía. Por eso no hay una respuesta única. Cuando estemos en tu empresa y veamos el problema, valoramos cada caso de uso con sus pros y sus contras: lo que necesite razonamiento serio y mucho ir y venir con la ontología, en AIP; lo que sea una consulta sobre datos que ya tienes cargados, probablemente en n8n.</p>
+    <div class="ask" style="margin-top:56px"><p>¿Dudas si tu caso necesita AIP? <span>Lo valoramos contigo.</span></p><a class="btn btn-accent" href="../index.html#contacto">Agenda una Discovery Call</a></div>
+  </article>
+</main>
+
+<footer class="foot">
+  <div class="w">
+    <div>
+      <a class="brand" href="../index.html" aria-label="Astrolabe, inicio">
+        <span class="logo" data-logo></span>
+        Astrolabe
+      </a>
+      <p>Equipo desplegado: ontología, construcción y operación. Trabajamos bajo el RGPD y la Ley de IA de la UE, con un acuerdo de tratamiento de datos por cliente y en perímetro aislado cuando la operación lo exige.</p>
+    </div>
+    <nav aria-label="Pie">
+      <a href="../index.html#servicios">Servicios</a>
+      <a href="../index.html#proceso">Cómo lo hacemos</a>
+      <a href="../index.html#contacto">Contacto</a>
+      <a href="../privacidad.html">Privacidad</a>
+      <a href="../aviso-legal.html">Aviso legal</a>
+    </nav>
+    <p class="base">© 2026 Astrolabe. Desde España, para todo el mundo.</p>
+  </div>
+</footer>
+
+<script src="../js/logos.js"></script>
+<script src="../js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="es" data-sym-picker="off">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Los errores de ontología que todos hemos cometido en Foundry · Astrolabe</title>
+<meta name="description" content="Los errores de modelado de ontología más comunes en Foundry: pegarse demasiado a un sistema, o irse a superobjetos. Cómo equilibrarlo.">
+<meta name="theme-color" content="#111214">
+<link rel="icon" href="../icons/astrolabio/astro-6.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@300..600&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&display=swap" rel="stylesheet">
+<script>try{var t=localStorage.getItem("astrolabes-tema");if(t)document.documentElement.dataset.theme=t;}catch(e){}</script>
+<link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+<a class="skip" href="#contenido">Saltar al contenido</a>
+
+<header class="nav" id="nav">
+  <div class="w">
+    <a class="brand" href="../index.html" aria-label="Astrolabe, inicio">
+      <span class="logo" data-logo></span>
+      Astrolabe
+    </a>
+    <nav class="nav-links" id="navLinks" aria-label="Principal">
+      <a href="../index.html#quien">A quién ayudamos</a>
+      <a href="../index.html#servicios">Servicios</a>
+      <a href="../index.html#proceso">Cómo lo hacemos</a>
+      <a href="../index.html#casa">Quiénes somos</a>
+      <a href="../index.html#faq">Preguntas</a>
+    </nav>
+    <div class="theme-sw" role="group" aria-label="Tema de color">
+      <button type="button" class="t-dark" data-theme-set="dark" aria-label="Tema oscuro" aria-pressed="true"><i></i></button>
+      <button type="button" class="t-light" data-theme-set="light" aria-label="Tema claro" aria-pressed="false"><i></i></button>
+    </div>
+    <a class="btn btn-accent" href="../index.html#contacto"><span class="long">Discovery Call</span><span class="short">Hablemos</span></a>
+    <button class="menu-btn" id="menuBtn" type="button" aria-expanded="false" aria-controls="navLinks" aria-label="Abrir menú">
+      <svg class="bars" viewBox="0 0 18 18" aria-hidden="true"><path d="M2 5h14M2 13h14" stroke="currentColor" stroke-width="1.6" fill="none"/></svg>
+      <svg class="x" viewBox="0 0 18 18" aria-hidden="true"><path d="M3 3l12 12M15 3L3 15" stroke="currentColor" stroke-width="1.6" fill="none"/></svg>
+    </button>
+  </div>
+</header>
+
+<main id="contenido" class="doc">
+  <article class="w">
+    <a class="back" href="../index.html#articulos" style="font-size:14px;color:var(--ink-3);text-decoration:none">← Todos los artículos</a>
+    <p class="kicker" style="margin-top:28px">Ontología</p>
+    <h1 id="h-art">Los errores de ontología que todos hemos cometido en Foundry</h1>
+    <p>En Foundry es muy fácil pasar de la base de datos a la ontología, de ahí a la aplicación, a las acciones y a la automatización. Justo por eso aparece el primer error clásico, el efecto demo: los casos de uso se pegan demasiado al dato. Modelas los objetos de la ontología calcando un sistema concreto, con sus virtudes y también con sus defectos, porque casi toda aplicación acumula trampillas y apaños para que algo funcione en su propio front. Después llega otro departamento, para el que «cliente» es un concepto parecido, y haces una ontología para el A y otra para el B, con una capa superior que intenta ponerlos de acuerdo. A veces eso es una feature; muchas veces es un bug y una montaña de parches. Y la tentación contraria tampoco sirve: modelar toda la empresa antes de construir nada es irrealizable y antipareto, porque Foundry es caro y lo que necesitas es sacarle partido cuanto antes.</p>
+    <p>Lo que nos funcionó fue buscar primero los casos de uso más definitorios del negocio. ¿En qué departamento es el cliente más importante, o dónde está el core de la empresa? Ese cliente es el primero que modelas, pensando en la especificidad de ese departamento pero con la picardía de saber que va a cambiar. Te pegas al caso para ser rápido, sin atarte. Cuando integras más datos, Foundry fomenta tener menos tipos de objeto y más genéricos, y para eso existen herramientas como las <a href="https://www.palantir.com/docs/foundry/interfaces/interface-overview/" target="_blank" rel="noopener" style="text-decoration:underline;text-underline-offset:3px">interfaces</a>, que describen la forma común de varios tipos de objeto, o los <a href="https://www.palantir.com/docs/foundry/object-permissioning/multi-datasource-objects/" target="_blank" rel="noopener" style="text-decoration:underline;text-underline-offset:3px">objetos con varios orígenes de datos</a>, en los que un mismo objeto se alimenta de distintos datasets. También puedes agrupar propiedades de distinto tipo en una sola con las <a href="https://www.palantir.com/docs/foundry/object-link-types/structs-overview/" target="_blank" rel="noopener" style="text-decoration:underline;text-underline-offset:3px">propiedades struct</a>. Y no hace falta crear objetos distintos por tonterías de estilo: un cliente en España y otro en Reino Unido no necesitan dos tipos de objeto para tener su bandera. Eso se resuelve con propiedades y con el <a href="https://www.palantir.com/docs/foundry/object-link-types/conditional-formatting/" target="_blank" rel="noopener" style="text-decoration:underline;text-underline-offset:3px">formato condicional</a>, más aún si construyes aplicaciones fuera de Workshop.</p>
+    <p>El segundo error es irse al otro extremo: superobjetos gigantes que luego hay que doblar con virguerías para meterlos en un Workshop. A veces lo mejor es duplicar una propiedad de otro objeto en lugar de encadenar tres search arounds, porque recorrer enlaces entre tipos de objeto <a href="https://www.palantir.com/docs/foundry/object-permissioning/multi-datasource-objects/" target="_blank" rel="noopener" style="text-decoration:underline;text-underline-offset:3px">cuesta más</a> que filtrar por una propiedad del mismo objeto. El equilibrio depende de lo que te duela. Si lo que pesa es el volumen y el coste de las consultas, duplica lo mínimo y separa los objetos. Si lo que necesitas es velocidad en la operativa, evita los search arounds y las búsquedas sobre objetos enormes. Si lo que quieres es generar valor rápido con muchas aplicaciones, quizá te convengan objetos grandes y muy centralizados. Hay tantas respuestas como clientes, departamentos y herramientas. En todas hemos estado, y lo que hacemos es un assessment ajustado a tu operativa y a las decisiones que necesitas poder tomar.</p>
+    <h2>Para profundizar (documentación de Palantir)</h2>
+    <ul><li><a href="https://www.palantir.com/docs/foundry/interfaces/interface-overview/" target="_blank" rel="noopener" style="text-decoration:underline;text-underline-offset:3px">Interfaces: overview</a></li><li><a href="https://www.palantir.com/docs/foundry/object-permissioning/multi-datasource-objects/" target="_blank" rel="noopener" style="text-decoration:underline;text-underline-offset:3px">Multi-datasource object types (MDOs)</a></li><li><a href="https://www.palantir.com/docs/foundry/object-link-types/structs-overview/" target="_blank" rel="noopener" style="text-decoration:underline;text-underline-offset:3px">Structs: overview</a></li><li><a href="https://www.palantir.com/docs/foundry/object-link-types/conditional-formatting/" target="_blank" rel="noopener" style="text-decoration:underline;text-underline-offset:3px">Add conditional formatting</a></li><li><a href="https://www.palantir.com/docs/foundry/object-explorer/pivot-linked/" target="_blank" rel="noopener" style="text-decoration:underline;text-underline-offset:3px">Object Explorer: pivot to linked objects</a></li></ul>
+    <div class="ask" style="margin-top:56px"><p>¿Quieres revisar tu ontología? <span>Hacemos un assessment ajustado a tu operativa.</span></p><a class="btn btn-accent" href="../index.html#contacto">Agenda una Discovery Call</a></div>
+  </article>
+</main>
+
+<footer class="foot">
+  <div class="w">
+    <div>
+      <a class="brand" href="../index.html" aria-label="Astrolabe, inicio">
+        <span class="logo" data-logo></span>
+        Astrolabe
+      </a>
+      <p>Equipo desplegado: ontología, construcción y operación. Trabajamos bajo el RGPD y la Ley de IA de la UE, con un acuerdo de tratamiento de datos por cliente y en perímetro aislado cuando la operación lo exige.</p>
+    </div>
+    <nav aria-label="Pie">
+      <a href="../index.html#servicios">Servicios</a>
+      <a href="../index.html#proceso">Cómo lo hacemos</a>
+      <a href="../index.html#contacto">Contacto</a>
+      <a href="../privacidad.html">Privacidad</a>
+      <a href="../aviso-legal.html">Aviso legal</a>
+    </nav>
+    <p class="base">© 2026 Astrolabe. Desde España, para todo el mundo.</p>
+  </div>
+</footer>
+
+<script src="../js/logos.js"></script>
+<script src="../js/main.js"></script>
+</body>
+</html>
