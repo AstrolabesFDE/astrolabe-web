@@ -54,7 +54,11 @@
   function apply(i, animate) {
     current = (i + LIST.length) % LIST.length; const s = LIST[current];
     if (animate) h1.closest('.hero').classList.add('swap');
-    h1.innerHTML = `<span class="line"><span>${esc(s.t1)}</span></span><span class="line l2"><span>${esc(s.t2)}</span></span>`;
+    // Si la primera parte no cierra una frase, el titular fluye en un solo bloque (sin pausa forzada ni cambio de color).
+    const brk = /[.?!]$/.test(s.t1.trim());
+    h1.innerHTML = brk
+      ? `<span class="line bal"><span>${esc(s.t1)}</span></span><span class="line l2 bal"><span>${esc(s.t2)}</span></span>`
+      : `<span class="line"><span>${esc(`${s.t1} ${s.t2}`.replace(/(\S+) (\S+) (\S+)$/, '$1\u00a0$2\u00a0$3'))}</span></span>`;
     lead.textContent = s.sub;
     document.querySelectorAll('[data-eslo-current]').forEach(n => { n.textContent = `${current + 1} / ${LIST.length}`; });
     if (box) box.querySelectorAll('button').forEach(b => b.setAttribute('aria-pressed', +b.dataset.i === current ? 'true' : 'false'));
