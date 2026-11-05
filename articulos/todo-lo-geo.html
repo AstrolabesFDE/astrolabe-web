@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="es" data-sym-picker="off">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Todo lo Geo de Foundry que ni sabes que existe · Astrolabe</title>
+<meta name="description" content="Los tres niveles de geo en Foundry: propiedades geoespaciales, series geotemporales y H3. Cuándo usar cada uno.">
+<meta name="theme-color" content="#111214">
+<link rel="icon" href="../icons/astrolabio/astro-6.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@300..600&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&display=swap" rel="stylesheet">
+<script>try{var t=localStorage.getItem("astrolabes-tema");if(t)document.documentElement.dataset.theme=t;}catch(e){}</script>
+<link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+<a class="skip" href="#contenido">Saltar al contenido</a>
+
+<header class="nav" id="nav">
+  <div class="w">
+    <a class="brand" href="../index.html" aria-label="Astrolabe, inicio">
+      <span class="logo" data-logo></span>
+      Astrolabe
+    </a>
+    <nav class="nav-links" id="navLinks" aria-label="Principal">
+      <a href="../index.html#quien">A quién ayudamos</a>
+      <a href="../index.html#servicios">Servicios</a>
+      <a href="../index.html#proceso">Cómo lo hacemos</a>
+      <a href="../index.html#casa">Quiénes somos</a>
+      <a href="../index.html#faq">Preguntas</a>
+    </nav>
+    <div class="theme-sw" role="group" aria-label="Tema de color">
+      <button type="button" class="t-dark" data-theme-set="dark" aria-label="Tema oscuro" aria-pressed="true"><i></i></button>
+      <button type="button" class="t-light" data-theme-set="light" aria-label="Tema claro" aria-pressed="false"><i></i></button>
+    </div>
+    <a class="btn btn-accent" href="../index.html#contacto"><span class="long">Discovery Call</span><span class="short">Hablemos</span></a>
+    <button class="menu-btn" id="menuBtn" type="button" aria-expanded="false" aria-controls="navLinks" aria-label="Abrir menú">
+      <svg class="bars" viewBox="0 0 18 18" aria-hidden="true"><path d="M2 5h14M2 13h14" stroke="currentColor" stroke-width="1.6" fill="none"/></svg>
+      <svg class="x" viewBox="0 0 18 18" aria-hidden="true"><path d="M3 3l12 12M15 3L3 15" stroke="currentColor" stroke-width="1.6" fill="none"/></svg>
+    </button>
+  </div>
+</header>
+
+<main id="contenido" class="doc">
+  <article class="w">
+    <a class="back" href="../index.html#articulos" style="font-size:14px;color:var(--ink-3);text-decoration:none">← Todos los artículos</a>
+    <p class="kicker" style="margin-top:28px">Geo</p>
+    <h1 id="h-art">Todo lo Geo de Foundry que ni sabes que existe</h1>
+    <p>Cuando se habla de geo en Foundry, hay tres niveles y conviene saber en cuál estás. El más básico, el vanilla, es darle a un objeto una propiedad de latitud y longitud o un GeoJSON. Con eso ya puedes pintar su dirección, o la forma de una comunidad autónoma, un distrito, un país o un continente, y puedes tener varias formas asociadas, incluso en un objeto relacionado con el tuyo. Si esa forma o esa dirección va cambiando con el tiempo, también se puede modelar, y ahí hay mucho juego. En la <a href="https://www.palantir.com/docs/foundry/geospatial/ontology/" target="_blank" rel="noopener" style="text-decoration:underline;text-underline-offset:3px">documentación</a> se llaman geopoint y geoshape, y los objetos que los tienen quedan indexados para la búsqueda geoespacial.</p>
+    <p>El segundo nivel son las series geotemporales: asociar a un objeto una traza, es decir, puntos en el espacio y en el tiempo. Piensa en un camión de reparto con un GPS que reporta su posición cada pocos segundos. Esos puntos no viven en una propiedad normal, sino en una estructura especial que se enlaza al objeto, y la <a href="https://www.palantir.com/docs/foundry/geospatial/geotemporal-series-overview/" target="_blank" rel="noopener" style="text-decoration:underline;text-underline-offset:3px">documentación</a> (que hoy la marca como beta) describe una sincronización que indexa los datos en una base optimizada y un tipo de objeto que la referencia. Tiene bastante más profundidad de lo que parece. En nuestra experiencia, la forma de configurar la serie depende de qué vayas a preguntarle: no es lo mismo buscar qué trazas cruzan un polígono en un intervalo de tiempo que preguntar dónde estaba este camión a las cinco de la tarde, y con muchos objetos eso se nota. Es un terreno delicado y ha cambiado mucho. Nosotros empezamos cuando había que configurarlo a mano con un fichero de especificaciones en YAML, y hoy está bastante más integrado, con la <a href="https://www.palantir.com/docs/foundry/geospatial/data-modeling/" target="_blank" rel="noopener" style="text-decoration:underline;text-underline-offset:3px">modelización de los datos</a> y su <a href="https://www.palantir.com/docs/foundry/geospatial/integrate-geotemporal-series-with-the-ontology/" target="_blank" rel="noopener" style="text-decoration:underline;text-underline-offset:3px">integración con la ontología</a> mucho mejor descritas.</p>
+    <p>El tercer nivel es el geohash, y es el que más pasa por alto quien viene del mundo de los grandes volúmenes de datos. Hacer operaciones geo sobre muchísimos datos es complicado, y la teselación del espacio es lo que lo hace manejable. Uber desarrolló <a href="https://h3geo.org/" target="_blank" rel="noopener" style="text-decoration:underline;text-underline-offset:3px">H3</a>, que indexa el espacio en hexágonos de distintos tamaños, y es el que Palantir ha adoptado de forma bastante nativa: Pipeline Builder trae <a href="https://www.palantir.com/docs/foundry/pipeline-builder/transforms-geospatial/" target="_blank" rel="noopener" style="text-decoration:underline;text-underline-offset:3px">transformaciones geoespaciales</a> con H3, como cubrir un polígono con hexágonos o sacar los vecinos de uno. Puede que ya tengas otra manera de hacerlo, con ESRI, con <a href="https://sedona.apache.org/" target="_blank" rel="noopener" style="text-decoration:underline;text-underline-offset:3px">Apache Sedona</a> u otras librerías de Big Data geo, o incluso con embeddings geográficos, y se puede mantener. Pero cuando necesitamos un cruce rápido en el espacio, o un caso de uso en el que ver si varias cosas están en el mismo sitio a la vez, el H3 nos ha dado mejor rendimiento. La idea que nos llevamos a cada proyecto es pensar los problemas geo como problemas de agrupación en Big Data: un group by, una ventana, una operación paralelizable sobre un índice geoespacial. Con esa idea en la cabeza empezamos a trabajar contigo.</p>
+    <h2>Para profundizar</h2>
+    <ul><li><a href="https://www.palantir.com/docs/foundry/geospatial/ontology/" target="_blank" rel="noopener" style="text-decoration:underline;text-underline-offset:3px">Use geospatial data in the Ontology (Palantir)</a></li><li><a href="https://www.palantir.com/docs/foundry/geospatial/geotemporal-series-overview/" target="_blank" rel="noopener" style="text-decoration:underline;text-underline-offset:3px">Geotemporal series: overview (Palantir)</a></li><li><a href="https://www.palantir.com/docs/foundry/geospatial/data-modeling/" target="_blank" rel="noopener" style="text-decoration:underline;text-underline-offset:3px">Geotemporal series: data modeling (Palantir)</a></li><li><a href="https://www.palantir.com/docs/foundry/geospatial/integrate-geotemporal-series-with-the-ontology/" target="_blank" rel="noopener" style="text-decoration:underline;text-underline-offset:3px">Integrate geotemporal series with the Ontology (Palantir)</a></li><li><a href="https://www.palantir.com/docs/foundry/pipeline-builder/transforms-geospatial/" target="_blank" rel="noopener" style="text-decoration:underline;text-underline-offset:3px">Create geospatial transforms, incluido H3 (Palantir)</a></li><li><a href="https://h3geo.org/" target="_blank" rel="noopener" style="text-decoration:underline;text-underline-offset:3px">H3: sistema de indexación hexagonal (Uber)</a></li><li><a href="https://sedona.apache.org/" target="_blank" rel="noopener" style="text-decoration:underline;text-underline-offset:3px">Apache Sedona</a></li></ul>
+    <div class="ask" style="margin-top:56px"><p>¿Tienes un problema geo? <span>Lo pensamos contigo.</span></p><a class="btn btn-accent" href="../index.html#contacto">Agenda una Discovery Call</a></div>
+  </article>
+</main>
+
+<footer class="foot">
+  <div class="w">
+    <div>
+      <a class="brand" href="../index.html" aria-label="Astrolabe, inicio">
+        <span class="logo" data-logo></span>
+        Astrolabe
+      </a>
+      <p>Equipo desplegado: ontología, construcción y operación. Trabajamos bajo el RGPD y la Ley de IA de la UE, con un acuerdo de tratamiento de datos por cliente y en perímetro aislado cuando la operación lo exige.</p>
+    </div>
+    <nav aria-label="Pie">
+      <a href="../index.html#servicios">Servicios</a>
+      <a href="../index.html#proceso">Cómo lo hacemos</a>
+      <a href="../index.html#contacto">Contacto</a>
+      <a href="../privacidad.html">Privacidad</a>
+      <a href="../aviso-legal.html">Aviso legal</a>
+    </nav>
+    <p class="base">© 2026 Astrolabe. Desde España, para todo el mundo.</p>
+  </div>
+</footer>
+
+<script src="../js/logos.js"></script>
+<script src="../js/main.js"></script>
+</body>
+</html>

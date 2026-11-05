@@ -1,0 +1,20 @@
+# Tienes una mina de oro en tus logs y la estás regalando a OpenAI
+
+*Borrador 1. Etiqueta: Evals.*
+
+A finales de 2022 ChatGPT lo cambió todo. Los más frikis ya habíamos probado GPT-2 y GPT-3 y nos parecieron casi una broma, pero con GPT-3.5 y la web de ChatGPT el salto fue tal que lo empezó a usar hasta tu cuñado. Detrás había dos ideas. Una es la arquitectura Transformer, de [«Attention Is All You Need»](https://arxiv.org/abs/1706.03762). La otra es el aprendizaje por refuerzo con feedback humano, que [OpenAI describió en InstructGPT](https://arxiv.org/abs/2203.02155) partiendo de prompts escritos por anotadores y de prompts enviados por su API. Al principio ese feedback lo ponían personas etiquetando a mano, como cuenta [TIME](https://time.com/6247678/openai-chatgpt-kenya-workers/) sobre los trabajadores subcontratados en Kenia. Lo que creemos es que el verdadero tesoro vino después: lo que hace cada usuario con la herramienta. Cuándo pide que sea menos verboso, cuándo se disculpa, cuándo corrige el rumbo, cuándo cierra el chat tras una mala respuesta y abre otro. Eso es feedback a una escala que ninguna empresa puede etiquetar a mano.
+
+Tú no eres OpenAI, y lo que vemos en las empresas es esto: se pagan licencias, se reparten asistentes y agentes, y la gente se pone a tirar prompts. El que antes se equivocaba de vez en cuando ahora puede equivocarse a lo grande, y los asistentes genéricos no conocen la jerga ni las preocupaciones de tu operativa. Pedir a tus empleados que etiqueten un dataset para hacer fine-tuning no suele ser una opción: es caro y el modelo se queda obsoleto enseguida. Lo que nos ha funcionado es más sencillo. Los modelos tienen contextos cada vez más grandes y es fácil guiarlos con ejemplos (few shot) sacados de la experiencia de otros trabajadores de tu empresa. Y esa experiencia está en los logs de uso de las herramientas de IA que ya tienes, que hoy se quedan en el proveedor.
+
+Si los llevas a tu ontología, ya sea en Foundry, con un modelo de inferencia privada o con n8n, cada prompt y cada respuesta pasan a ser un dato modelado. Cuando alguien hace una pregunta, buscas en la ontología a otras personas que preguntaron algo parecido y obtuvieron una respuesta satisfactoria, y las pones en el contexto del agente. Si además las vinculas a los documentos de tu empresa, la respuesta conserva el lenguaje y el contexto de tu operación. Y es un dato manejable: son frases de personas, el volumen crece de forma lineal en cualquier empresa. Plataformas como Palantir ya ofrecen herramientas para [evaluar](https://www.palantir.com/docs/foundry/aip-evals/overview/) y [observar](https://www.palantir.com/docs/foundry/observability/overview/) lo que hacen las funciones y los agentes de AIP, y asistentes como [AIP Assist](https://www.palantir.com/docs/foundry/assist/overview/) o [AI FDE](https://www.palantir.com/docs/foundry/ai-fde/overview/). Nuestra idea es que esas conversaciones se queden también en tu ontología, y no solo en el modelo de frontera de turno. En nuestra empresa ha sido un éxito, y es uno de los proyectos que más ilusión nos hace hacer contigo. Más adelante queremos paquetizarlo para el [Marketplace](https://www.palantir.com/docs/foundry/chatbot-studio/marketplace/) de Foundry.
+
+## Para profundizar
+
+- [Attention Is All You Need (Vaswani et al., 2017)](https://arxiv.org/abs/1706.03762)
+- [Training language models to follow instructions with human feedback (OpenAI, 2022)](https://arxiv.org/abs/2203.02155)
+- [OpenAI Used Kenyan Workers on Less Than $2 Per Hour to Make ChatGPT Less Toxic (TIME, 2023)](https://time.com/6247678/openai-chatgpt-kenya-workers/)
+- [AIP Evals (Palantir)](https://www.palantir.com/docs/foundry/aip-evals/overview/)
+- [Observability (Palantir)](https://www.palantir.com/docs/foundry/observability/overview/)
+- [AIP Assist (Palantir)](https://www.palantir.com/docs/foundry/assist/overview/)
+- [AI FDE (Palantir)](https://www.palantir.com/docs/foundry/ai-fde/overview/)
+- [Distribute AIP Chatbots using Marketplace (Palantir)](https://www.palantir.com/docs/foundry/chatbot-studio/marketplace/)

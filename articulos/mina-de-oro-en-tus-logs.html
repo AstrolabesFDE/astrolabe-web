@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="es" data-sym-picker="off">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Tienes una mina de oro en tus logs y la estás regalando a OpenAI · Astrolabe</title>
+<meta name="description" content="Tus conversaciones con la IA son un dato valioso. Cómo llevarlas a tu ontología para que la IA de tu empresa mejore con lo que ya hace tu equipo.">
+<meta name="theme-color" content="#111214">
+<link rel="icon" href="../icons/astrolabio/astro-6.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@300..600&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&display=swap" rel="stylesheet">
+<script>try{var t=localStorage.getItem("astrolabes-tema");if(t)document.documentElement.dataset.theme=t;}catch(e){}</script>
+<link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+<a class="skip" href="#contenido">Saltar al contenido</a>
+
+<header class="nav" id="nav">
+  <div class="w">
+    <a class="brand" href="../index.html" aria-label="Astrolabe, inicio">
+      <span class="logo" data-logo></span>
+      Astrolabe
+    </a>
+    <nav class="nav-links" id="navLinks" aria-label="Principal">
+      <a href="../index.html#quien">A quién ayudamos</a>
+      <a href="../index.html#servicios">Servicios</a>
+      <a href="../index.html#proceso">Cómo lo hacemos</a>
+      <a href="../index.html#casa">Quiénes somos</a>
+      <a href="../index.html#faq">Preguntas</a>
+    </nav>
+    <div class="theme-sw" role="group" aria-label="Tema de color">
+      <button type="button" class="t-dark" data-theme-set="dark" aria-label="Tema oscuro" aria-pressed="true"><i></i></button>
+      <button type="button" class="t-light" data-theme-set="light" aria-label="Tema claro" aria-pressed="false"><i></i></button>
+    </div>
+    <a class="btn btn-accent" href="../index.html#contacto"><span class="long">Discovery Call</span><span class="short">Hablemos</span></a>
+    <button class="menu-btn" id="menuBtn" type="button" aria-expanded="false" aria-controls="navLinks" aria-label="Abrir menú">
+      <svg class="bars" viewBox="0 0 18 18" aria-hidden="true"><path d="M2 5h14M2 13h14" stroke="currentColor" stroke-width="1.6" fill="none"/></svg>
+      <svg class="x" viewBox="0 0 18 18" aria-hidden="true"><path d="M3 3l12 12M15 3L3 15" stroke="currentColor" stroke-width="1.6" fill="none"/></svg>
+    </button>
+  </div>
+</header>
+
+<main id="contenido" class="doc">
+  <article class="w">
+    <a class="back" href="../index.html#articulos" style="font-size:14px;color:var(--ink-3);text-decoration:none">← Todos los artículos</a>
+    <p class="kicker" style="margin-top:28px">Evals</p>
+    <h1 id="h-art">Tienes una mina de oro en tus logs y la estás regalando a OpenAI</h1>
+    <p>A finales de 2022 ChatGPT lo cambió todo. Los más frikis ya habíamos probado GPT-2 y GPT-3 y nos parecieron casi una broma, pero con GPT-3.5 y la web de ChatGPT el salto fue tal que lo empezó a usar hasta tu cuñado. Detrás había dos ideas. Una es la arquitectura Transformer, de <a href="https://arxiv.org/abs/1706.03762" target="_blank" rel="noopener" style="text-decoration:underline;text-underline-offset:3px">«Attention Is All You Need»</a>. La otra es el aprendizaje por refuerzo con feedback humano, que <a href="https://arxiv.org/abs/2203.02155" target="_blank" rel="noopener" style="text-decoration:underline;text-underline-offset:3px">OpenAI describió en InstructGPT</a> partiendo de prompts escritos por anotadores y de prompts enviados por su API. Al principio ese feedback lo ponían personas etiquetando a mano, como cuenta <a href="https://time.com/6247678/openai-chatgpt-kenya-workers/" target="_blank" rel="noopener" style="text-decoration:underline;text-underline-offset:3px">TIME</a> sobre los trabajadores subcontratados en Kenia. Lo que creemos es que el verdadero tesoro vino después: lo que hace cada usuario con la herramienta. Cuándo pide que sea menos verboso, cuándo se disculpa, cuándo corrige el rumbo, cuándo cierra el chat tras una mala respuesta y abre otro. Eso es feedback a una escala que ninguna empresa puede etiquetar a mano.</p>
+    <p>Tú no eres OpenAI, y lo que vemos en las empresas es esto: se pagan licencias, se reparten asistentes y agentes, y la gente se pone a tirar prompts. El que antes se equivocaba de vez en cuando ahora puede equivocarse a lo grande, y los asistentes genéricos no conocen la jerga ni las preocupaciones de tu operativa. Pedir a tus empleados que etiqueten un dataset para hacer fine-tuning no suele ser una opción: es caro y el modelo se queda obsoleto enseguida. Lo que nos ha funcionado es más sencillo. Los modelos tienen contextos cada vez más grandes y es fácil guiarlos con ejemplos (few shot) sacados de la experiencia de otros trabajadores de tu empresa. Y esa experiencia está en los logs de uso de las herramientas de IA que ya tienes, que hoy se quedan en el proveedor.</p>
+    <p>Si los llevas a tu ontología, ya sea en Foundry, con un modelo de inferencia privada o con n8n, cada prompt y cada respuesta pasan a ser un dato modelado. Cuando alguien hace una pregunta, buscas en la ontología a otras personas que preguntaron algo parecido y obtuvieron una respuesta satisfactoria, y las pones en el contexto del agente. Si además las vinculas a los documentos de tu empresa, la respuesta conserva el lenguaje y el contexto de tu operación. Y es un dato manejable: son frases de personas, el volumen crece de forma lineal en cualquier empresa. Plataformas como Palantir ya ofrecen herramientas para <a href="https://www.palantir.com/docs/foundry/aip-evals/overview/" target="_blank" rel="noopener" style="text-decoration:underline;text-underline-offset:3px">evaluar</a> y <a href="https://www.palantir.com/docs/foundry/observability/overview/" target="_blank" rel="noopener" style="text-decoration:underline;text-underline-offset:3px">observar</a> lo que hacen las funciones y los agentes de AIP, y asistentes como <a href="https://www.palantir.com/docs/foundry/assist/overview/" target="_blank" rel="noopener" style="text-decoration:underline;text-underline-offset:3px">AIP Assist</a> o <a href="https://www.palantir.com/docs/foundry/ai-fde/overview/" target="_blank" rel="noopener" style="text-decoration:underline;text-underline-offset:3px">AI FDE</a>. Nuestra idea es que esas conversaciones se queden también en tu ontología, y no solo en el modelo de frontera de turno. En nuestra empresa ha sido un éxito, y es uno de los proyectos que más ilusión nos hace hacer contigo. Más adelante queremos paquetizarlo para el <a href="https://www.palantir.com/docs/foundry/chatbot-studio/marketplace/" target="_blank" rel="noopener" style="text-decoration:underline;text-underline-offset:3px">Marketplace</a> de Foundry.</p>
+    <h2>Para profundizar</h2>
+    <ul><li><a href="https://arxiv.org/abs/1706.03762" target="_blank" rel="noopener" style="text-decoration:underline;text-underline-offset:3px">Attention Is All You Need (Vaswani et al., 2017)</a></li><li><a href="https://arxiv.org/abs/2203.02155" target="_blank" rel="noopener" style="text-decoration:underline;text-underline-offset:3px">Training language models to follow instructions with human feedback (OpenAI, 2022)</a></li><li><a href="https://time.com/6247678/openai-chatgpt-kenya-workers/" target="_blank" rel="noopener" style="text-decoration:underline;text-underline-offset:3px">OpenAI Used Kenyan Workers on Less Than $2 Per Hour to Make ChatGPT Less Toxic (TIME, 2023)</a></li><li><a href="https://www.palantir.com/docs/foundry/aip-evals/overview/" target="_blank" rel="noopener" style="text-decoration:underline;text-underline-offset:3px">AIP Evals (Palantir)</a></li><li><a href="https://www.palantir.com/docs/foundry/observability/overview/" target="_blank" rel="noopener" style="text-decoration:underline;text-underline-offset:3px">Observability (Palantir)</a></li><li><a href="https://www.palantir.com/docs/foundry/assist/overview/" target="_blank" rel="noopener" style="text-decoration:underline;text-underline-offset:3px">AIP Assist (Palantir)</a></li><li><a href="https://www.palantir.com/docs/foundry/ai-fde/overview/" target="_blank" rel="noopener" style="text-decoration:underline;text-underline-offset:3px">AI FDE (Palantir)</a></li><li><a href="https://www.palantir.com/docs/foundry/chatbot-studio/marketplace/" target="_blank" rel="noopener" style="text-decoration:underline;text-underline-offset:3px">Distribute AIP Chatbots using Marketplace (Palantir)</a></li></ul>
+    <div class="ask" style="margin-top:56px"><p>¿Quieres aprovechar tus logs? <span>Lo montamos contigo.</span></p><a class="btn btn-accent" href="../index.html#contacto">Agenda una Discovery Call</a></div>
+  </article>
+</main>
+
+<footer class="foot">
+  <div class="w">
+    <div>
+      <a class="brand" href="../index.html" aria-label="Astrolabe, inicio">
+        <span class="logo" data-logo></span>
+        Astrolabe
+      </a>
+      <p>Equipo desplegado: ontología, construcción y operación. Trabajamos bajo el RGPD y la Ley de IA de la UE, con un acuerdo de tratamiento de datos por cliente y en perímetro aislado cuando la operación lo exige.</p>
+    </div>
+    <nav aria-label="Pie">
+      <a href="../index.html#servicios">Servicios</a>
+      <a href="../index.html#proceso">Cómo lo hacemos</a>
+      <a href="../index.html#contacto">Contacto</a>
+      <a href="../privacidad.html">Privacidad</a>
+      <a href="../aviso-legal.html">Aviso legal</a>
+    </nav>
+    <p class="base">© 2026 Astrolabe. Desde España, para todo el mundo.</p>
+  </div>
+</footer>
+
+<script src="../js/logos.js"></script>
+<script src="../js/main.js"></script>
+</body>
+</html>
